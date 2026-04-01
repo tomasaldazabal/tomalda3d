@@ -145,8 +145,8 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      padding: 7rem 8rem 5rem;
+      justify-content: flex-start;
+      padding: 9rem 8rem 5rem;
       position: relative;
       overflow: hidden;
     }
@@ -156,7 +156,7 @@
       inset: 0;
       background-image: url('images/hero.jpg');
       background-size: cover;
-      background-position: center 30%;
+      background-position: center center;
     }
 
     .hero-overlay {
@@ -165,30 +165,69 @@
     }
 
     [data-theme="dark"] .hero-bg-photo { filter: brightness(1); }
-    [data-theme="dark"] .hero-overlay {
-      background: linear-gradient(to right,
-        rgba(13,13,13,0.97) 0%,
-        rgba(13,13,13,0.88) 30%,
-        rgba(13,13,13,0.35) 58%,
-        rgba(13,13,13,0.0) 75%
-      );
-    }
-
+    [data-theme="dark"] .hero-overlay { background: rgba(0,0,0,0); }
     [data-theme="light"] .hero-bg-photo { filter: brightness(1); }
-    [data-theme="light"] .hero-overlay {
-      background: linear-gradient(to right,
-        rgba(245,243,238,0.97) 0%,
-        rgba(245,243,238,0.88) 30%,
-        rgba(245,243,238,0.35) 58%,
-        rgba(245,243,238,0.0) 75%
-      );
-    }
+    [data-theme="light"] .hero-overlay { background: rgba(0,0,0,0); }
 
     .hero-content {
       position: relative;
       z-index: 1;
-      max-width: 460px;
+      max-width: 520px;
     }
+
+    .hero-tag {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(13,13,13,0.5);
+      margin-bottom: 1.5rem;
+    }
+
+    [data-theme="dark"] .hero-tag { color: rgba(240,237,230,0.55); }
+
+    .hero-title {
+      font-size: clamp(72px, 10vw, 130px);
+      font-weight: 800;
+      line-height: 0.9;
+      letter-spacing: -4px;
+      margin-bottom: 2rem;
+      color: #1a1a18;
+    }
+
+    [data-theme="dark"] .hero-title { color: #f0ede6; }
+
+    .hero-title em {
+      font-style: italic;
+      font-weight: 400;
+      opacity: 0.5;
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      color: rgba(13,13,13,0.65);
+      line-height: 1.9;
+      margin-bottom: 3rem;
+    }
+
+    [data-theme="dark"] .hero-sub { color: rgba(240,237,230,0.65); }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #1a1a18;
+      text-decoration: none;
+      border-bottom: 0.5px solid rgba(13,13,13,0.3);
+      padding-bottom: 0.5rem;
+      transition: border-color 0.2s;
+      width: fit-content;
+    }
+
+    [data-theme="dark"] .hero-cta { color: #f0ede6; border-color: rgba(240,237,230,0.35); }
+    .hero-cta:hover { border-color: currentColor; }
 
     .hero-tag {
       font-size: 11px;
