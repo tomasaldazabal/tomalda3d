@@ -44,22 +44,25 @@
 
     /* NAV */
     nav {
-      position: fixed;
+      position: absolute;
       top: 0; left: 0; right: 0;
-      z-index: 100;
+      z-index: 1000;
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1.75rem 3rem;
-      background: rgba(13,13,13,0.88);
-      backdrop-filter: blur(14px);
-      border-bottom: 0.5px solid var(--border);
-      transition: background 0.35s ease;
+      background: transparent;
     }
 
-    [data-theme="light"] nav { background: rgba(245,243,238,0.88); }
+    .nav-logo img { height: 90px; width: auto; display: block; }
 
-    .nav-logo img { height: 44px; width: auto; display: block; }
+    /* Logo respects theme */
+    .logo-dark { display: none; }
+    .logo-light { display: block; }
+    html[data-theme="dark"] .logo-dark { display: block; }
+    html[data-theme="dark"] .logo-light { display: none; }
+    html[data-theme="light"] .logo-dark { display: none; }
+    html[data-theme="light"] .logo-light { display: block; }
 
     .nav-left {
       display: flex;
@@ -77,7 +80,7 @@
       display: flex;
       gap: 2rem;
       list-style: none;
-      font-size: 11px;
+      font-size: 12px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--muted);
@@ -87,7 +90,7 @@
     .nav-links a:hover, .nav-links a.active { color: var(--text); }
 
     .lang-toggle {
-      font-size: 11px;
+      font-size: 12px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--muted);
@@ -170,8 +173,7 @@
       gap: 0.75rem;
       flex-wrap: wrap;
       border-bottom: 0.5px solid var(--border);
-      max-width: 1200px;
-      margin: 0 auto;
+      justify-content: center;
     }
 
     .filter-btn {
@@ -188,7 +190,7 @@
       transition: all 0.2s;
     }
 
-    .filter-btn:hover { color: var(--text); border-color: var(--text); }
+    .filter-btn:hover { color: #1a1a18; border-color: #CCFF00; background: #CCFF00; }
     .filter-btn.active { color: var(--bg); background: var(--text); border-color: var(--text); }
 
     /* GRID */
@@ -332,30 +334,29 @@
 </head>
 <body>
 
-  <nav>
-    <a href="index.html" class="nav-logo" style="text-decoration:none;">
-      <img class="logo-dark" src="images/logo-white.png" alt="Tomás Aldazabal"/>
-      <img class="logo-light" src="images/logo-black.png" alt="Tomás Aldazabal"/>
-    </a>
-    <div class="nav-right">
-      <ul class="nav-links">
-        <li><a href="index.html" data-es="Inicio" data-en="Home">Inicio</a></li>
-        <li><a href="trabajos.html" class="active" data-es="Trabajos" data-en="Work">Trabajos</a></li>
-        <li><a href="index.html#about" data-es="Sobre mí" data-en="About">Sobre mí</a></li>
-        <li><a href="index.html#contact" data-es="Contacto" data-en="Contact">Contacto</a></li>
-      </ul>
-      <button class="lang-toggle" id="langToggle">EN</button>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
-    </div>
-  </nav>
-
   <!-- PAGE HEADER -->
-  <div class="page-header">
-    <div>
+  <div class="page-header" style="position:relative;">
+    <nav>
+      <a href="index.html" class="nav-logo" style="text-decoration:none;">
+        <img class="logo-dark" src="images/logo-white.png" alt="Tomás Aldazabal"/>
+        <img class="logo-light" src="images/logo-black.png" alt="Tomás Aldazabal"/>
+      </a>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="index.html" data-es="Inicio" data-en="Home">Inicio</a></li>
+          <li><a href="trabajos.html" class="active" data-es="Trabajos" data-en="Work">Trabajos</a></li>
+          <li><a href="index.html#about" data-es="Sobre mí" data-en="About">Sobre mí</a></li>
+          <li><a href="index.html#contact" data-es="Contacto" data-en="Contact">Contacto</a></li>
+        </ul>
+        <button class="lang-toggle" id="langToggle">EN</button>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+      </div>
+    </nav>
+    <div style="padding-top: 7rem;">
       <a href="index.html" class="back-link">← <span data-es="Volver" data-en="Back">Volver</span></a>
       <h1 class="page-title" data-es="Trabajos" data-en="Work">Trabajos</h1>
     </div>
-    <span class="page-count">06 proyectos</span>
+    <span class="page-count">08 proyectos</span>
   </div>
 
   <!-- FILTERS -->
@@ -370,64 +371,92 @@
   <!-- PROJECTS GRID -->
   <div class="projects-grid" id="grid">
 
-    <div class="project-card no-media" data-tags="environment modeling">
-      <div class="project-placeholder">Próximamente</div>
+    <div class="project-card" data-tags="environment modeling">
+      <img src="images/disney-festival.jpg" alt="Disney Festival"/>
       <div class="project-info">
         <p class="project-num">01</p>
         <p class="project-name">Disney Festival</p>
         <p class="project-role">3D Environment</p>
         <p class="project-year">2026</p>
       </div>
+      <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
     </div>
 
-    <div class="project-card no-media" data-tags="modeling animation">
-      <div class="project-placeholder">Próximamente</div>
+    <div class="project-card" data-tags="modeling animation">
+      <img src="images/clubbers.png" alt="Clubbers"/>
       <div class="project-info">
         <p class="project-num">02</p>
         <p class="project-name">Clubbers</p>
         <p class="project-role">Character Modeling &amp; 3D Animation</p>
         <p class="project-year">2025</p>
       </div>
+      <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
     </div>
 
-    <div class="project-card no-media" data-tags="modeling rigging animation">
-      <div class="project-placeholder">Próximamente</div>
+    <div class="project-card" data-tags="modeling rigging animation">
+      <img src="images/lemon-cash.png" alt="Lemon Cash App QR"/>
       <div class="project-info">
         <p class="project-num">03</p>
         <p class="project-name">Lemon Cash App QR</p>
         <p class="project-role">3D Modeling, Rigging &amp; Animation</p>
         <p class="project-year">2025</p>
       </div>
+      <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
     </div>
 
-    <div class="project-card no-media" data-tags="modeling">
-      <div class="project-placeholder">Próximamente</div>
+    <div class="project-card" data-tags="modeling">
+      <img src="images/paramount.jpg" alt="Paramount+"/>
       <div class="project-info">
         <p class="project-num">04</p>
         <p class="project-name">Paramount+</p>
         <p class="project-role">3D Assets / Props Modeling</p>
         <p class="project-year">2024</p>
       </div>
+      <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
     </div>
 
-    <div class="project-card no-media" data-tags="animation rigging">
-      <div class="project-placeholder">Próximamente</div>
+    <div class="project-card" data-tags="animation rigging">
+      <img src="images/braum.png" alt="Braum PP"/>
       <div class="project-info">
         <p class="project-num">05</p>
         <p class="project-name">Braum PP</p>
         <p class="project-role">3D Animation &amp; Rigging</p>
         <p class="project-year">2024</p>
       </div>
+      <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
     </div>
 
-    <div class="project-card no-media" data-tags="modeling">
-      <div class="project-placeholder">Próximamente</div>
+    <div class="project-card" data-tags="modeling">
+      <img src="images/mech.jpg" alt="Mech"/>
       <div class="project-info">
         <p class="project-num">06</p>
         <p class="project-name">Mech</p>
         <p class="project-role">Character Modeling</p>
         <p class="project-year">2021</p>
       </div>
+      <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
+    </div>
+
+    <div class="project-card" data-tags="modeling">
+      <img src="images/aiatom.jpg" alt="AIATOM"/>
+      <div class="project-info">
+        <p class="project-num">07</p>
+        <p class="project-name">AIATOM</p>
+        <p class="project-role">3D Creative</p>
+        <p class="project-year">2025</p>
+      </div>
+      <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
+    </div>
+
+    <div class="project-card" data-tags="modeling animation">
+      <img src="images/alan.png" alt="Alan"/>
+      <div class="project-info">
+        <p class="project-num">08</p>
+        <p class="project-name">Alan</p>
+        <p class="project-role">3D Modeling &amp; Animation</p>
+        <p class="project-year">2023</p>
+      </div>
+      <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
     </div>
 
   </div>
