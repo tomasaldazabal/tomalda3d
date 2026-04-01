@@ -453,6 +453,31 @@
     .edu-title { font-size: 19px; color: var(--text); margin-bottom: 0.25rem; }
     .edu-inst { font-size: 17px; color: var(--muted); margin-bottom: 1.25rem; }
 
+    /* RESUME BUTTON */
+    .resume-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-top: 2rem;
+      font-family: 'Syne', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text);
+      text-decoration: none;
+      border: 1.5px solid var(--border-hover);
+      padding: 0.7rem 1.4rem;
+      border-radius: 2px;
+      transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+    }
+
+    .resume-btn:hover {
+      background: #CCFF00;
+      border-color: #CCFF00;
+      color: #1a1a18;
+    }
+
     /* SKILLS */
     .skills-label { font-size: 14px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
     .skills-list { display: flex; flex-direction: column; }
@@ -684,6 +709,10 @@
           <div class="skill-item"><span class="skill-name">Marmoset Toolbag</span><div class="skill-bar"><div class="skill-fill" data-w="75"></div></div></div>
           <div class="skill-item"><span class="skill-name">Nuke / Adobe Suite</span><div class="skill-bar"><div class="skill-fill" data-w="70"></div></div></div>
         </div>
+        <a href="https://drive.google.com/file/d/1NtgrAzIgPSdV4DYX31Pw1Ae2LPDVJOTR/view?usp=sharing" target="_blank" class="resume-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span data-es="Descargar Resume" data-en="Download Resume">Descargar Resume</span>
+        </a>
       </div>
     </div>
   </section>
