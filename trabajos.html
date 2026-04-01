@@ -218,7 +218,7 @@
       object-fit: cover;
       display: block;
       transition: transform 0.6s ease, filter 0.4s ease;
-      filter: brightness(0.75);
+      filter: brightness(1);
     }
 
     .project-card:hover img,
@@ -352,11 +352,13 @@
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
       </div>
     </nav>
-    <div style="padding-top: 7rem;">
-      <a href="index.html" class="back-link">← <span data-es="Volver" data-en="Back">Volver</span></a>
-      <h1 class="page-title" data-es="Trabajos" data-en="Work">Trabajos</h1>
+    <div style="padding-top: 7rem; display:flex; justify-content:space-between; align-items:flex-end; width:100%;">
+      <div>
+        <a href="index.html" class="back-link">← <span data-es="Volver" data-en="Back">Volver</span></a>
+        <h1 class="page-title" data-es="Trabajos" data-en="Work">Trabajos</h1>
+      </div>
+      <a href="mailto:tomalda3d@gmail.com" style="font-family:'Syne Mono',monospace;font-size:13px;color:var(--muted);text-decoration:none;letter-spacing:0.08em;padding-bottom:0.5rem;border-bottom:0.5px solid var(--border);transition:color 0.2s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">tomalda3d@gmail.com</a>
     </div>
-    <span class="page-count">08 proyectos</span>
   </div>
 
   <!-- FILTERS -->
@@ -374,7 +376,6 @@
     <div class="project-card" data-tags="environment modeling">
       <img src="images/disney-festival.jpg" alt="Disney Festival"/>
       <div class="project-info">
-        <p class="project-num">01</p>
         <p class="project-name">Disney Festival</p>
         <p class="project-role">3D Environment</p>
         <p class="project-year">2026</p>
@@ -385,7 +386,6 @@
     <div class="project-card" data-tags="modeling animation">
       <img src="images/clubbers.png" alt="Clubbers"/>
       <div class="project-info">
-        <p class="project-num">02</p>
         <p class="project-name">Clubbers</p>
         <p class="project-role">Character Modeling &amp; 3D Animation</p>
         <p class="project-year">2025</p>
@@ -396,7 +396,6 @@
     <div class="project-card" data-tags="modeling rigging animation">
       <img src="images/lemon.png" alt="Lemon Cash App QR"/>
       <div class="project-info">
-        <p class="project-num">03</p>
         <p class="project-name">Lemon Cash App QR</p>
         <p class="project-role">3D Modeling, Rigging &amp; Animation</p>
         <p class="project-year">2025</p>
@@ -407,7 +406,6 @@
     <div class="project-card" data-tags="modeling">
       <img src="images/paramount.png" alt="Paramount+"/>
       <div class="project-info">
-        <p class="project-num">04</p>
         <p class="project-name">Paramount+</p>
         <p class="project-role">3D Assets / Props Modeling</p>
         <p class="project-year">2024</p>
@@ -418,7 +416,6 @@
     <div class="project-card" data-tags="animation rigging">
       <img src="images/braum.png" alt="Braum PP"/>
       <div class="project-info">
-        <p class="project-num">05</p>
         <p class="project-name">Braum PP</p>
         <p class="project-role">3D Animation &amp; Rigging</p>
         <p class="project-year">2024</p>
@@ -429,7 +426,6 @@
     <div class="project-card" data-tags="modeling">
       <img src="images/mech.jpg" alt="Mech"/>
       <div class="project-info">
-        <p class="project-num">06</p>
         <p class="project-name">Mech</p>
         <p class="project-role">Character Modeling</p>
         <p class="project-year">2021</p>
@@ -440,7 +436,6 @@
     <div class="project-card" data-tags="modeling">
       <img src="images/aiatom.jpg" alt="AIATOM"/>
       <div class="project-info">
-        <p class="project-num">07</p>
         <p class="project-name">AIATOM</p>
         <p class="project-role">3D Creative</p>
         <p class="project-year">2025</p>
@@ -451,7 +446,6 @@
     <div class="project-card" data-tags="modeling animation">
       <img src="images/alan.png" alt="Alan"/>
       <div class="project-info">
-        <p class="project-num">08</p>
         <p class="project-name">Alan</p>
         <p class="project-role">3D Modeling &amp; Animation</p>
         <p class="project-year">2023</p>
@@ -459,6 +453,24 @@
       <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
     </div>
 
+  </div>
+
+  <div style="max-width:1200px;margin:0 auto;padding:4rem 4rem 5rem;border-top:0.5px solid var(--border);">
+    <h2 style="font-size:clamp(36px,5vw,64px);font-weight:800;letter-spacing:-2px;line-height:1;margin-bottom:3rem;" data-es="Trabajemos <em style='font-style:italic;font-weight:400;color:var(--muted)'>juntos</em>" data-en="Let's build <em style='font-style:italic;font-weight:400;color:var(--muted)'>something great</em>">Trabajemos <em style="font-style:italic;font-weight:400;color:var(--muted)">juntos</em></h2>
+    <div style="display:flex;gap:3rem;flex-wrap:wrap;">
+      <div style="display:flex;flex-direction:column;gap:0.3rem;">
+        <span style="font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted)">Email</span>
+        <a href="mailto:tomalda3d@gmail.com" style="font-size:16px;color:var(--text);text-decoration:none;border-bottom:0.5px solid var(--border);padding-bottom:2px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--text)'" onmouseout="this.style.borderColor='var(--border)'"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:6px;opacity:0.6"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>tomalda3d@gmail.com</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.3rem;">
+        <span style="font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted)">ArtStation</span>
+        <a href="https://artstation.com/tomalda3d" target="_blank" style="font-size:16px;color:var(--text);text-decoration:none;border-bottom:0.5px solid var(--border);padding-bottom:2px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--text)'" onmouseout="this.style.borderColor='var(--border)'"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:6px;opacity:0.6"><path d="M0 17.723l2.027 3.505h.001a2.424 2.424 0 0 0 2.164 1.333h13.457l-2.792-4.838H0zm24 .025c0-.484-.143-.935-.388-1.314L15.728 2.728a2.424 2.424 0 0 0-2.164-1.333H9.419L21.598 22.54l1.92-3.325c.378-.637.482-.919.482-1.467zm-11.129-3.462L7.428 4.858l-5.444 9.428h10.887z"/></svg>artstation.com/tomalda3d</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.3rem;">
+        <span style="font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted)">Instagram</span>
+        <a href="https://instagram.com/tomalda3d" target="_blank" style="font-size:16px;color:var(--text);text-decoration:none;border-bottom:0.5px solid var(--border);padding-bottom:2px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--text)'" onmouseout="this.style.borderColor='var(--border)'"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:6px;opacity:0.6"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>@tomalda3d</a>
+      </div>
+    </div>
   </div>
 
   <footer>
