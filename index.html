@@ -1,415 +1,727 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Tomás Aldazabal — 3D Artist & Technical Animator</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Syne+Mono&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #ffffff;
-      --bg-secondary: #f7f6f3;
-      --text-primary: #1a1a18;
-      --text-secondary: #5f5e5a;
-      --text-tertiary: #999890;
-      --border: rgba(26,26,24,0.12);
-      --border-med: rgba(26,26,24,0.22);
+      --bg: #0d0d0d;
+      --bg2: #141414;
+      --bg3: #1c1c1c;
+      --text: #f0ede6;
+      --muted: #666560;
+      --border: rgba(240,237,230,0.08);
+      --border-hover: rgba(240,237,230,0.22);
+      --toggle-bg: #1c1c1c;
+      --toggle-knob: #f0ede6;
     }
 
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #1a1a18;
-        --bg-secondary: #222220;
-        --text-primary: #f0ede6;
-        --text-secondary: #a09e96;
-        --text-tertiary: #66655f;
-        --border: rgba(240,237,230,0.10);
-        --border-med: rgba(240,237,230,0.18);
-      }
+    [data-theme="light"] {
+      --bg: #f5f3ee;
+      --bg2: #eceae4;
+      --bg3: #e3e0d9;
+      --text: #0d0d0d;
+      --muted: #999890;
+      --border: rgba(13,13,13,0.1);
+      --border-hover: rgba(13,13,13,0.28);
+      --toggle-bg: #e3e0d9;
+      --toggle-knob: #0d0d0d;
     }
 
-    html { font-size: 16px; }
+    html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Jost', sans-serif;
-      font-weight: 300;
+      font-family: 'Syne', sans-serif;
       background: var(--bg);
-      color: var(--text-primary);
+      color: var(--text);
       min-height: 100vh;
+      overflow-x: hidden;
+      transition: background 0.35s ease, color 0.35s ease;
     }
 
-    .pf {
-      max-width: 820px;
-      margin: 0 auto;
-      padding: 4rem 2.5rem 6rem;
-    }
-
-    /* HEADER */
-    .pf-header {
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
       display: flex;
       justify-content: space-between;
-      align-items: flex-end;
-      padding-bottom: 2rem;
+      align-items: center;
+      padding: 1.25rem 3rem;
+      background: rgba(13,13,13,0.88);
+      backdrop-filter: blur(14px);
       border-bottom: 0.5px solid var(--border);
-      margin-bottom: 3.5rem;
+      transition: background 0.35s ease;
     }
 
-    .pf-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(36px, 6vw, 56px);
-      font-weight: 300;
-      line-height: 1;
-      letter-spacing: -1px;
+    [data-theme="light"] nav { background: rgba(245,243,238,0.88); }
+
+    .nav-logo img {
+      height: 32px;
+      width: auto;
+      display: block;
     }
 
-    .pf-name em { font-style: italic; }
-
-    .pf-nav {
+    .nav-right {
       display: flex;
-      gap: 1.5rem;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
       list-style: none;
       font-size: 11px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--text-secondary);
+      color: var(--muted);
     }
 
-    .pf-nav a {
-      color: inherit;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
+    .nav-links a { color: inherit; text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
 
-    .pf-nav a:hover { color: var(--text-primary); }
-
-    /* TAGLINE */
-    .pf-tagline {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 19px;
-      font-style: italic;
-      font-weight: 300;
-      color: var(--text-secondary);
-      margin-bottom: 3.5rem;
-    }
-
-    /* SECTION LABEL */
-    .pf-section-label {
+    /* LANG TOGGLE */
+    .lang-toggle {
       font-size: 11px;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--text-tertiary);
+      color: var(--muted);
+      cursor: pointer;
+      border: 0.5px solid var(--border-hover);
+      padding: 0.35rem 0.75rem;
+      border-radius: 2px;
+      transition: color 0.2s, border-color 0.2s;
+      background: none;
+      font-family: 'Syne', sans-serif;
+    }
+
+    .lang-toggle:hover { color: var(--text); border-color: var(--text); }
+
+    /* THEME TOGGLE */
+    .theme-toggle {
+      width: 40px; height: 22px;
+      border-radius: 11px;
+      background: var(--toggle-bg);
+      border: 0.5px solid var(--border-hover);
+      cursor: pointer;
+      position: relative;
+      transition: background 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .theme-toggle::after {
+      content: '';
+      position: absolute;
+      top: 3px; left: 3px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--toggle-knob);
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    [data-theme="light"] .theme-toggle::after { transform: translateX(18px); }
+
+    /* LOGO SWAP */
+    .logo-dark { display: block; }
+    .logo-light { display: none; }
+    html[data-theme="light"] .logo-dark { display: none; }
+    html[data-theme="light"] .logo-light { display: block; }
+    html[data-theme="dark"] .logo-dark { display: block; }
+    html[data-theme="dark"] .logo-light { display: none; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 3rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg-photo {
+      position: absolute;
+      inset: 0;
+      background-image: url('images/hero.jpg');
+      background-size: cover;
+      background-position: center 20%;
+      transition: filter 0.35s ease;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      transition: background 0.35s ease;
+    }
+
+    [data-theme="dark"] .hero-bg-photo { filter: brightness(0.9) grayscale(0.1); }
+    [data-theme="dark"] .hero-overlay { background: rgba(13,13,13,0.52); }
+    [data-theme="light"] .hero-bg-photo { filter: brightness(1) grayscale(0.05); }
+    [data-theme="light"] .hero-overlay { background: rgba(245,243,238,0.42); }
+
+    .hero-content { position: relative; z-index: 1; max-width: 900px; }
+
+    .hero-tag {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(240,237,230,0.6);
       margin-bottom: 1.5rem;
     }
 
-    /* PROJECTS GRID */
-    .pf-projects {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1.5px;
-      margin-bottom: 3.5rem;
-      background: var(--border);
-    }
+    [data-theme="light"] .hero-tag { color: rgba(13,13,13,0.5); }
 
-    .pf-project {
-      background: var(--bg);
-      padding: 1.75rem;
-      min-height: 190px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: background 0.2s;
-    }
-
-    .pf-project:hover { background: var(--bg-secondary); }
-
-    .pf-project-num {
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      color: var(--text-tertiary);
+    .hero-title {
+      font-size: clamp(52px, 8vw, 96px);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -2px;
       margin-bottom: 2rem;
+      color: #f0ede6;
     }
 
-    .pf-project-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 23px;
-      font-weight: 300;
-      line-height: 1.2;
-      margin-bottom: 0.4rem;
+    [data-theme="light"] .hero-title { color: #1a1a18; }
+
+    .hero-title em {
+      font-style: italic;
+      font-weight: 400;
+      opacity: 0.5;
     }
 
-    .pf-project-role {
-      font-size: 12px;
-      color: var(--text-secondary);
-      margin-bottom: 0.35rem;
+    .hero-sub {
+      font-size: 15px;
+      color: rgba(240,237,230,0.8);
+      max-width: 500px;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
     }
 
-    .pf-project-cat {
-      font-size: 11px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-tertiary);
-    }
+    [data-theme="light"] .hero-sub { color: rgba(13,13,13,0.65); }
 
-    /* ABOUT + SKILLS */
-    .pf-about {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      padding-top: 2.5rem;
-      border-top: 0.5px solid var(--border);
-      margin-bottom: 3rem;
-    }
-
-    .pf-about-text {
-      font-size: 14px;
-      line-height: 1.9;
-      color: var(--text-secondary);
-    }
-
-    .pf-skills-grid { display: flex; flex-direction: column; gap: 0.75rem; }
-
-    .pf-skill-row {
-      display: flex;
-      justify-content: space-between;
+    .hero-cta {
+      display: inline-flex;
       align-items: center;
-      font-size: 13px;
-      padding-bottom: 0.75rem;
-      border-bottom: 0.5px solid var(--border);
+      gap: 0.75rem;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #f0ede6;
+      text-decoration: none;
+      border-bottom: 0.5px solid rgba(240,237,230,0.35);
+      padding-bottom: 0.5rem;
+      transition: border-color 0.2s;
     }
 
-    .pf-skill-name { color: var(--text-secondary); }
+    [data-theme="light"] .hero-cta { color: #1a1a18; border-color: rgba(13,13,13,0.3); }
+    .hero-cta:hover { border-color: currentColor; }
 
-    .pf-skill-bar {
-      width: 80px;
-      height: 1px;
-      background: var(--border-med);
-      position: relative;
-    }
-
-    .pf-skill-fill {
-      position: absolute;
-      top: 0; left: 0;
-      height: 1px;
-      background: var(--text-primary);
-      width: 0;
-      transition: width 1.4s ease;
-    }
-
-    /* EDUCATION */
-    .pf-edu {
-      padding-top: 2.5rem;
+    /* TICKER */
+    .ticker {
       border-top: 0.5px solid var(--border);
-      margin-bottom: 3rem;
+      border-bottom: 0.5px solid var(--border);
+      overflow: hidden;
+      padding: 0.85rem 0;
+      background: var(--bg2);
+      transition: background 0.35s ease;
     }
 
-    .pf-edu-grid { display: flex; flex-direction: column; gap: 0; }
+    .ticker-inner {
+      display: flex;
+      gap: 3rem;
+      animation: ticker 22s linear infinite;
+      white-space: nowrap;
+    }
 
-    .pf-edu-item {
+    .ticker-item {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      flex-shrink: 0;
+    }
+
+    .ticker-dot {
+      display: inline-block;
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--muted);
+      vertical-align: middle;
+      margin: 0 1.5rem;
+    }
+
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* SECTIONS */
+    .section { padding: 5rem 3rem; }
+
+    .section-header {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      font-size: 13px;
-      padding: 1rem 0;
+      margin-bottom: 3rem;
+      padding-bottom: 1.5rem;
       border-bottom: 0.5px solid var(--border);
     }
 
-    .pf-edu-title {
-      color: var(--text-primary);
-      font-weight: 400;
-      margin-bottom: 3px;
-    }
-
-    .pf-edu-inst {
-      font-size: 12px;
-      color: var(--text-secondary);
-    }
-
-    .pf-edu-year {
+    .section-title {
       font-size: 11px;
-      color: var(--text-tertiary);
-      letter-spacing: 0.08em;
-      white-space: nowrap;
-      margin-left: 1.5rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
     }
 
-    /* CONTACT */
-    .pf-contact {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 2.5rem;
-      border-top: 0.5px solid var(--border);
+    .section-count {
+      font-family: 'Syne Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
     }
 
-    .pf-contact-label {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 30px;
-      font-style: italic;
-      font-weight: 300;
-      color: var(--text-secondary);
+    /* PROJECTS GRID */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
     }
 
-    .pf-contact-links {
+    .project-card {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      aspect-ratio: 16/10;
+      background: var(--bg3);
+    }
+
+    .project-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease, filter 0.4s ease;
+      filter: brightness(0.7);
+    }
+
+    .project-card:hover img {
+      transform: scale(1.04);
+      filter: brightness(0.4);
+    }
+
+    .project-info {
+      position: absolute;
+      inset: 0;
       display: flex;
       flex-direction: column;
-      gap: 0.45rem;
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      color: var(--text-secondary);
-      text-align: right;
+      justify-content: flex-end;
+      padding: 1.75rem;
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 55%);
     }
 
-    .pf-contact-links a {
-      color: inherit;
-      text-decoration: none;
-      transition: color 0.2s;
+    .project-num {
+      font-family: 'Syne Mono', monospace;
+      font-size: 11px;
+      color: rgba(240,237,230,0.45);
+      margin-bottom: 0.5rem;
     }
 
-    .pf-contact-links a:hover { color: var(--text-primary); }
+    .project-name {
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 0.4rem;
+      color: #f0ede6;
+    }
 
-    /* FOOTER */
-    .pf-footer {
-      margin-top: 4rem;
-      padding-top: 1.5rem;
-      border-top: 0.5px solid var(--border);
+    .project-meta {
       font-size: 11px;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--text-tertiary);
-      text-align: center;
+      color: rgba(240,237,230,0.45);
     }
 
+    .project-hover {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .project-card:hover .project-hover { opacity: 1; }
+
+    .project-hover-label {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      border: 0.5px solid #f0ede6;
+      padding: 0.6rem 1.25rem;
+      color: #f0ede6;
+    }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-title {
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -1px;
+      margin-bottom: 2rem;
+    }
+
+    .about-title em { font-style: italic; font-weight: 400; color: var(--muted); }
+    .about-text { font-size: 14px; line-height: 1.9; color: var(--muted); margin-bottom: 1.5rem; }
+    .edu-label { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; margin-top: 2rem; }
+    .edu-title { font-size: 13px; color: var(--text); margin-bottom: 0.25rem; }
+    .edu-inst { font-size: 12px; color: var(--muted); margin-bottom: 1.25rem; }
+
+    /* SKILLS */
+    .skills-label { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
+    .skills-list { display: flex; flex-direction: column; }
+
+    .skill-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.9rem 0;
+      border-bottom: 0.5px solid var(--border);
+      font-size: 13px;
+    }
+
+    .skill-name { color: var(--muted); }
+    .skill-bar { width: 72px; height: 1px; background: var(--border-hover); position: relative; }
+    .skill-fill { position: absolute; top: 0; left: 0; height: 1px; background: var(--text); width: 0; transition: width 1.4s ease; }
+
+    /* EXPERIENCE */
+    .exp-list { display: flex; flex-direction: column; }
+
+    .exp-item {
+      display: grid;
+      grid-template-columns: 1fr 2fr auto;
+      gap: 2rem;
+      align-items: baseline;
+      padding: 1.5rem 0;
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    .exp-company { font-size: 16px; font-weight: 700; }
+    .exp-role { font-size: 12px; color: var(--muted); margin-top: 3px; }
+    .exp-desc { font-size: 13px; color: var(--muted); }
+    .exp-period { font-family: 'Syne Mono', monospace; font-size: 11px; color: var(--muted); white-space: nowrap; }
+
+    /* CONTACT */
+    .contact-section { padding: 5rem 3rem 6rem; border-top: 0.5px solid var(--border); }
+
+    .contact-big {
+      font-size: clamp(40px, 6vw, 80px);
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1;
+      margin-bottom: 3.5rem;
+    }
+
+    .contact-big em { font-style: italic; font-weight: 400; color: var(--muted); }
+    .contact-links { display: flex; gap: 3rem; flex-wrap: wrap; }
+    .contact-link { display: flex; flex-direction: column; gap: 0.3rem; }
+    .contact-link-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+
+    .contact-link a {
+      font-size: 14px;
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 0.5px solid var(--border);
+      padding-bottom: 2px;
+      transition: border-color 0.2s;
+    }
+
+    .contact-link a:hover { border-color: var(--text); }
+
+    /* FOOTER */
+    footer {
+      padding: 1.5rem 3rem;
+      border-top: 0.5px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    hr.divider { border: none; border-top: 0.5px solid var(--border); }
+
     /* RESPONSIVE */
-    @media (max-width: 600px) {
-      .pf { padding: 2.5rem 1.25rem 4rem; }
-      .pf-header { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
-      .pf-projects { grid-template-columns: 1fr; }
-      .pf-about { grid-template-columns: 1fr; gap: 2rem; }
-      .pf-contact { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
-      .pf-contact-links { text-align: left; }
+    @media (max-width: 700px) {
+      nav { padding: 1.25rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { padding: 0 1.5rem 3rem; }
+      .section { padding: 3.5rem 1.5rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.2rem; }
+      .contact-section { padding: 3.5rem 1.5rem 4rem; }
+      footer { padding: 1.25rem 1.5rem; flex-direction: column; gap: 0.5rem; }
     }
   </style>
 </head>
 <body>
-  <main class="pf">
 
-    <header class="pf-header">
-      <h1 class="pf-name">Tomás <em>Aldazabal</em></h1>
-      <nav>
-        <ul class="pf-nav">
-          <li><a href="#trabajo">Trabajo</a></li>
-          <li><a href="#sobre-mi">Sobre mí</a></li>
-          <li><a href="#contacto">Contacto</a></li>
-        </ul>
-      </nav>
-    </header>
+  <nav>
+    <a href="#" class="nav-logo" style="text-decoration:none;">
+      <img class="logo-dark" src="images/logo-white.png" alt="Tomás Aldazabal"/>
+      <img class="logo-light" src="images/logo-black.png" alt="Tomás Aldazabal"/>
+    </a>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#work" data-es="Trabajos" data-en="Work">Trabajos</a></li>
+        <li><a href="#about" data-es="Sobre mí" data-en="About">Sobre mí</a></li>
+        <li><a href="#contact" data-es="Contacto" data-en="Contact">Contacto</a></li>
+      </ul>
+      <button class="lang-toggle" id="langToggle">EN</button>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+    </div>
+  </nav>
 
-    <p class="pf-tagline">3D Artist & Technical Animator · CABA, Buenos Aires</p>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-photo"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-tag" data-es="3D Artist & Technical Animator · Buenos Aires" data-en="3D Artist & Technical Animator · Buenos Aires">3D Artist & Technical Animator · Buenos Aires</p>
+      <h1 class="hero-title">Tomás<br><em>Aldazabal</em></h1>
+      <p class="hero-sub"
+         data-es="Soy artista 3D y animador técnico especializado en rigging, pipelines de animación y desarrollo de herramientas. Trabajo en el punto de contacto entre el arte y la tecnología, dando vida a personajes y mundos con precisión y creatividad."
+         data-en="I'm a 3D artist and technical animator specialized in rigging, animation pipelines, and tool development. I work at the intersection of art and technology, bringing characters and worlds to life with precision and creativity.">
+        Soy artista 3D y animador técnico especializado en rigging, pipelines de animación y desarrollo de herramientas. Trabajo en el punto de contacto entre el arte y la tecnología, dando vida a personajes y mundos con precisión y creatividad.
+      </p>
+      <a href="#work" class="hero-cta" data-es="Ver trabajos →" data-en="View work →">Ver trabajos →</a>
+    </div>
+  </section>
 
-    <!-- EXPERIENCE -->
-    <p class="pf-section-label" id="trabajo">Experiencia</p>
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="ticker-inner">
+      <span class="ticker-item">Autodesk Maya</span><span class="ticker-dot"></span>
+      <span class="ticker-item">Unreal Engine</span><span class="ticker-dot"></span>
+      <span class="ticker-item">ZBrush</span><span class="ticker-dot"></span>
+      <span class="ticker-item">Blender</span><span class="ticker-dot"></span>
+      <span class="ticker-item">Substance 3D Painter</span><span class="ticker-dot"></span>
+      <span class="ticker-item">Nuke</span><span class="ticker-dot"></span>
+      <span class="ticker-item">Marmoset Toolbag</span><span class="ticker-dot"></span>
+      <span class="ticker-item">Adobe Suite</span><span class="ticker-dot"></span>
+      <span class="ticker-item">Autodesk Maya</span><span class="ticker-dot"></span>
+      <span class="ticker-item">Unreal Engine</span><span class="ticker-dot"></span>
+      <span class="ticker-item">ZBrush</span><span class="ticker-dot"></span>
+      <span class="ticker-item">Blender</span><span class="ticker-dot"></span>
+      <span class="ticker-item">Substance 3D Painter</span><span class="ticker-dot"></span>
+      <span class="ticker-item">Nuke</span><span class="ticker-dot"></span>
+      <span class="ticker-item">Marmoset Toolbag</span><span class="ticker-dot"></span>
+      <span class="ticker-item">Adobe Suite</span><span class="ticker-dot"></span>
+    </div>
+  </div>
 
-    <div class="pf-projects">
-      <div class="pf-project">
-        <div class="pf-project-num">01</div>
-        <div>
-          <p class="pf-project-title">Beliér Arts</p>
-          <p class="pf-project-role">Lead 3D Artist</p>
-          <p class="pf-project-cat">Pipelines · Rigging · LookDev · Nov 2023–Presente</p>
+  <!-- PROJECTS -->
+  <section class="section" id="work">
+    <div class="section-header">
+      <span class="section-title" data-es="Trabajos seleccionados" data-en="Selected work">Trabajos seleccionados</span>
+      <span class="section-count">04 projects</span>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <img src="images/cinema.jpg" alt="Cinema Props"/>
+        <div class="project-info">
+          <p class="project-num">01</p>
+          <p class="project-name">Cinema Props</p>
+          <p class="project-meta">Beliér Arts · Lead 3D Artist · 2024</p>
         </div>
+        <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
       </div>
-      <div class="pf-project">
-        <div class="pf-project-num">02</div>
-        <div>
-          <p class="pf-project-title">Champions of Mirra</p>
-          <p class="pf-project-role">3D Animator · Lambda Class</p>
-          <p class="pf-project-cat">Game Animation · Abr–Ago 2024</p>
+      <div class="project-card">
+        <img src="images/clown.jpg" alt="Paramount Clown"/>
+        <div class="project-info">
+          <p class="project-num">02</p>
+          <p class="project-name">Paramount Clown</p>
+          <p class="project-meta" data-es="Sketch a Modelo · Character Art · 2024" data-en="Sketch to Model · Character Art · 2024">Sketch a Modelo · Character Art · 2024</p>
         </div>
+        <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
       </div>
-      <div class="pf-project">
-        <div class="pf-project-num">03</div>
-        <div>
-          <p class="pf-project-title">Silent Hill: Ascension</p>
-          <p class="pf-project-role">3D Rigger · Senscape</p>
-          <p class="pf-project-cat">Cinematic Rigging · Oct–Dic 2023</p>
+      <div class="project-card">
+        <img src="images/hero-asset.jpg" alt="Hero Asset"/>
+        <div class="project-info">
+          <p class="project-num">03</p>
+          <p class="project-name">Hero Asset</p>
+          <p class="project-meta">Character Art · LookDev · 2023</p>
         </div>
+        <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
       </div>
-      <div class="pf-project">
-        <div class="pf-project-num">04</div>
-        <div>
-          <p class="pf-project-title">Bandai Namco & Ubisoft</p>
-          <p class="pf-project-role">3D Technical Animator · Waypoint LA</p>
-          <p class="pf-project-cat">Technical Rigs · Jul 2022–Oct 2023</p>
+      <div class="project-card">
+        <img src="images/mech.jpg" alt="Mech"/>
+        <div class="project-info">
+          <p class="project-num">04</p>
+          <p class="project-name">Mech</p>
+          <p class="project-meta" data-es="Modelado Técnico · Rigging · 2023" data-en="Technical Modeling · Rigging · 2023">Modelado Técnico · Rigging · 2023</p>
         </div>
+        <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
       </div>
     </div>
+  </section>
 
-    <!-- ABOUT + SKILLS -->
-    <div class="pf-about" id="sobre-mi">
+  <!-- ABOUT -->
+  <hr class="divider"/>
+  <section class="section" id="about">
+    <div class="about-grid">
       <div>
-        <p class="pf-section-label">Sobre mí</p>
-        <p class="pf-about-text">3D Artist & Animator focused on the art of storytelling through form and motion. My expertise spans from high-fidelity modeling to advanced technical rigging, always aimed at elevating the visual and narrative quality of a project — bridging the gap between art and technology.</p>
+        <h2 class="about-title" data-es="Arte y<br><em>tecnología</em>" data-en="Art meets<br><em>technology</em>">Arte y<br><em>tecnología</em></h2>
+        <p class="about-text"
+           data-es="Artista 3D y animador enfocado en el arte de contar historias a través de la forma y el movimiento. Mi experiencia abarca desde el modelado de alta fidelidad hasta el rigging técnico avanzado, siempre apuntando a elevar la calidad visual y narrativa de cada proyecto."
+           data-en="3D Artist and animator focused on the art of storytelling through form and motion. My expertise spans from high-fidelity modeling to advanced technical rigging, always aimed at elevating the visual and narrative quality of each project.">
+          Artista 3D y animador enfocado en el arte de contar historias a través de la forma y el movimiento. Mi experiencia abarca desde el modelado de alta fidelidad hasta el rigging técnico avanzado, siempre apuntando a elevar la calidad visual y narrativa de cada proyecto.
+        </p>
+        <p class="about-text"
+           data-es="Comprometido con el crecimiento continuo y en busca de desafíos que me permitan expandir mi visión como profesional en la industria de la animación."
+           data-en="Committed to continuous growth and seeking challenges that allow me to expand my vision as a professional in the animation industry.">
+          Comprometido con el crecimiento continuo y en busca de desafíos que me permitan expandir mi visión como profesional en la industria de la animación.
+        </p>
+        <p class="edu-label" data-es="Educación" data-en="Education">Educación</p>
+        <p class="edu-title">Tecnicatura en Animación 3D y Efectos Visuales</p>
+        <p class="edu-inst">Universidad Nacional de San Martín · 2021–<span data-es="Presente" data-en="Present">Presente</span></p>
+        <p class="edu-title">Rigging for TD's</p>
+        <p class="edu-inst">Keyframe Animation School · 2023–2024</p>
       </div>
       <div>
-        <p class="pf-section-label">Software</p>
-        <div class="pf-skills-grid">
-          <div class="pf-skill-row"><span class="pf-skill-name">Autodesk Maya</span><div class="pf-skill-bar"><div class="pf-skill-fill" data-w="95"></div></div></div>
-          <div class="pf-skill-row"><span class="pf-skill-name">Unreal Engine</span><div class="pf-skill-bar"><div class="pf-skill-fill" data-w="85"></div></div></div>
-          <div class="pf-skill-row"><span class="pf-skill-name">ZBrush</span><div class="pf-skill-bar"><div class="pf-skill-fill" data-w="80"></div></div></div>
-          <div class="pf-skill-row"><span class="pf-skill-name">Blender</span><div class="pf-skill-bar"><div class="pf-skill-fill" data-w="85"></div></div></div>
-          <div class="pf-skill-row"><span class="pf-skill-name">Substance 3D Painter</span><div class="pf-skill-bar"><div class="pf-skill-fill" data-w="78"></div></div></div>
-          <div class="pf-skill-row"><span class="pf-skill-name">Nuke / Adobe Suite</span><div class="pf-skill-bar"><div class="pf-skill-fill" data-w="70"></div></div></div>
-          <div class="pf-skill-row"><span class="pf-skill-name">Marmoset Toolbag</span><div class="pf-skill-bar"><div class="pf-skill-fill" data-w="75"></div></div></div>
+        <p class="skills-label">Software</p>
+        <div class="skills-list">
+          <div class="skill-item"><span class="skill-name">Autodesk Maya</span><div class="skill-bar"><div class="skill-fill" data-w="95"></div></div></div>
+          <div class="skill-item"><span class="skill-name">ZBrush</span><div class="skill-bar"><div class="skill-fill" data-w="88"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Unreal Engine</span><div class="skill-bar"><div class="skill-fill" data-w="82"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Blender</span><div class="skill-bar"><div class="skill-fill" data-w="85"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Substance 3D Painter</span><div class="skill-bar"><div class="skill-fill" data-w="78"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Marmoset Toolbag</span><div class="skill-bar"><div class="skill-fill" data-w="75"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Nuke / Adobe Suite</span><div class="skill-bar"><div class="skill-fill" data-w="70"></div></div></div>
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- EDUCATION -->
-    <div class="pf-edu">
-      <p class="pf-section-label">Educación</p>
-      <div class="pf-edu-grid">
-        <div class="pf-edu-item">
-          <div>
-            <p class="pf-edu-title">Tecnicatura en Animación 3D y Efectos Visuales</p>
-            <p class="pf-edu-inst">Universidad Nacional de San Martín</p>
-          </div>
-          <span class="pf-edu-year">2021–Presente</span>
-        </div>
-        <div class="pf-edu-item">
-          <div>
-            <p class="pf-edu-title">Rigging for TD's</p>
-            <p class="pf-edu-inst">Keyframe Animation School</p>
-          </div>
-          <span class="pf-edu-year">Jun 2023–Feb 2024</span>
-        </div>
+  <!-- EXPERIENCE -->
+  <hr class="divider"/>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-title" data-es="Experiencia" data-en="Experience">Experiencia</span>
+    </div>
+    <div class="exp-list">
+      <div class="exp-item">
+        <div><p class="exp-company">Beliér Arts</p><p class="exp-role">Lead 3D Artist</p></div>
+        <p class="exp-desc">Pipelines · Rigging · LookDev · <span data-es="Modelado de personajes" data-en="Character Modeling">Modelado de personajes</span></p>
+        <p class="exp-period">Nov 2023–<span data-es="Presente" data-en="Present">Presente</span></p>
+      </div>
+      <div class="exp-item">
+        <div><p class="exp-company">Lambda Class</p><p class="exp-role">3D Animator</p></div>
+        <p class="exp-desc">Champions of Mirra · Game Animation</p>
+        <p class="exp-period">Abr–Ago 2024</p>
+      </div>
+      <div class="exp-item">
+        <div><p class="exp-company">Senscape</p><p class="exp-role">3D Rigger</p></div>
+        <p class="exp-desc">Silent Hill: Ascension · Cinematic Rigging</p>
+        <p class="exp-period">Oct–Dic 2023</p>
+      </div>
+      <div class="exp-item">
+        <div><p class="exp-company">Waypoint LA</p><p class="exp-role">3D Technical Animator</p></div>
+        <p class="exp-desc">Bandai Namco · Ubisoft · Technical Rigs</p>
+        <p class="exp-period">Jul 2022–Oct 2023</p>
       </div>
     </div>
+  </section>
 
-    <!-- CONTACT -->
-    <div class="pf-contact" id="contacto">
-      <p class="pf-contact-label">Trabajemos juntos</p>
-      <div class="pf-contact-links">
+  <!-- CONTACT -->
+  <div class="contact-section" id="contact">
+    <h2 class="contact-big">
+      <span data-es="Trabajemos" data-en="Let's build">Trabajemos</span><br>
+      <em><span data-es="juntos" data-en="something great">juntos</span></em>
+    </h2>
+    <div class="contact-links">
+      <div class="contact-link">
+        <span class="contact-link-label">Email</span>
         <a href="mailto:tomalda3d@gmail.com">tomalda3d@gmail.com</a>
+      </div>
+      <div class="contact-link">
+        <span class="contact-link-label" data-es="Teléfono" data-en="Phone">Teléfono</span>
         <a href="tel:+5491162978698">+54 9 11 6297 8698</a>
-        <a href="https://artstation.com/tomalda3d" target="_blank" rel="noopener">artstation.com/tomalda3d</a>
-        <a href="https://instagram.com/tomalda3d" target="_blank" rel="noopener">@tomalda3d</a>
+      </div>
+      <div class="contact-link">
+        <span class="contact-link-label">ArtStation</span>
+        <a href="https://artstation.com/tomalda3d" target="_blank">artstation.com/tomalda3d</a>
+      </div>
+      <div class="contact-link">
+        <span class="contact-link-label">Instagram</span>
+        <a href="https://instagram.com/tomalda3d" target="_blank">@tomalda3d</a>
       </div>
     </div>
+  </div>
 
-    <footer class="pf-footer">Tomás Aldazabal · 2026</footer>
-
-  </main>
+  <footer>
+    <span>© Tomás Aldazabal 2026</span>
+    <span>3D Artist & Technical Animator · Buenos Aires</span>
+  </footer>
 
   <script>
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        document.querySelectorAll('.pf-skill-fill').forEach(el => {
-          el.style.width = el.dataset.w + '%';
-        });
-      }, 300);
+    // THEME
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    html.setAttribute('data-theme', savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
     });
+
+    // LANGUAGE
+    const langToggle = document.getElementById('langToggle');
+    let currentLang = localStorage.getItem('lang') || 'es';
+    langToggle.textContent = currentLang === 'es' ? 'EN' : 'ES';
+
+    function applyLang(lang) {
+      document.querySelectorAll('[data-es]').forEach(el => {
+        const val = el.getAttribute('data-' + lang);
+        if (val) el.innerHTML = val;
+      });
+      langToggle.textContent = lang === 'es' ? 'EN' : 'ES';
+      currentLang = lang;
+      localStorage.setItem('lang', lang);
+    }
+
+    applyLang(currentLang);
+
+    langToggle.addEventListener('click', () => {
+      applyLang(currentLang === 'es' ? 'en' : 'es');
+    });
+
+    // SKILLS ANIMATION
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.querySelectorAll('.skill-fill').forEach(el => {
+            el.style.width = el.dataset.w + '%';
+          });
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.skills-list').forEach(el => observer.observe(el));
   </script>
+
 </body>
 </html>
