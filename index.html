@@ -62,16 +62,16 @@
       display: block;
     }
 
-    /* Always show white logo on dark hero */
-    .logo-dark { display: block !important; }
-    .logo-light { display: none !important; }
+    /* Always show black logo on light hero */
+    .logo-dark { display: none !important; }
+    .logo-light { display: block !important; }
 
-    /* Nav links always light on dark hero */
-    .nav-links a { color: rgba(240,237,230,0.6) !important; }
-    .nav-links a:hover { color: #f0ede6 !important; }
-    .lang-toggle { color: rgba(240,237,230,0.6) !important; border-color: rgba(240,237,230,0.3) !important; font-family: 'Syne', sans-serif; }
-    .lang-toggle:hover { color: #f0ede6 !important; border-color: #f0ede6 !important; }
-    .theme-toggle { border-color: rgba(240,237,230,0.3) !important; }
+    /* Nav links dark on light background */
+    .nav-links a { color: rgba(13,13,13,0.6) !important; }
+    .nav-links a:hover { color: #1a1a18 !important; }
+    .lang-toggle { color: rgba(13,13,13,0.6) !important; border-color: rgba(13,13,13,0.3) !important; font-family: 'Syne', sans-serif; }
+    .lang-toggle:hover { color: #1a1a18 !important; border-color: #1a1a18 !important; }
+    .theme-toggle { border-color: rgba(13,13,13,0.3) !important; }
 
     .nav-left {
       display: flex;
@@ -146,8 +146,17 @@
       align-items: center;
       position: relative;
       overflow: hidden;
-      background: #1a1a18;
+      background: #e8e5df;
       transition: background 0.5s ease;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('images/herobg.png');
+      background-size: cover;
+      background-position: center center;
+      z-index: 0;
     }
 
     .hero::after {
@@ -155,18 +164,9 @@
       position: absolute;
       bottom: 0; left: 0; right: 0;
       height: 280px;
-      background: linear-gradient(to bottom, transparent, #1a1a18);
+      background: linear-gradient(to bottom, transparent, var(--bg));
       z-index: 3;
       pointer-events: none;
-      transition: background 0.5s ease;
-    }
-
-    .hero.scrolled::after { background: linear-gradient(to bottom, transparent, #0d0d0d); }
-
-    /* REEL seamless with hero */
-    .reel-section {
-      background: #1a1a18;
-      margin-top: -1px;
     }
 
     .hero-left {
@@ -182,6 +182,7 @@
       align-items: flex-end;
       justify-content: flex-end;
       overflow: hidden;
+      z-index: 2;
     }
 
     .hero-cutout {
@@ -192,11 +193,7 @@
       width: 100%;
       object-fit: cover;
       object-position: center bottom;
-      transition: opacity 0.5s ease;
     }
-
-    /* Scroll color change */
-    .hero.scrolled { background: #0d0d0d; }
 
     .hero-title {
       font-size: clamp(24px, 3.1vw, 44px);
@@ -204,7 +201,7 @@
       line-height: 0.9;
       letter-spacing: -2px;
       margin-bottom: 1.5rem;
-      color: #f0ede6 !important;
+      color: #1a1a18 !important;
     }
 
     .hero-title em {
@@ -215,7 +212,7 @@
 
     .hero-sub {
       font-size: 16px;
-      color: rgba(240,237,230,0.7) !important;
+      color: rgba(13,13,13,0.65) !important;
       line-height: 2.0;
       margin-bottom: 1.5rem;
       text-align: left;
@@ -232,8 +229,8 @@
       text-transform: uppercase;
       color: #f0ede6 !important;
       text-decoration: none;
-      background: transparent;
-      border: 1.5px solid rgba(240,237,230,0.4);
+      background: #1a1a18;
+      border: 1.5px solid #1a1a18;
       padding: 0.75rem 1.5rem;
       border-radius: 2px;
       transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
@@ -579,6 +576,7 @@
 
   <!-- HERO -->
   <section class="hero" id="hero">
+    <div class="hero-bg"></div>
     <nav>
       <a href="#" class="nav-logo" style="text-decoration:none;">
         <img class="logo-dark" src="images/logo-white.png" alt="Tomás Aldazabal"/>
