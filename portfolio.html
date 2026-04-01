@@ -227,6 +227,22 @@
       filter: brightness(0.4);
     }
 
+    /* NOISE OVERLAY */
+    .project-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      mix-blend-mode: overlay;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .project-card:hover::after { opacity: 0.12; }
+
     /* PLACEHOLDER */
     .project-placeholder {
       width: 100%;
@@ -449,6 +465,26 @@
         <p class="project-name">Alan</p>
         <p class="project-role">3D Modeling &amp; Animation</p>
         <p class="project-year">2023</p>
+      </div>
+      <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
+    </div>
+
+    <div class="project-card" data-tags="modeling">
+      <img src="images/wreckleague.png" alt="Wreck League"/>
+      <div class="project-info">
+        <p class="project-name">Wreck League</p>
+        <p class="project-role">3D Character Modeling</p>
+        <p class="project-year">2022</p>
+      </div>
+      <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
+    </div>
+
+    <div class="project-card" data-tags="animation rigging">
+      <img src="images/pac-man.png" alt="PAC-MAN Mega Tunnel Battle Chomp Champs"/>
+      <div class="project-info">
+        <p class="project-name">PAC-MAN Mega Tunnel Battle</p>
+        <p class="project-role">Rigging &amp; Animation</p>
+        <p class="project-year">2024</p>
       </div>
       <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
     </div>
