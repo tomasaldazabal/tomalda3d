@@ -47,13 +47,14 @@
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      z-index: 100;
+      z-index: 1000;
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1.75rem 3rem;
       background: transparent !important;
       transition: none;
+      will-change: transform;
     }
 
     .nav-logo img {
@@ -89,7 +90,7 @@
       display: flex;
       gap: 2rem;
       list-style: none;
-      font-size: 11px;
+      font-size: 14px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: rgba(13,13,13,0.6);
@@ -245,9 +246,9 @@
     }
 
     .hero-sub {
-      font-size: 14px;
+      font-size: 16px;
       color: rgba(13,13,13,0.65) !important;
-      line-height: 1.9;
+      line-height: 2.0;
       margin-bottom: 3.5rem;
     }
 
@@ -308,7 +309,13 @@
     }
 
     /* SECTIONS */
-    .section { padding: 5rem 3rem; }
+    .section { padding: 5rem 0; }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 5rem;
+    }
 
     .section-header {
       display: flex;
@@ -320,7 +327,7 @@
     }
 
     .section-title {
-      font-size: 11px;
+      font-size: 13px;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--muted);
@@ -328,7 +335,7 @@
 
     .section-count {
       font-family: 'Syne Mono', monospace;
-      font-size: 11px;
+      font-size: 13px;
       color: var(--muted);
     }
 
@@ -416,12 +423,15 @@
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 4rem;
+      gap: 6rem;
       align-items: start;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 5rem;
     }
 
     .about-title {
-      font-size: clamp(32px, 4vw, 52px);
+      font-size: clamp(36px, 4vw, 56px);
       font-weight: 800;
       line-height: 1.05;
       letter-spacing: -1px;
@@ -429,47 +439,47 @@
     }
 
     .about-title em { font-style: italic; font-weight: 400; color: var(--muted); }
-    .about-text { font-size: 14px; line-height: 1.9; color: var(--muted); margin-bottom: 1.5rem; }
-    .edu-label { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; margin-top: 2rem; }
-    .edu-title { font-size: 13px; color: var(--text); margin-bottom: 0.25rem; }
-    .edu-inst { font-size: 12px; color: var(--muted); margin-bottom: 1.25rem; }
+    .about-text { font-size: 16px; line-height: 2.0; color: var(--muted); margin-bottom: 1.5rem; }
+    .edu-label { font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; margin-top: 2rem; }
+    .edu-title { font-size: 16px; color: var(--text); margin-bottom: 0.25rem; }
+    .edu-inst { font-size: 14px; color: var(--muted); margin-bottom: 1.25rem; }
 
     /* SKILLS */
-    .skills-label { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
+    .skills-label { font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
     .skills-list { display: flex; flex-direction: column; }
 
     .skill-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.9rem 0;
+      padding: 1rem 0;
       border-bottom: 0.5px solid var(--border);
-      font-size: 13px;
+      font-size: 15px;
     }
 
     .skill-name { color: var(--muted); }
-    .skill-bar { width: 72px; height: 1px; background: var(--border-hover); position: relative; }
+    .skill-bar { width: 80px; height: 1px; background: var(--border-hover); position: relative; }
     .skill-fill { position: absolute; top: 0; left: 0; height: 1px; background: var(--text); width: 0; transition: width 1.4s ease; }
 
     /* EXPERIENCE */
-    .exp-list { display: flex; flex-direction: column; }
+    .exp-list { display: flex; flex-direction: column; max-width: 1100px; margin: 0 auto; padding: 0 5rem; }
 
     .exp-item {
       display: grid;
       grid-template-columns: 1fr 2fr auto;
       gap: 2rem;
       align-items: baseline;
-      padding: 1.5rem 0;
+      padding: 2rem 0;
       border-bottom: 0.5px solid var(--border);
     }
 
-    .exp-company { font-size: 16px; font-weight: 700; }
-    .exp-role { font-size: 12px; color: var(--muted); margin-top: 3px; }
-    .exp-desc { font-size: 13px; color: var(--muted); }
-    .exp-period { font-family: 'Syne Mono', monospace; font-size: 11px; color: var(--muted); white-space: nowrap; }
+    .exp-company { font-size: 18px; font-weight: 700; }
+    .exp-role { font-size: 13px; color: var(--muted); margin-top: 4px; }
+    .exp-desc { font-size: 15px; color: var(--muted); }
+    .exp-period { font-family: 'Syne Mono', monospace; font-size: 13px; color: var(--muted); white-space: nowrap; }
 
     /* CONTACT */
-    .contact-section { padding: 5rem 3rem 6rem; border-top: 0.5px solid var(--border); }
+    .contact-section { padding: 5rem; border-top: 0.5px solid var(--border); max-width: 1100px; margin: 0 auto; }
 
     .contact-big {
       font-size: clamp(40px, 6vw, 80px);
@@ -672,10 +682,10 @@
   <!-- EXPERIENCE -->
   <hr class="divider"/>
   <section class="section">
-    <div class="section-header">
-      <span class="section-title" data-es="Experiencia" data-en="Experience">Experiencia</span>
-    </div>
     <div class="exp-list">
+      <div class="section-header" style="padding: 0 0 1.5rem; margin-bottom: 2rem;">
+        <span class="section-title" data-es="Experiencia" data-en="Experience">Experiencia</span>
+      </div>
       <div class="exp-item">
         <div><p class="exp-company">Beliér Arts</p><p class="exp-role">Lead 3D Artist</p></div>
         <p class="exp-desc">Pipelines · Rigging · LookDev · <span data-es="Modelado de personajes" data-en="Character Modeling">Modelado de personajes</span></p>
