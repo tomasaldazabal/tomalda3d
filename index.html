@@ -43,7 +43,7 @@
       transition: background 0.35s ease, color 0.35s ease;
     }
 
-    /* NAV */
+    /* NAV — always transparent, always dark text */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -52,11 +52,9 @@
       justify-content: space-between;
       align-items: center;
       padding: 1.75rem 3rem;
-      background: transparent;
-      transition: background 0.35s ease;
+      background: transparent !important;
+      transition: none;
     }
-
-    [data-theme="light"] nav { background: transparent; }
 
     .nav-logo img {
       height: 69px;
@@ -64,13 +62,16 @@
       display: block;
     }
 
-    /* On hero, always show black logo */
-    .logo-dark { display: none; }
-    .logo-light { display: block; }
-    html[data-theme="dark"] .logo-dark { display: none; }
-    html[data-theme="dark"] .logo-light { display: block; }
-    html[data-theme="light"] .logo-dark { display: none; }
-    html[data-theme="light"] .logo-light { display: block; }
+    /* Always show black logo on hero */
+    .logo-dark { display: none !important; }
+    .logo-light { display: block !important; }
+
+    /* Nav links always dark */
+    .nav-links a { color: rgba(13,13,13,0.6) !important; }
+    .nav-links a:hover { color: #1a1a18 !important; }
+    .lang-toggle { color: rgba(13,13,13,0.6) !important; border-color: rgba(13,13,13,0.3) !important; }
+    .lang-toggle:hover { color: #1a1a18 !important; border-color: #1a1a18 !important; }
+    .theme-toggle { border-color: rgba(13,13,13,0.3) !important; }
 
     .nav-left {
       display: flex;
@@ -147,7 +148,7 @@
 
     /* HERO */
     .hero {
-      height: 60vh;
+      height: 70vh;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
