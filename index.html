@@ -175,18 +175,33 @@
       z-index: 2;
     }
 
+    #hero { --grad-opacity: 0; }
+
     .hero::after {
       content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 320px;
+      background: linear-gradient(to bottom, transparent, var(--bg));
+      z-index: 3;
+      pointer-events: none;
+      opacity: var(--grad-opacity);
+      transition: opacity 0.1s ease;
+    }
+
+    .hero-gradient {
       position: absolute;
       bottom: 0; left: 0; right: 0;
       height: 280px;
       background: linear-gradient(to bottom, transparent, var(--bg));
       z-index: 3;
       pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
 
     .hero-title {
-      font-size: clamp(24px, 3.1vw, 44px);
+      font-size: clamp(28px, 3.6vw, 51px);
       font-weight: 800;
       line-height: 0.9;
       letter-spacing: -2px;
@@ -565,6 +580,7 @@
   <!-- HERO -->
   <section class="hero" id="hero">
     <div class="hero-bg"></div>
+    <div class="hero-gradient" id="heroGradient"></div>
     <img src="images/hero.png" alt="Tomás Aldazabal" class="hero-cutout"/>
     <nav>
       <a href="#" class="nav-logo" style="text-decoration:none;">
@@ -755,14 +771,13 @@
       applyLang(currentLang === 'es' ? 'en' : 'es');
     });
 
-    // HERO SCROLL — background darkens on scroll
+    // HERO SCROLL — gradient fades in as user scrolls
     const hero = document.getElementById('hero');
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        hero.classList.add('scrolled');
-      } else {
-        hero.classList.remove('scrolled');
-      }
+      const scrollY = window.scrollY;
+      const heroHeight = hero.offsetHeight;
+      const progress = Math.min(scrollY / (heroHeight * 0.35), 1);
+      hero.style.setProperty('--grad-opacity', progress);
     }, { passive: true });
     const fills = document.querySelectorAll('.skill-fill');
 
