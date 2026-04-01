@@ -163,24 +163,16 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 6rem 2rem 4rem 40%;
+      padding: 6rem 2rem 4rem 44%;
     }
 
     .hero-right {
       position: relative;
       z-index: 2;
-      overflow: hidden;
-    }
-
-    .hero-cutout {
-      position: absolute;
-      bottom: 0;
-      left: -8%;
-      width: 85%;
-      height: 105%;
-      object-fit: contain;
-      object-position: bottom center;
-      z-index: 1;
+      background-image: url('images/hero.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: bottom left 5%;
     }
 
     #hero { --grad-opacity: 0; }
@@ -209,7 +201,7 @@
     }
 
     .hero-title {
-      font-size: clamp(28px, 3.6vw, 51px);
+      font-size: clamp(31px, 4vw, 56px);
       font-weight: 800;
       line-height: 0.9;
       letter-spacing: -2px;
@@ -572,8 +564,7 @@
       .nav-links { display: none; }
       .hero { grid-template-columns: 1fr; height: auto; min-height: 100vh; }
       .hero-content { padding: 7rem 1.5rem 2rem; }
-      .hero-right { height: 60vw; }
-      .hero-cutout { height: 100%; }
+      .hero-right { height: 60vw; background-size: contain; background-position: bottom center; }
       .section { padding: 3.5rem 1.5rem; }
       .projects-grid { grid-template-columns: 1fr; }
       .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -615,9 +606,7 @@
       </p>
       <a href="portfolio.html" class="hero-cta" data-es="Descubrí mis trabajos →" data-en="Discover my work →">Descubrí mis trabajos →</a>
     </div>
-    <div class="hero-right">
-      <img src="images/hero.png" alt="Tomás Aldazabal" class="hero-cutout"/>
-    </div>
+    <div class="hero-right"></div>
   </section>
 
   <!-- DEMO REEL -->
