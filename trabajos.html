@@ -134,11 +134,18 @@
 
     /* PAGE HEADER */
     .page-header {
-      padding: 9rem 3rem 3rem;
+      padding: 9rem 4rem 3rem;
       border-bottom: 0.5px solid var(--border);
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .page-header-wrap {
+      border-bottom: 0.5px solid var(--border);
     }
 
     .page-title {
@@ -158,11 +165,13 @@
 
     /* FILTERS */
     .filters {
-      padding: 1.5rem 3rem;
+      padding: 1.5rem 4rem;
       display: flex;
       gap: 0.75rem;
       flex-wrap: wrap;
       border-bottom: 0.5px solid var(--border);
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .filter-btn {
@@ -186,8 +195,10 @@
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 2px;
-      padding: 2px;
+      gap: 1.5rem;
+      padding: 2rem 4rem 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .project-card {
