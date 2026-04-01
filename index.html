@@ -43,9 +43,9 @@
       transition: background 0.35s ease, color 0.35s ease;
     }
 
-    /* NAV — always transparent, always dark text */
+    /* NAV — absolute, stays on hero, disappears on scroll */
     nav {
-      position: fixed;
+      position: absolute;
       top: 0; left: 0; right: 0;
       z-index: 1000;
       display: flex;
@@ -571,26 +571,25 @@
 </head>
 <body>
 
-  <nav>
-    <a href="#" class="nav-logo" style="text-decoration:none;">
-      <img class="logo-dark" src="images/logo-white.png" alt="Tomás Aldazabal"/>
-      <img class="logo-light" src="images/logo-black.png" alt="Tomás Aldazabal"/>
-    </a>
-    <div class="nav-right">
-      <ul class="nav-links">
-        <li><a href="trabajos.html" data-es="Trabajos" data-en="Work">Trabajos</a></li>
-        <li><a href="#about" data-es="Sobre mí" data-en="About">Sobre mí</a></li>
-        <li><a href="#contact" data-es="Contacto" data-en="Contact">Contacto</a></li>
-      </ul>
-      <button class="lang-toggle" id="langToggle">EN</button>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
-    </div>
-  </nav>
-
   <!-- HERO -->
   <section class="hero">
     <div class="hero-bg-photo"></div>
     <div class="hero-overlay"></div>
+    <nav>
+      <a href="#" class="nav-logo" style="text-decoration:none;">
+        <img class="logo-dark" src="images/logo-white.png" alt="Tomás Aldazabal"/>
+        <img class="logo-light" src="images/logo-black.png" alt="Tomás Aldazabal"/>
+      </a>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="trabajos.html" data-es="Trabajos" data-en="Work">Trabajos</a></li>
+          <li><a href="#about" data-es="Sobre mí" data-en="About">Sobre mí</a></li>
+          <li><a href="#contact" data-es="Contacto" data-en="Contact">Contacto</a></li>
+        </ul>
+        <button class="lang-toggle" id="langToggle">EN</button>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+      </div>
+    </nav>
     <div class="hero-content">
       <p class="hero-tag" data-es="3D Artist &amp; Technical Animator · Buenos Aires" data-en="3D Artist &amp; Technical Animator · Buenos Aires">3D Artist &amp; Technical Animator · Buenos Aires</p>
       <h1 class="hero-title" data-es="Hola<br><em>mundo</em>" data-en="Hello<br><em>world</em>">Hola<br><em>mundo</em></h1>
@@ -786,20 +785,6 @@
     }, { threshold: 0.2 });
 
     document.querySelectorAll('.skills-list').forEach(el => observer.observe(el));
-
-    // NAV — stays fixed, gets subtle bg after hero
-    const nav = document.querySelector('nav');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        nav.style.background = 'rgba(245,243,238,0.95)';
-        nav.style.backdropFilter = 'blur(14px)';
-        nav.style.borderBottom = '0.5px solid rgba(13,13,13,0.08)';
-      } else {
-        nav.style.background = 'transparent';
-        nav.style.backdropFilter = 'none';
-        nav.style.borderBottom = 'none';
-      }
-    }, { passive: true });
   </script>
 
 </body>
