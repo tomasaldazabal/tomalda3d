@@ -141,13 +141,8 @@
     /* HERO */
     .hero {
       height: 60vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
       position: relative;
       overflow: hidden;
-      background: #e8e5df;
-      transition: background 0.5s ease;
     }
 
     .hero-bg {
@@ -159,6 +154,27 @@
       z-index: 0;
     }
 
+    .hero-cutout {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-15%);
+      height: 100%;
+      width: auto;
+      object-fit: contain;
+      object-position: bottom center;
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 58%;
+      max-width: 460px;
+      z-index: 2;
+    }
+
     .hero::after {
       content: '';
       position: absolute;
@@ -167,32 +183,6 @@
       background: linear-gradient(to bottom, transparent, var(--bg));
       z-index: 3;
       pointer-events: none;
-    }
-
-    .hero-left {
-      padding: 8rem 0 5rem 8rem;
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero-right {
-      position: relative;
-      height: 100%;
-      display: flex;
-      align-items: flex-end;
-      justify-content: flex-end;
-      overflow: hidden;
-      z-index: 2;
-    }
-
-    .hero-cutout {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      height: 100%;
-      width: 100%;
-      object-fit: cover;
-      object-position: center bottom;
     }
 
     .hero-title {
@@ -216,7 +206,6 @@
       line-height: 2.0;
       margin-bottom: 1.5rem;
       text-align: left;
-      max-width: 480px;
     }
 
     .hero-cta {
@@ -235,7 +224,6 @@
       border-radius: 2px;
       transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
       width: fit-content;
-      margin-top: 0;
     }
 
     .hero-cta:hover {
@@ -577,6 +565,7 @@
   <!-- HERO -->
   <section class="hero" id="hero">
     <div class="hero-bg"></div>
+    <img src="images/hero.png" alt="Tomás Aldazabal" class="hero-cutout"/>
     <nav>
       <a href="#" class="nav-logo" style="text-decoration:none;">
         <img class="logo-dark" src="images/logo-white.png" alt="Tomás Aldazabal"/>
@@ -593,8 +582,7 @@
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
       </div>
     </nav>
-    <div class="hero-left">
-      <div class="hero-content" style="margin-top:3rem;">
+    <div class="hero-content">
         <h1 class="hero-title" data-es="Hola mundo" data-en="Hello world">Hola mundo</h1>
       <p class="hero-sub"
          data-es="Mi nombre es Tomás Aldazabal, pero podes llamarme Tom. Soy Artista 3D y Animador Técnico con más de 5 años de experiencia. Me especializo en la creación de historias, personajes y sistemas complejos en pipelines 3D. Impulsado por la pasión y la creatividad, aporto una visión integral a cada desafío, buscando siempre innovar en la narrativa visual y el diseño con identidad propia."
@@ -603,13 +591,8 @@
         Mi nombre es Tomás Aldazabal, pero podes llamarme Tom. Soy Artista 3D y Animador Técnico con más de 5 años de experiencia. Me especializo en la creación de historias, personajes y sistemas complejos en pipelines 3D. Impulsado por la pasión y la creatividad, aporto una visión integral a cada desafío, buscando siempre innovar en la narrativa visual y el diseño con identidad propia.
       </p>
       <a href="portfolio.html" class="hero-cta" data-es="Descubrí mis trabajos →" data-en="Discover my work →">Descubrí mis trabajos →</a>
-      </div>
-    </div>
-    <div class="hero-right">
-      <img src="images/hero.png" alt="Tomás Aldazabal" class="hero-cutout"/>
     </div>
   </section>
-  </div>
 
   <!-- DEMO REEL -->
   <section class="reel-section" id="reel">
