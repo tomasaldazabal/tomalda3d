@@ -43,17 +43,17 @@
       transition: background 0.35s ease, color 0.35s ease;
     }
 
-    /* NOISE OVERLAY — toda la página */
-    body::after {
+    /* NOISE OVERLAY — detrás de todo el contenido */
+    body::before {
       content: '';
       position: fixed;
       inset: 0;
-      z-index: 1;
+      z-index: 0;
       pointer-events: none;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
       background-size: 180px 180px;
       background-repeat: repeat;
-      mix-blend-mode: overlay;
+      mix-blend-mode: soft-light;
       opacity: 1;
       animation: noiseMove 0.15s steps(1) infinite;
     }
@@ -609,6 +609,8 @@
     .reel-section {
       padding: 6rem 3rem;
       border-top: none;
+      position: relative;
+      z-index: 2;
     }
 
     .reel-label {
@@ -632,19 +634,6 @@
       height: 0;
       overflow: hidden;
       background: var(--bg3);
-    }
-
-    .reel-wrapper::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-      background-size: 180px 180px;
-      mix-blend-mode: overlay;
-      opacity: 1;
-      animation: noiseMove 0.15s steps(1) infinite;
     }
 
     .reel-wrapper iframe {
@@ -728,7 +717,7 @@
   </section>
 
   <!-- CAROUSEL -->
-  <section style="padding: 4rem 0 5rem; overflow: hidden; background: var(--bg);">
+  <section style="padding: 4rem 0 5rem; overflow: hidden; background: var(--bg); position: relative; z-index: 2;">
     <div class="carousel-track-wrapper">
       <div class="carousel-track" id="carouselTrack">
         <a href="disney-festival.html" class="carousel-item"><img src="images/disney-festival.jpg" alt="Disney Festival"/></a>
