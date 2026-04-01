@@ -184,7 +184,7 @@
     }
 
     .hero-title {
-      font-size: clamp(82px, 11vw, 150px);
+      font-size: clamp(51px, 6.8vw, 94px);
       font-weight: 800;
       line-height: 0.9;
       letter-spacing: -4px;
@@ -432,7 +432,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 6rem;
-      align-items: start;
+      align-items: center;
       max-width: 1100px;
       margin: 0 auto;
       padding: 5rem;
@@ -466,8 +466,9 @@
     }
 
     .skill-name { color: var(--muted); }
+    [data-theme="dark"] .skill-name { color: #d0cdc6; }
     .skill-bar { width: 80px; height: 1px; background: var(--border-hover); position: relative; }
-    .skill-fill { position: absolute; top: 0; left: 0; height: 1px; background: var(--text); width: 0; transition: width 1.4s ease; }
+    .skill-fill { position: absolute; top: 0; left: 0; height: 1px; background: #CCFF00; width: 0; transition: width 0.8s ease; }
 
     /* EXPERIENCE */
     .exp-list { display: flex; flex-direction: column; max-width: 1100px; margin: 0 auto; padding: 0 5rem; }
@@ -599,12 +600,11 @@
       </div>
     </nav>
     <div class="hero-content">
-      <p class="hero-tag" data-es="3D Artist &amp; Technical Animator · Buenos Aires" data-en="3D Artist &amp; Technical Animator · Buenos Aires">3D Artist &amp; Technical Animator · Buenos Aires</p>
-      <h1 class="hero-title" data-es="Hola<br><em>mundo</em>" data-en="Hello<br><em>world</em>">Hola<br><em>mundo</em></h1>
+      <h1 class="hero-title" data-es="Hola" data-en="Hello">Hola</h1>
       <p class="hero-sub"
-         data-es="Mi nombre es Tomás Aldazabal o TomAlda3D. Soy una persona muy creativa y curiosa, me especializo en la creación de historias, personajes y sistemas complejos en pipelines 3D. Como Animador Técnico 3D soy capaz de liderar proyectos para la industria de videojuegos y publicidad. Impulsado por una pasión por el storytelling visual, aporto una visión integral a cada desafío, buscando siempre innovar en la narrativa y el diseño con identidad propia."
-         data-en="My name is Tomás Aldazabal, also known as TomAlda3D. I'm a highly creative and curious person, specializing in the creation of stories, characters and complex systems in 3D pipelines. As a 3D Technical Animator I'm able to lead projects for the video game and advertising industry. Driven by a passion for visual storytelling, I bring a comprehensive vision to every challenge, always seeking to innovate in narrative and design with a distinctive identity.">
-        Mi nombre es Tomás Aldazabal o TomAlda3D. Soy una persona muy creativa y curiosa, me especializo en la creación de historias, personajes y sistemas complejos en pipelines 3D. Como Animador Técnico 3D soy capaz de liderar proyectos para la industria de videojuegos y publicidad. Impulsado por una pasión por el storytelling visual, aporto una visión integral a cada desafío, buscando siempre innovar en la narrativa y el diseño con identidad propia.
+         data-es="Mi nombre es Tomás Aldazabal, también conocido como TomAlda3D, vivo en Buenos Aires, Argentina. Soy Artista 3D y Animador Técnico con 5 años de experiencia. Me especializo en la creación de historias, personajes y sistemas complejos en pipelines 3D. Como una persona creativa y curiosa soy capaz de liderar proyectos para la industria de videojuegos y publicidad. Impulsado por una pasión por el storytelling visual, aporto una visión integral a cada desafío, buscando siempre innovar en la narrativa y el diseño con identidad propia."
+         data-en="My name is Tomás Aldazabal, also known as TomAlda3D, based in Buenos Aires, Argentina. I'm a 3D Artist and Technical Animator with 5 years of experience. I specialize in the creation of stories, characters and complex systems in 3D pipelines. As a creative and curious person I'm able to lead projects for the video game and advertising industry. Driven by a passion for visual storytelling, I bring a comprehensive vision to every challenge, always seeking to innovate in narrative and design with a distinctive identity.">
+        Mi nombre es Tomás Aldazabal, también conocido como TomAlda3D, vivo en Buenos Aires, Argentina. Soy Artista 3D y Animador Técnico con 5 años de experiencia. Me especializo en la creación de historias, personajes y sistemas complejos en pipelines 3D. Como una persona creativa y curiosa soy capaz de liderar proyectos para la industria de videojuegos y publicidad. Impulsado por una pasión por el storytelling visual, aporto una visión integral a cada desafío, buscando siempre innovar en la narrativa y el diseño con identidad propia.
       </p>
       <a href="trabajos.html" class="hero-cta" data-es="Descubrí mis trabajos →" data-en="Discover my work →">Descubrí mis trabajos →</a>
     </div>
@@ -654,7 +654,7 @@
   <section class="section" id="about">
     <div class="about-grid">
       <div>
-        <h2 class="about-title" data-es="Arte y<br><em>tecnología</em>" data-en="Art meets<br><em>technology</em>">Arte y<br><em>tecnología</em></h2>
+        <h2 class="about-title" data-es="Sobre <em>Mí</em>" data-en="About <em>Me</em>">Sobre <em>Mí</em></h2>
         <p class="about-text"
            data-es="Artista 3D y animador enfocado en el arte de contar historias a través de la forma y el movimiento. Mi experiencia abarca desde el modelado de alta fidelidad hasta el rigging técnico avanzado, siempre apuntando a elevar la calidad visual y narrativa de cada proyecto."
            data-en="3D Artist and animator focused on the art of storytelling through form and motion. My expertise spans from high-fidelity modeling to advanced technical rigging, always aimed at elevating the visual and narrative quality of each project.">
@@ -781,13 +781,22 @@
       applyLang(currentLang === 'es' ? 'en' : 'es');
     });
 
-    // SKILLS ANIMATION
+    // SKILLS ANIMATION — loop fill/unfill every 3 seconds
+    const fills = document.querySelectorAll('.skill-fill');
+
+    function animateBars() {
+      fills.forEach(el => { el.style.width = el.dataset.w + '%'; });
+      setTimeout(() => {
+        fills.forEach(el => { el.style.width = '0%'; });
+        setTimeout(animateBars, 1000);
+      }, 3000);
+    }
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
-          e.target.querySelectorAll('.skill-fill').forEach(el => {
-            el.style.width = el.dataset.w + '%';
-          });
+          animateBars();
+          observer.disconnect();
         }
       });
     }, { threshold: 0.2 });
