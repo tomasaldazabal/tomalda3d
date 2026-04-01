@@ -137,72 +137,69 @@
     /* HERO */
     .hero {
       min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 3rem 5rem;
+      gap: 4rem;
+      position: relative;
+    }
+
+    .hero-left {
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
-      padding: 0 3rem 4rem;
+      justify-content: center;
+    }
+
+    .hero-right {
       position: relative;
+      height: 70vh;
+      max-height: 680px;
       overflow: hidden;
     }
 
-    .hero-bg-photo {
-      position: absolute;
-      inset: 0;
-      background-image: url('images/hero.jpg');
-      background-size: cover;
-      background-position: center 20%;
+    .hero-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      filter: grayscale(0.15);
       transition: filter 0.35s ease;
     }
 
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      transition: background 0.35s ease;
-    }
-
-    [data-theme="dark"] .hero-bg-photo { filter: brightness(0.9) grayscale(0.1); }
-    [data-theme="dark"] .hero-overlay { background: rgba(13,13,13,0.52); }
-    [data-theme="light"] .hero-bg-photo { filter: brightness(1) grayscale(0.05); }
-    [data-theme="light"] .hero-overlay { background: rgba(245,243,238,0.42); }
-
-    .hero-content { position: relative; z-index: 1; max-width: 900px; }
+    [data-theme="light"] .hero-right img { filter: grayscale(0.05); }
 
     .hero-tag {
       font-size: 11px;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: rgba(240,237,230,0.6);
-      margin-bottom: 1.5rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
     }
 
-    [data-theme="light"] .hero-tag { color: rgba(13,13,13,0.5); }
-
     .hero-title {
-      font-size: clamp(52px, 8vw, 96px);
+      font-size: clamp(44px, 6vw, 80px);
       font-weight: 800;
       line-height: 0.95;
       letter-spacing: -2px;
-      margin-bottom: 2rem;
-      color: #f0ede6;
+      margin-bottom: 2.5rem;
+      color: var(--text);
     }
-
-    [data-theme="light"] .hero-title { color: #1a1a18; }
 
     .hero-title em {
       font-style: italic;
       font-weight: 400;
-      opacity: 0.5;
+      color: var(--muted);
     }
 
     .hero-sub {
       font-size: 15px;
-      color: rgba(240,237,230,0.8);
-      max-width: 500px;
-      line-height: 1.8;
-      margin-bottom: 2.5rem;
+      color: var(--muted);
+      line-height: 1.85;
+      margin-bottom: 3rem;
+      max-width: 480px;
     }
-
-    [data-theme="light"] .hero-sub { color: rgba(13,13,13,0.65); }
 
     .hero-cta {
       display: inline-flex;
@@ -211,15 +208,15 @@
       font-size: 12px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: #f0ede6;
+      color: var(--text);
       text-decoration: none;
-      border-bottom: 0.5px solid rgba(240,237,230,0.35);
+      border-bottom: 0.5px solid var(--border-hover);
       padding-bottom: 0.5rem;
       transition: border-color 0.2s;
+      width: fit-content;
     }
 
-    [data-theme="light"] .hero-cta { color: #1a1a18; border-color: rgba(13,13,13,0.3); }
-    .hero-cta:hover { border-color: currentColor; }
+    .hero-cta:hover { border-color: var(--text); }
 
     /* TICKER */
     .ticker {
@@ -459,13 +456,55 @@
       letter-spacing: 0.1em;
     }
 
+    /* DEMO REEL */
+    .reel-section {
+      padding: 6rem 3rem;
+      border-top: 0.5px solid var(--border);
+    }
+
+    .reel-label {
+      text-align: center;
+      font-size: clamp(32px, 6vw, 72px);
+      font-weight: 800;
+      letter-spacing: -2px;
+      color: var(--text);
+      margin-bottom: 3rem;
+      line-height: 1;
+    }
+
+    .reel-container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .reel-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      background: var(--bg3);
+    }
+
+    .reel-wrapper iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
     hr.divider { border: none; border-top: 0.5px solid var(--border); }
 
     /* RESPONSIVE */
     @media (max-width: 700px) {
       nav { padding: 1.25rem 1.5rem; }
       .nav-links { display: none; }
-      .hero { padding: 0 1.5rem 3rem; }
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 7rem 1.5rem 3rem;
+        gap: 2.5rem;
+        min-height: auto;
+      }
+      .hero-right { height: 55vw; max-height: 320px; }
       .section { padding: 3.5rem 1.5rem; }
       .projects-grid { grid-template-columns: 1fr; }
       .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -484,7 +523,7 @@
     </a>
     <div class="nav-right">
       <ul class="nav-links">
-        <li><a href="#work" data-es="Trabajos" data-en="Work">Trabajos</a></li>
+        <li><a href="trabajos.html" data-es="Trabajos" data-en="Work">Trabajos</a></li>
         <li><a href="#about" data-es="Sobre mí" data-en="About">Sobre mí</a></li>
         <li><a href="#contact" data-es="Contacto" data-en="Contact">Contacto</a></li>
       </ul>
@@ -495,17 +534,18 @@
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-bg-photo"></div>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <p class="hero-tag" data-es="3D Artist & Technical Animator · Buenos Aires" data-en="3D Artist & Technical Animator · Buenos Aires">3D Artist & Technical Animator · Buenos Aires</p>
+    <div class="hero-left">
+      <p class="hero-tag" data-es="3D Artist &amp; Technical Animator · Buenos Aires" data-en="3D Artist &amp; Technical Animator · Buenos Aires">3D Artist &amp; Technical Animator · Buenos Aires</p>
       <h1 class="hero-title">Tomás<br><em>Aldazabal</em></h1>
       <p class="hero-sub"
-         data-es="Soy artista 3D y animador técnico especializado en rigging, pipelines de animación y desarrollo de herramientas. Trabajo en el punto de contacto entre el arte y la tecnología, dando vida a personajes y mundos con precisión y creatividad."
-         data-en="I'm a 3D artist and technical animator specialized in rigging, animation pipelines, and tool development. I work at the intersection of art and technology, bringing characters and worlds to life with precision and creativity.">
-        Soy artista 3D y animador técnico especializado en rigging, pipelines de animación y desarrollo de herramientas. Trabajo en el punto de contacto entre el arte y la tecnología, dando vida a personajes y mundos con precisión y creatividad.
+         data-es="Soy una persona muy creativa y curiosa, me especializo en la creación de historias, personajes y sistemas complejos en pipelines 3D. Como Animador Técnico 3D soy capaz de liderar proyectos para la industria de videojuegos y publicidad. Impulsado por una pasión por el storytelling visual, aporto una visión integral a cada desafío, buscando siempre innovar en la narrativa y el diseño con identidad propia."
+         data-en="I'm a highly creative and curious person, specializing in the creation of stories, characters and complex systems in 3D pipelines. As a 3D Technical Animator I'm able to lead projects for the video game and advertising industry. Driven by a passion for visual storytelling, I bring a comprehensive vision to every challenge, always seeking to innovate in narrative and design with a distinctive identity.">
+        Soy una persona muy creativa y curiosa, me especializo en la creación de historias, personajes y sistemas complejos en pipelines 3D. Como Animador Técnico 3D soy capaz de liderar proyectos para la industria de videojuegos y publicidad. Impulsado por una pasión por el storytelling visual, aporto una visión integral a cada desafío, buscando siempre innovar en la narrativa y el diseño con identidad propia.
       </p>
-      <a href="#work" class="hero-cta" data-es="Ver trabajos →" data-en="View work →">Ver trabajos →</a>
+      <a href="trabajos.html" class="hero-cta" data-es="Descubrí mis trabajos →" data-en="Discover my work →">Descubrí mis trabajos →</a>
+    </div>
+    <div class="hero-right">
+      <img src="images/hero.jpg" alt="Tomás Aldazabal"/>
     </div>
   </section>
 
@@ -531,48 +571,19 @@
     </div>
   </div>
 
-  <!-- PROJECTS -->
-  <section class="section" id="work">
-    <div class="section-header">
-      <span class="section-title" data-es="Trabajos seleccionados" data-en="Selected work">Trabajos seleccionados</span>
-      <span class="section-count">04 projects</span>
+  <!-- DEMO REEL -->
+  <section class="reel-section">
+    <div class="reel-label">
+      <span data-es="Demo Reel" data-en="Demo Reel">Demo Reel</span>
     </div>
-    <div class="projects-grid">
-      <div class="project-card">
-        <img src="images/cinema.jpg" alt="Cinema Props"/>
-        <div class="project-info">
-          <p class="project-num">01</p>
-          <p class="project-name">Cinema Props</p>
-          <p class="project-meta">Beliér Arts · Lead 3D Artist · 2024</p>
-        </div>
-        <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
-      </div>
-      <div class="project-card">
-        <img src="images/clown.jpg" alt="Paramount Clown"/>
-        <div class="project-info">
-          <p class="project-num">02</p>
-          <p class="project-name">Paramount Clown</p>
-          <p class="project-meta" data-es="Sketch a Modelo · Character Art · 2024" data-en="Sketch to Model · Character Art · 2024">Sketch a Modelo · Character Art · 2024</p>
-        </div>
-        <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
-      </div>
-      <div class="project-card">
-        <img src="images/hero-asset.jpg" alt="Hero Asset"/>
-        <div class="project-info">
-          <p class="project-num">03</p>
-          <p class="project-name">Hero Asset</p>
-          <p class="project-meta">Character Art · LookDev · 2023</p>
-        </div>
-        <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
-      </div>
-      <div class="project-card">
-        <img src="images/mech.jpg" alt="Mech"/>
-        <div class="project-info">
-          <p class="project-num">04</p>
-          <p class="project-name">Mech</p>
-          <p class="project-meta" data-es="Modelado Técnico · Rigging · 2023" data-en="Technical Modeling · Rigging · 2023">Modelado Técnico · Rigging · 2023</p>
-        </div>
-        <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
+    <div class="reel-container">
+      <div class="reel-wrapper">
+        <iframe
+          src="https://player.vimeo.com/video/1179071945?autoplay=0&loop=1&title=0&byline=0&portrait=0&color=f0ede6"
+          frameborder="0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen>
+        </iframe>
       </div>
     </div>
   </section>
