@@ -141,6 +141,9 @@
     /* HERO */
     .hero {
       height: 60vh;
+      min-height: 400px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       position: relative;
       overflow: hidden;
     }
@@ -154,25 +157,30 @@
       z-index: 0;
     }
 
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 6rem 2rem 4rem 8%;
+    }
+
+    .hero-right {
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+    }
+
     .hero-cutout {
       position: absolute;
       bottom: 0;
-      left: 50%;
-      transform: translateX(-15%);
-      height: 100%;
-      width: auto;
+      left: 0;
+      width: 100%;
+      height: 110%;
       object-fit: contain;
       object-position: bottom center;
       z-index: 1;
-    }
-
-    .hero-content {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      left: 30%;
-      max-width: 460px;
-      z-index: 2;
     }
 
     #hero { --grad-opacity: 0; }
@@ -563,9 +571,9 @@
       nav { padding: 1.25rem 1.5rem; }
       .nav-links { display: none; }
       .hero { grid-template-columns: 1fr; height: auto; min-height: 100vh; }
-      .hero-left { padding: 7rem 1.5rem 3rem; }
-      .hero-right { height: 50vw; }
-      .hero-cutout { height: 100%; width: 100%; object-position: center bottom; }
+      .hero-content { padding: 7rem 1.5rem 2rem; }
+      .hero-right { height: 60vw; }
+      .hero-cutout { height: 100%; }
       .section { padding: 3.5rem 1.5rem; }
       .projects-grid { grid-template-columns: 1fr; }
       .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -581,7 +589,6 @@
   <section class="hero" id="hero">
     <div class="hero-bg"></div>
     <div class="hero-gradient" id="heroGradient"></div>
-    <img src="images/hero.png" alt="Tomás Aldazabal" class="hero-cutout"/>
     <nav>
       <a href="#" class="nav-logo" style="text-decoration:none;">
         <img class="logo-dark" src="images/logo-white.png" alt="Tomás Aldazabal"/>
@@ -607,6 +614,9 @@
         Mi nombre es Tomás Aldazabal, pero podes llamarme Tom. Soy Artista 3D y Animador Técnico con más de 5 años de experiencia. Me especializo en la creación de historias, personajes y sistemas complejos en pipelines 3D. Impulsado por la pasión y la creatividad, aporto una visión integral a cada desafío, buscando siempre innovar en la narrativa visual y el diseño con identidad propia.
       </p>
       <a href="portfolio.html" class="hero-cta" data-es="Descubrí mis trabajos →" data-en="Discover my work →">Descubrí mis trabajos →</a>
+    </div>
+    <div class="hero-right">
+      <img src="images/hero.png" alt="Tomás Aldazabal" class="hero-cutout"/>
     </div>
   </section>
 
