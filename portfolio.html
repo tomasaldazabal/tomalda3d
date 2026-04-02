@@ -371,6 +371,24 @@
       .projects-grid { grid-template-columns: 1fr; }
       footer { padding: 1.25rem 1.5rem; flex-direction: column; gap: 0.5rem; }
     }
+
+    /* CONTACT */
+    .contact-section { padding: 5rem; border-top: 0.5px solid var(--border); max-width: 1100px; margin: 0 auto; }
+
+    .contact-big {
+      font-size: clamp(36px, 4vw, 56px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.05;
+      margin-bottom: 3rem;
+    }
+
+    .contact-big em { font-style: italic; font-weight: 400; color: var(--muted); }
+    .contact-links { display: flex; gap: 1.5rem; flex-wrap: nowrap; align-items: flex-start; }
+    .contact-link { display: flex; flex-direction: column; gap: 0.3rem; }
+    .contact-link-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+    .contact-link a { font-size: 14px; color: var(--text); text-decoration: none; border-bottom: 0.5px solid var(--border); padding-bottom: 2px; transition: border-color 0.2s; white-space: nowrap; display: flex; align-items: center; }
+    .contact-link a:hover { border-color: var(--text); }
   </style>
 </head>
 <body>
@@ -393,12 +411,12 @@
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
       </div>
     </nav>
-    <div style="padding-top: 3rem; display:flex; justify-content:space-between; align-items:flex-end; width:100%;">
+    <div style="padding-top: 3rem; display:flex; justify-content:space-between; align-items:flex-end; width:100%; padding-bottom: 0.75rem;">
       <div>
         <a href="index.html" class="back-link">← <span data-es="Volver" data-en="Back">Volver</span></a>
         <h1 class="page-title" data-es="Portfolio" data-en="Portfolio">Portfolio</h1>
       </div>
-      <a href="mailto:tomalda3d@gmail.com" style="font-family:'Syne Mono',monospace;font-size:13px;color:var(--muted);text-decoration:none;letter-spacing:0.08em;padding-bottom:0.5rem;border-bottom:0.5px solid var(--border);transition:color 0.2s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">tomalda3d@gmail.com</a>
+      <a href="https://linktr.ee/tomalda3d" target="_blank" style="font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--text);text-decoration:none;border:1.5px solid var(--border-hover);padding:0.7rem 1.4rem;border-radius:2px;transition:background 0.25s,border-color 0.25s,color 0.25s;white-space:nowrap;margin-bottom:0.6rem;" onmouseover="this.style.background='#CCFF00';this.style.borderColor='#CCFF00';this.style.color='#1a1a18'" onmouseout="this.style.background='';this.style.borderColor='';this.style.color=''"><span data-es="Sigue mi trabajo" data-en="Follow my work">Sigue mi trabajo</span></a>
     </div>
   </div>
 
@@ -539,8 +557,8 @@
       </div>
       <div class="contact-link">
         <span class="contact-link-label">LinkedIn</span>
-        <a href="https://www.linkedin.com/in/tomas-aldazabal/" target="_blank">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:6px;opacity:0.6"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>tomas-aldazabal
+        <a href="https://www.linkedin.com/in/linkedin/tomalda3d/" target="_blank">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:6px;opacity:0.6"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>linkedin/tomalda3d
         </a>
       </div>
       <div class="contact-link">
