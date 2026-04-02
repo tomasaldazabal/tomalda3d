@@ -76,7 +76,6 @@
       align-items: center;
       padding: 0.75rem 3rem 0.75rem 1.5rem;
       background: transparent !important;
-      grid-column: 1 / -1;
     }
 
     .nav-logo img {
@@ -88,19 +87,6 @@
     /* Always show black logo on light hero */
     .logo-dark { display: none !important; }
     .logo-light { display: block !important; }
-
-    /* Nav links dark on light background */
-    .nav-links a { color: rgba(13,13,13,0.6) !important; }
-    .nav-links a:hover { color: #1a1a18 !important; }
-    .lang-toggle { color: rgba(13,13,13,0.6) !important; border-color: rgba(13,13,13,0.3) !important; font-family: 'Syne', sans-serif; }
-    .lang-toggle:hover { color: #1a1a18 !important; border-color: #1a1a18 !important; }
-    .theme-toggle { border-color: rgba(13,13,13,0.3) !important; }
-
-    .nav-left {
-      display: flex;
-      align-items: center;
-      gap: 2.5rem;
-    }
 
     .nav-right {
       display: flex;
@@ -166,7 +152,7 @@
       height: 60vh;
       min-height: 400px;
       display: grid;
-      grid-template-columns: 55% 45%;
+      grid-template-columns: 50% 50%;
       position: relative;
       overflow: hidden;
     }
@@ -186,12 +172,12 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 6rem 2rem 4rem 44%;
+      padding: 6rem 2rem 4rem 15%;
     }
 
     .hero-right {
       position: relative;
-      z-index: 5;
+      z-index: 1;
       overflow: hidden;
       display: flex;
       align-items: flex-end;
@@ -199,19 +185,11 @@
     }
 
     .hero-cutout {
-      width: 100%;
-      height: 100%;
+      width: 80%;
+      height: 90%;
       object-fit: contain;
-      object-position: bottom left;
+      object-position: bottom center;
       display: block;
-    }
-
-    .hero-sub {
-      font-size: clamp(14px, 1.3vw, 18px);
-      color: rgba(13,13,13,0.65) !important;
-      line-height: 2.0;
-      margin-bottom: 1.5rem;
-      text-align: left;
     }
 
     #hero { --grad-opacity: 0; }
@@ -226,17 +204,6 @@
       pointer-events: none;
       opacity: var(--grad-opacity);
       transition: opacity 0.1s ease;
-    }
-
-    .hero-gradient {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 280px;
-      background: linear-gradient(to bottom, transparent, var(--bg));
-      z-index: 3;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.3s ease;
     }
 
     .hero-title {
@@ -294,6 +261,26 @@
       perspective: 1000px;
       perspective-origin: 50% 50%;
       overflow: hidden;
+    }
+
+    .carousel-3d::before,
+    .carousel-3d::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 20%;
+      z-index: 200;
+      pointer-events: none;
+    }
+
+    .carousel-3d::before {
+      left: 0;
+      background: linear-gradient(to right, var(--bg), transparent);
+    }
+
+    .carousel-3d::after {
+      right: 0;
+      background: linear-gradient(to left, var(--bg), transparent);
     }
 
     .carousel-3d-track {
@@ -661,7 +648,6 @@
   <!-- HERO -->
   <section class="hero" id="hero">
     <div class="hero-bg"></div>
-    <div class="hero-gradient" id="heroGradient"></div>
     <nav>
       <a href="#" class="nav-logo" style="text-decoration:none;">
         <img class="logo-dark" src="images/logo-white.png" alt="Tomás Aldazabal"/>
@@ -887,7 +873,7 @@
       const items = Array.from(track.querySelectorAll('.carousel-3d-item'));
       const total = items.length;
       const angleStep = 360 / total;
-      const radius = 520;
+      const radius = 600;
       let currentAngle = 0;
 
       function applyTransforms() {
@@ -895,9 +881,9 @@
           const angle = (i * angleStep - currentAngle) * (Math.PI / 180);
           const x = Math.sin(angle) * radius;
           const z = Math.cos(angle) * radius - radius;
-          const rotY = -i * angleStep + currentAngle;
-          const scale = Math.max(0.6, (z + radius) / (radius * 1.8));
-          const opacity = scale < 0.65 ? 0 : (scale - 0.65) / 0.35;
+          const rotY = Math.sin(angle) * -55;
+          const scale = Math.max(0.55, (z + radius) / (radius * 1.9));
+          const opacity = scale < 0.6 ? 0 : Math.min(1, (scale - 0.6) / 0.3);
           item.style.transform = `translateX(${x}px) translateZ(${z}px) rotateY(${rotY}deg) scale(${scale})`;
           item.style.opacity = opacity;
           item.style.zIndex = Math.round(scale * 100);
