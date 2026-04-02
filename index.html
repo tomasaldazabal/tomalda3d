@@ -43,19 +43,19 @@
       transition: background 0.35s ease, color 0.35s ease;
     }
 
-    /* NOISE OVERLAY — detrás de todo el contenido */
+    /* NOISE OVERLAY — encima del gradiente, detrás del contenido */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
-      z-index: 0;
+      z-index: 4;
       pointer-events: none;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-      background-size: 180px 180px;
+      background-size: 250px 250px;
       background-repeat: repeat;
       mix-blend-mode: soft-light;
-      opacity: 1;
-      animation: noiseMove 0.15s steps(1) infinite;
+      opacity: 0.85;
+      animation: noiseMove 0.4s steps(1) infinite;
     }
 
     @keyframes noiseMove {
@@ -182,7 +182,7 @@
 
     .hero-content {
       position: relative;
-      z-index: 2;
+      z-index: 5;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -191,7 +191,7 @@
 
     .hero-right {
       position: relative;
-      z-index: 2;
+      z-index: 5;
       overflow: hidden;
       display: flex;
       align-items: flex-end;
@@ -286,46 +286,40 @@
       color: #1a1a18 !important;
     }
 
-    /* CAROUSEL */
-    .carousel-track-wrapper {
-      perspective: 1200px;
-      overflow: hidden;
+    /* CAROUSEL COVERFLOW */
+    .carousel-3d {
+      position: relative;
       width: 100%;
+      height: 300px;
+      perspective: 1000px;
+      perspective-origin: 50% 50%;
+      overflow: hidden;
     }
 
-    .carousel-track {
-      display: flex;
-      gap: 1.5rem;
-      width: max-content;
-      animation: carouselScroll 30s linear infinite;
+    .carousel-3d-track {
+      position: absolute;
+      width: 100%;
+      height: 100%;
       transform-style: preserve-3d;
     }
 
-    .carousel-track:hover { animation-play-state: paused; }
-
-    @keyframes carouselScroll {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
-    .carousel-item {
-      flex-shrink: 0;
-      width: 320px;
-      height: 200px;
-      border-radius: 12px;
+    .carousel-3d-item {
+      position: absolute;
+      width: 280px;
+      height: 175px;
+      border-radius: 14px;
       overflow: hidden;
       display: block;
       text-decoration: none;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+      top: 50%;
+      left: 50%;
+      margin-top: -87px;
+      margin-left: -140px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+      will-change: transform, opacity;
     }
 
-    .carousel-item:hover {
-      transform: scale(1.05) translateY(-6px);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.5);
-    }
-
-    .carousel-item img {
+    .carousel-3d-item img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -610,7 +604,7 @@
       padding: 6rem 3rem;
       border-top: none;
       position: relative;
-      z-index: 2;
+      z-index: 5;
     }
 
     .reel-label {
@@ -716,26 +710,20 @@
     </div>
   </section>
 
-  <!-- CAROUSEL -->
-  <section style="padding: 4rem 0 5rem; overflow: hidden; background: var(--bg); position: relative; z-index: 2;">
-    <div class="carousel-track-wrapper">
-      <div class="carousel-track" id="carouselTrack">
-        <a href="disney-festival.html" class="carousel-item"><img src="images/disney-festival.jpg" alt="Disney Festival"/></a>
-        <a href="lemon.html" class="carousel-item"><img src="images/lemon.png" alt="Lemon QR"/></a>
-        <a href="portfolio.html" class="carousel-item"><img src="images/clubbers.png" alt="Clubbers"/></a>
-        <a href="portfolio.html" class="carousel-item"><img src="images/paramount.png" alt="Paramount+"/></a>
-        <a href="portfolio.html" class="carousel-item"><img src="images/braum.png" alt="Braum PP"/></a>
-        <a href="portfolio.html" class="carousel-item"><img src="images/mech.jpg" alt="Mech"/></a>
-        <a href="portfolio.html" class="carousel-item"><img src="images/aiatom.jpg" alt="AIATOM"/></a>
-        <a href="portfolio.html" class="carousel-item"><img src="images/alan.png" alt="Alan"/></a>
-        <a href="portfolio.html" class="carousel-item"><img src="images/wreckleague.png" alt="Wreck League"/></a>
-        <a href="portfolio.html" class="carousel-item"><img src="images/pac-man.png" alt="PAC-MAN"/></a>
-        <!-- duplicates for seamless loop -->
-        <a href="disney-festival.html" class="carousel-item"><img src="images/disney-festival.jpg" alt="Disney Festival"/></a>
-        <a href="lemon.html" class="carousel-item"><img src="images/lemon.png" alt="Lemon QR"/></a>
-        <a href="portfolio.html" class="carousel-item"><img src="images/clubbers.png" alt="Clubbers"/></a>
-        <a href="portfolio.html" class="carousel-item"><img src="images/paramount.png" alt="Paramount+"/></a>
-        <a href="portfolio.html" class="carousel-item"><img src="images/braum.png" alt="Braum PP"/></a>
+  <!-- CAROUSEL 3D -->
+  <section style="padding: 4rem 0 5rem; overflow: hidden; background: transparent; position: relative; z-index: 5;">
+    <div class="carousel-3d">
+      <div class="carousel-3d-track" id="carousel3d">
+        <a href="disney-festival.html" class="carousel-3d-item"><img src="images/disney-festival.jpg" alt="Disney Festival"/></a>
+        <a href="lemon.html" class="carousel-3d-item"><img src="images/lemon.png" alt="Lemon QR"/></a>
+        <a href="portfolio.html" class="carousel-3d-item"><img src="images/clubbers.png" alt="Clubbers"/></a>
+        <a href="portfolio.html" class="carousel-3d-item"><img src="images/paramount.png" alt="Paramount+"/></a>
+        <a href="portfolio.html" class="carousel-3d-item"><img src="images/braum.png" alt="Braum PP"/></a>
+        <a href="portfolio.html" class="carousel-3d-item"><img src="images/mech.jpg" alt="Mech"/></a>
+        <a href="portfolio.html" class="carousel-3d-item"><img src="images/aiatom.jpg" alt="AIATOM"/></a>
+        <a href="portfolio.html" class="carousel-3d-item"><img src="images/alan.png" alt="Alan"/></a>
+        <a href="portfolio.html" class="carousel-3d-item"><img src="images/wreckleague.png" alt="Wreck League"/></a>
+        <a href="portfolio.html" class="carousel-3d-item"><img src="images/pac-man.png" alt="PAC-MAN"/></a>
       </div>
     </div>
   </section>
@@ -892,6 +880,38 @@
       const progress = Math.min(scrollY / (heroHeight * 0.35), 1);
       hero.style.setProperty('--grad-opacity', progress);
     }, { passive: true });
+    // 3D CAROUSEL — rueda
+    (function() {
+      const track = document.getElementById('carousel3d');
+      if (!track) return;
+      const items = Array.from(track.querySelectorAll('.carousel-3d-item'));
+      const total = items.length;
+      const angleStep = 360 / total;
+      const radius = 520;
+      let currentAngle = 0;
+
+      function applyTransforms() {
+        items.forEach((item, i) => {
+          const angle = (i * angleStep - currentAngle) * (Math.PI / 180);
+          const x = Math.sin(angle) * radius;
+          const z = Math.cos(angle) * radius - radius;
+          const rotY = -i * angleStep + currentAngle;
+          const scale = Math.max(0.6, (z + radius) / (radius * 1.8));
+          const opacity = scale < 0.65 ? 0 : (scale - 0.65) / 0.35;
+          item.style.transform = `translateX(${x}px) translateZ(${z}px) rotateY(${rotY}deg) scale(${scale})`;
+          item.style.opacity = opacity;
+          item.style.zIndex = Math.round(scale * 100);
+          item.style.transition = 'transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.7s ease';
+        });
+      }
+
+      applyTransforms();
+      setInterval(() => {
+        currentAngle = (currentAngle + angleStep) % 360;
+        applyTransforms();
+      }, 2500);
+    })();
+
     const fills = document.querySelectorAll('.skill-fill');
 
     function animateBars() {
