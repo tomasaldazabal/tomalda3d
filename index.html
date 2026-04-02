@@ -179,7 +179,7 @@
     .hero-right {
       position: absolute;
       bottom: 0;
-      right: 15%;
+      right: 35%;
       z-index: 1;
       width: 20%;
       height: 100%;
@@ -257,60 +257,65 @@
       color: #1a1a18 !important;
     }
 
-    /* CAROUSEL COVERFLOW */
-    .carousel-3d {
-      position: relative;
-      width: 100%;
-      height: 300px;
-      perspective: 1000px;
-      perspective-origin: 50% 50%;
+    /* CAROUSEL — auto-scroll strip */
+    .carousel-strip {
       overflow: hidden;
+      width: 100%;
+      position: relative;
     }
 
-    .carousel-3d::before,
-    .carousel-3d::after {
+    .carousel-strip::before,
+    .carousel-strip::after {
       content: '';
       position: absolute;
       top: 0; bottom: 0;
-      width: 20%;
-      z-index: 200;
+      width: 15%;
+      z-index: 10;
       pointer-events: none;
     }
 
-    .carousel-3d::before {
+    .carousel-strip::before {
       left: 0;
       background: linear-gradient(to right, var(--bg), transparent);
     }
 
-    .carousel-3d::after {
+    .carousel-strip::after {
       right: 0;
       background: linear-gradient(to left, var(--bg), transparent);
     }
 
-    .carousel-3d-track {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      transform-style: preserve-3d;
+    .carousel-strip-track {
+      display: flex;
+      gap: 1.2rem;
+      width: max-content;
+      animation: stripScroll 35s linear infinite;
     }
 
-    .carousel-3d-item {
-      position: absolute;
-      width: 280px;
-      height: 175px;
-      border-radius: 14px;
+    .carousel-strip-track:hover { animation-play-state: paused; }
+
+    @keyframes stripScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .carousel-strip-item {
+      flex-shrink: 0;
+      width: 300px;
+      height: 188px;
+      border-radius: 12px;
       overflow: hidden;
       display: block;
       text-decoration: none;
-      top: 50%;
-      left: 50%;
-      margin-top: -87px;
-      margin-left: -140px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-      will-change: transform, opacity;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
     }
 
-    .carousel-3d-item img {
+    .carousel-strip-item:hover {
+      transform: scale(1.04) translateY(-4px);
+      box-shadow: 0 16px 50px rgba(0,0,0,0.6);
+    }
+
+    .carousel-strip-item img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -702,20 +707,31 @@
     </div>
   </section>
 
-  <!-- CAROUSEL 3D -->
-  <section style="padding: 4rem 0 5rem; overflow: hidden; background: transparent; position: relative; z-index: 5;">
-    <div class="carousel-3d">
-      <div class="carousel-3d-track" id="carousel3d">
-        <a href="disney-festival.html" class="carousel-3d-item"><img src="images/disney-festival.jpg" alt="Disney Festival"/></a>
-        <a href="lemon.html" class="carousel-3d-item"><img src="images/lemon.png" alt="Lemon QR"/></a>
-        <a href="portfolio.html" class="carousel-3d-item"><img src="images/clubbers.png" alt="Clubbers"/></a>
-        <a href="portfolio.html" class="carousel-3d-item"><img src="images/paramount.png" alt="Paramount+"/></a>
-        <a href="portfolio.html" class="carousel-3d-item"><img src="images/braum.png" alt="Braum PP"/></a>
-        <a href="portfolio.html" class="carousel-3d-item"><img src="images/mech.jpg" alt="Mech"/></a>
-        <a href="portfolio.html" class="carousel-3d-item"><img src="images/aiatom.jpg" alt="AIATOM"/></a>
-        <a href="portfolio.html" class="carousel-3d-item"><img src="images/alan.png" alt="Alan"/></a>
-        <a href="portfolio.html" class="carousel-3d-item"><img src="images/wreckleague.png" alt="Wreck League"/></a>
-        <a href="portfolio.html" class="carousel-3d-item"><img src="images/pac-man.png" alt="PAC-MAN"/></a>
+  <!-- CAROUSEL -->
+  <section style="padding: 0 0 6rem; overflow: hidden; background: transparent; position: relative; z-index: 5;">
+    <div class="carousel-strip">
+      <div class="carousel-strip-track">
+        <a href="disney-festival.html" class="carousel-strip-item"><img src="images/disney-festival.jpg" alt="Disney Festival"/></a>
+        <a href="lemon.html" class="carousel-strip-item"><img src="images/lemon.png" alt="Lemon QR"/></a>
+        <a href="portfolio.html" class="carousel-strip-item"><img src="images/clubbers.png" alt="Clubbers"/></a>
+        <a href="portfolio.html" class="carousel-strip-item"><img src="images/paramount.png" alt="Paramount+"/></a>
+        <a href="portfolio.html" class="carousel-strip-item"><img src="images/braum.png" alt="Braum PP"/></a>
+        <a href="portfolio.html" class="carousel-strip-item"><img src="images/mech.jpg" alt="Mech"/></a>
+        <a href="portfolio.html" class="carousel-strip-item"><img src="images/aiatom.jpg" alt="AIATOM"/></a>
+        <a href="portfolio.html" class="carousel-strip-item"><img src="images/alan.png" alt="Alan"/></a>
+        <a href="portfolio.html" class="carousel-strip-item"><img src="images/wreckleague.png" alt="Wreck League"/></a>
+        <a href="portfolio.html" class="carousel-strip-item"><img src="images/pac-man.png" alt="PAC-MAN"/></a>
+        <!-- duplicates for seamless loop -->
+        <a href="disney-festival.html" class="carousel-strip-item"><img src="images/disney-festival.jpg" alt="Disney Festival"/></a>
+        <a href="lemon.html" class="carousel-strip-item"><img src="images/lemon.png" alt="Lemon QR"/></a>
+        <a href="portfolio.html" class="carousel-strip-item"><img src="images/clubbers.png" alt="Clubbers"/></a>
+        <a href="portfolio.html" class="carousel-strip-item"><img src="images/paramount.png" alt="Paramount+"/></a>
+        <a href="portfolio.html" class="carousel-strip-item"><img src="images/braum.png" alt="Braum PP"/></a>
+        <a href="portfolio.html" class="carousel-strip-item"><img src="images/mech.jpg" alt="Mech"/></a>
+        <a href="portfolio.html" class="carousel-strip-item"><img src="images/aiatom.jpg" alt="AIATOM"/></a>
+        <a href="portfolio.html" class="carousel-strip-item"><img src="images/alan.png" alt="Alan"/></a>
+        <a href="portfolio.html" class="carousel-strip-item"><img src="images/wreckleague.png" alt="Wreck League"/></a>
+        <a href="portfolio.html" class="carousel-strip-item"><img src="images/pac-man.png" alt="PAC-MAN"/></a>
       </div>
     </div>
   </section>
@@ -792,10 +808,8 @@
   </section>
 
   <!-- CONTACT -->
-  <div class="contact-section" id="contact">
-    <h2 class="contact-big">
-      <span data-es="Creemos" data-en="Let's create">Creemos</span> <em><span data-es="juntos" data-en="together">juntos</span></em>
-    </h2>
+  <div style="max-width:1200px;margin:0 auto;padding:4rem 4rem 5rem;border-top:0.5px solid var(--border);">
+    <h2 style="font-size:clamp(36px,5vw,64px);font-weight:800;letter-spacing:-2px;line-height:1;margin-bottom:3rem;" data-es="Creemos <em style='font-style:italic;font-weight:400;color:var(--muted)'>juntos</em>" data-en="Let's create <em style='font-style:italic;font-weight:400;color:var(--muted)'>together</em>">Creemos <em style="font-style:italic;font-weight:400;color:var(--muted)">juntos</em></h2>
     <div class="contact-links">
       <div class="contact-link">
         <span class="contact-link-label">Email</span>
@@ -877,37 +891,6 @@
       const progress = Math.min(scrollY / (heroHeight * 0.35), 1);
       hero.style.setProperty('--grad-opacity', progress);
     }, { passive: true });
-    // 3D CAROUSEL — rueda
-    (function() {
-      const track = document.getElementById('carousel3d');
-      if (!track) return;
-      const items = Array.from(track.querySelectorAll('.carousel-3d-item'));
-      const total = items.length;
-      const angleStep = 360 / total;
-      const radius = 600;
-      let currentAngle = 0;
-
-      function applyTransforms() {
-        items.forEach((item, i) => {
-          const angle = (i * angleStep - currentAngle) * (Math.PI / 180);
-          const x = Math.sin(angle) * radius;
-          const z = Math.cos(angle) * radius - radius;
-          const rotY = Math.sin(angle) * -55;
-          const scale = Math.max(0.55, (z + radius) / (radius * 1.9));
-          const opacity = scale < 0.6 ? 0 : Math.min(1, (scale - 0.6) / 0.3);
-          item.style.transform = `translateX(${x}px) translateZ(${z}px) rotateY(${rotY}deg) scale(${scale})`;
-          item.style.opacity = opacity;
-          item.style.zIndex = Math.round(scale * 100);
-          item.style.transition = 'transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.7s ease';
-        });
-      }
-
-      applyTransforms();
-      setInterval(() => {
-        currentAngle = (currentAngle + angleStep) % 360;
-        applyTransforms();
-      }, 2500);
-    })();
 
     const fills = document.querySelectorAll('.skill-fill');
 
