@@ -33,6 +33,29 @@
     }
 
     html { scroll-behavior: smooth; }
+    /* NOISE OVERLAY */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 4;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 250px 250px;
+      background-repeat: repeat;
+      mix-blend-mode: soft-light;
+      opacity: 0.85;
+      animation: noiseMove 0.4s steps(1) infinite;
+    }
+
+    @keyframes noiseMove {
+      0%   { background-position: 0 0; }
+      25%  { background-position: -30px 15px; }
+      50%  { background-position: 15px -20px; }
+      75%  { background-position: -15px 25px; }
+      100% { background-position: 20px -10px; }
+    }
+
 
     body {
       font-family: 'Syne', sans-serif;
@@ -205,6 +228,8 @@
 
     .project-card {
       position: relative;
+      z-index: 5;
+      position: relative;
       overflow: hidden;
       cursor: pointer;
       aspect-ratio: 16/9;
@@ -368,7 +393,7 @@
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
       </div>
     </nav>
-    <div style="padding-top: 7rem; display:flex; justify-content:space-between; align-items:flex-end; width:100%;">
+    <div style="padding-top: 3rem; display:flex; justify-content:space-between; align-items:flex-end; width:100%;">
       <div>
         <a href="index.html" class="back-link">← <span data-es="Volver" data-en="Back">Volver</span></a>
         <h1 class="page-title" data-es="Portfolio" data-en="Portfolio">Portfolio</h1>
@@ -492,23 +517,37 @@
   </div>
 
   <div style="max-width:1200px;margin:0 auto;padding:4rem 4rem 5rem;border-top:0.5px solid var(--border);">
-    <h2 style="font-size:clamp(36px,5vw,64px);font-weight:800;letter-spacing:-2px;line-height:1;margin-bottom:3rem;" data-es="Creemos <em style='font-style:italic;font-weight:400;color:var(--muted)'>juntos</em>" data-en="Let's build <em style='font-style:italic;font-weight:400;color:var(--muted)'>something great</em>">Creemos <em style="font-style:italic;font-weight:400;color:var(--muted)">juntos</em></h2>
-    <div style="display:flex;gap:3rem;flex-wrap:wrap;">
-      <div style="display:flex;flex-direction:column;gap:0.3rem;">
-        <span style="font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted)">Email</span>
-        <a href="mailto:tomalda3d@gmail.com" style="font-size:16px;color:var(--text);text-decoration:none;border-bottom:0.5px solid var(--border);padding-bottom:2px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--text)'" onmouseout="this.style.borderColor='var(--border)'"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:6px;opacity:0.6"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>tomalda3d@gmail.com</a>
+    <h2 style="font-size:clamp(36px,5vw,64px);font-weight:800;letter-spacing:-2px;line-height:1;margin-bottom:3rem;" data-es="Creemos <em style='font-style:italic;font-weight:400;color:var(--muted)'>juntos</em>" data-en="Let's create <em style='font-style:italic;font-weight:400;color:var(--muted)'>together</em>">Creemos <em style="font-style:italic;font-weight:400;color:var(--muted)">juntos</em></h2>
+    <div class="contact-links">
+      <div class="contact-link">
+        <span class="contact-link-label">Email</span>
+        <a href="mailto:tomalda3d@gmail.com">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:6px;opacity:0.6"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>tomalda3d@gmail.com
+        </a>
       </div>
-      <div style="display:flex;flex-direction:column;gap:0.3rem;">
-        <span style="font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted)">ArtStation</span>
-        <a href="https://artstation.com/tomalda3d" target="_blank" style="font-size:16px;color:var(--text);text-decoration:none;border-bottom:0.5px solid var(--border);padding-bottom:2px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--text)'" onmouseout="this.style.borderColor='var(--border)'"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:6px;opacity:0.6"><path d="M0 17.723l2.027 3.505h.001a2.424 2.424 0 0 0 2.164 1.333h13.457l-2.792-4.838H0zm24 .025c0-.484-.143-.935-.388-1.314L15.728 2.728a2.424 2.424 0 0 0-2.164-1.333H9.419L21.598 22.54l1.92-3.325c.378-.637.482-.919.482-1.467zm-11.129-3.462L7.428 4.858l-5.444 9.428h10.887z"/></svg>artstation.com/tomalda3d</a>
+      <div class="contact-link">
+        <span class="contact-link-label">ArtStation</span>
+        <a href="https://artstation.com/tomalda3d" target="_blank">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:6px;opacity:0.6"><path d="M0 17.723l2.027 3.505h.001a2.424 2.424 0 0 0 2.164 1.333h13.457l-2.792-4.838H0zm24 .025c0-.484-.143-.935-.388-1.314L15.728 2.728a2.424 2.424 0 0 0-2.164-1.333H9.419L21.598 22.54l1.92-3.325c.378-.637.482-.919.482-1.467zm-11.129-3.462L7.428 4.858l-5.444 9.428h10.887z"/></svg>artstation.com/tomalda3d
+        </a>
       </div>
-      <div style="display:flex;flex-direction:column;gap:0.3rem;">
-        <span style="font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted)">Instagram</span>
-        <a href="https://instagram.com/tomalda3d" target="_blank" style="font-size:16px;color:var(--text);text-decoration:none;border-bottom:0.5px solid var(--border);padding-bottom:2px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--text)'" onmouseout="this.style.borderColor='var(--border)'"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:6px;opacity:0.6"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>@tomalda3d</a>
+      <div class="contact-link">
+        <span class="contact-link-label">Instagram</span>
+        <a href="https://instagram.com/tomalda3d" target="_blank">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:6px;opacity:0.6"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>@tomalda3d
+        </a>
       </div>
-      <div style="display:flex;flex-direction:column;gap:0.3rem;">
-        <span style="font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted)">LinkedIn</span>
-        <a href="https://www.linkedin.com/in/tomas-aldazabal/" target="_blank" style="font-size:16px;color:var(--text);text-decoration:none;border-bottom:0.5px solid var(--border);padding-bottom:2px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--text)'" onmouseout="this.style.borderColor='var(--border)'"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:6px;opacity:0.6"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>tomas-aldazabal</a>
+      <div class="contact-link">
+        <span class="contact-link-label">LinkedIn</span>
+        <a href="https://www.linkedin.com/in/tomas-aldazabal/" target="_blank">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:6px;opacity:0.6"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>tomas-aldazabal
+        </a>
+      </div>
+      <div class="contact-link">
+        <span class="contact-link-label">Linktree</span>
+        <a href="https://linktr.ee/tomalda3d" target="_blank">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:6px;opacity:0.6"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>linktr.ee/tomalda3d
+        </a>
       </div>
     </div>
   </div>
