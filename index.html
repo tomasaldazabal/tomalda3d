@@ -260,31 +260,14 @@
     /* CAROUSEL — coverflow */
     .carousel-cf {
       width: 100%;
-      height: 320px;
+      height: 387px;
       position: relative;
       overflow: hidden;
       perspective: 1200px;
     }
 
     .carousel-cf::before,
-    .carousel-cf::after {
-      content: '';
-      position: absolute;
-      top: 0; bottom: 0;
-      width: 20%;
-      z-index: 10;
-      pointer-events: none;
-    }
-
-    .carousel-cf::before {
-      left: 0;
-      background: linear-gradient(to right, var(--bg) 30%, transparent);
-    }
-
-    .carousel-cf::after {
-      right: 0;
-      background: linear-gradient(to left, var(--bg) 30%, transparent);
-    }
+    .carousel-cf::after { display: none; }
 
     .carousel-cf-track {
       position: absolute;
@@ -298,14 +281,14 @@
 
     .carousel-cf-item {
       position: absolute;
-      width: 320px;
-      height: 200px;
+      width: 387px;
+      height: 242px;
       border-radius: 14px;
       overflow: hidden;
       display: block;
       text-decoration: none;
-      top: -100px;
-      left: -160px;
+      top: -121px;
+      left: -193px;
       box-shadow: 0 20px 60px rgba(0,0,0,0.5);
       will-change: transform, opacity;
       cursor: pointer;
@@ -698,7 +681,7 @@
   </section>
 
   <!-- CAROUSEL -->
-  <section style="padding: 0 0 6rem; overflow: hidden; background: transparent; position: relative; z-index: 5;">
+  <section style="padding: 5.5rem 0 6rem; overflow: hidden; background: transparent; position: relative; z-index: 5;">
     <div class="carousel-cf">
       <div class="carousel-cf-track" id="cfTrack">
         <a href="disney-festival.html" class="carousel-cf-item"><img src="images/disney-festival.jpg" alt="Disney Festival"/></a>
@@ -716,7 +699,6 @@
   </section>
 
   <!-- ABOUT -->
-  <hr class="divider"/>
   <section class="section" id="about">
     <div class="about-grid">
       <div>
@@ -787,7 +769,7 @@
   </section>
 
   <!-- CONTACT -->
-  <div style="max-width:1200px;margin:0 auto;padding:4rem 4rem 5rem;border-top:0.5px solid var(--border);">
+  <div id="contact" style="max-width:1200px;margin:0 auto;padding:4rem 4rem 5rem;border-top:0.5px solid var(--border);">
     <h2 style="font-size:clamp(36px,5vw,64px);font-weight:800;letter-spacing:-2px;line-height:1;margin-bottom:3rem;" data-es="Creemos <em style='font-style:italic;font-weight:400;color:var(--muted)'>juntos</em>" data-en="Let's create <em style='font-style:italic;font-weight:400;color:var(--muted)'>together</em>">Creemos <em style="font-style:italic;font-weight:400;color:var(--muted)">juntos</em></h2>
     <div class="contact-links">
       <div class="contact-link">
@@ -829,6 +811,7 @@
   </footer>
 
   <script>
+
     // THEME
     const themeToggle = document.getElementById('themeToggle');
     const html = document.documentElement;
@@ -877,14 +860,12 @@
       if (!track) return;
       const items = Array.from(track.querySelectorAll('.carousel-cf-item'));
       const total = items.length;
-      const GAP = 340;
+      const GAP = 407;
       let current = 0;
-      let isAnimating = false;
 
       function render() {
         items.forEach((item, i) => {
           let offset = i - current;
-          // wrap
           if (offset > total / 2) offset -= total;
           if (offset < -total / 2) offset += total;
 
@@ -892,7 +873,7 @@
           const tz = -Math.abs(offset) * 120;
           const ry = offset === 0 ? 0 : offset > 0 ? -42 : 42;
           const scale = offset === 0 ? 1 : Math.max(0.7, 1 - Math.abs(offset) * 0.1);
-          const opacity = Math.abs(offset) > 3 ? 0 : Math.max(0.3, 1 - Math.abs(offset) * 0.2);
+          const opacity = Math.abs(offset) > 3 ? 0 : Math.max(0, 1 - Math.abs(offset) * 0.4);
 
           item.style.transform = `translateX(${tx}px) translateZ(${tz}px) rotateY(${ry}deg) scale(${scale})`;
           item.style.opacity = opacity;
@@ -903,16 +884,14 @@
 
       render();
 
-      // Auto advance
-      const timer = setInterval(() => {
+      setInterval(() => {
         current = (current + 1) % total;
         render();
       }, 2800);
 
-      // Click to navigate
       items.forEach((item, i) => {
         item.addEventListener('click', (e) => {
-          const offset = i - current;
+          let offset = i - current;
           const norm = offset > total/2 ? offset - total : offset < -total/2 ? offset + total : offset;
           if (norm !== 0) {
             e.preventDefault();
