@@ -173,7 +173,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      max-width: 500px;
+      max-width: clamp(280px, 32vw, 540px);
     }
 
     .hero-right {
@@ -181,7 +181,7 @@
       bottom: 0;
       right: 27%;
       z-index: 1;
-      width: 20%;
+      width: clamp(120px, 18vw, 320px);
       height: 100%;
       display: flex;
       align-items: flex-end;
@@ -202,7 +202,7 @@
       content: '';
       position: absolute;
       bottom: 0; left: 0; right: 0;
-      height: 320px;
+      height: clamp(150px, 25vh, 320px);
       background: linear-gradient(to bottom, transparent, var(--bg));
       z-index: 3;
       pointer-events: none;
@@ -211,12 +211,13 @@
     }
 
     .hero-title {
-      font-size: clamp(29px, 3.8vw, 53px);
+      font-size: clamp(22px, 3.8vw, 53px);
       font-weight: 800;
       line-height: 0.9;
       letter-spacing: -2px;
       margin-bottom: 1.5rem;
       color: #1a1a18 !important;
+      white-space: nowrap;
     }
 
     .hero-title em {
@@ -226,7 +227,7 @@
     }
 
     .hero-sub {
-      font-size: clamp(14px, 1.3vw, 18px);
+      font-size: clamp(11px, 1.1vw, 16px);
       color: rgba(13,13,13,0.65) !important;
       line-height: 2.0;
       margin-bottom: 1.5rem;
@@ -237,7 +238,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.75rem;
-      font-size: 11px;
+      font-size: clamp(9px, 0.8vw, 11px);
       font-weight: 700;
       letter-spacing: 0.16em;
       text-transform: uppercase;
@@ -260,10 +261,10 @@
     /* CAROUSEL — coverflow */
     .carousel-cf {
       width: 100%;
-      height: 387px;
+      height: clamp(200px, 28vw, 420px);
       position: relative;
       overflow: hidden;
-      perspective: 1200px;
+      perspective: clamp(600px, 80vw, 1400px);
     }
 
     .carousel-cf::before,
@@ -281,14 +282,16 @@
 
     .carousel-cf-item {
       position: absolute;
-      width: 387px;
-      height: 242px;
+      width: clamp(200px, 28vw, 420px);
+      height: clamp(125px, 17.5vw, 262px);
       border-radius: 14px;
       overflow: hidden;
       display: block;
       text-decoration: none;
-      top: -121px;
-      left: -193px;
+      top: 50%;
+      left: 50%;
+      margin-top: -8.75vw;
+      margin-left: -14vw;
       box-shadow: 0 20px 60px rgba(0,0,0,0.5);
       will-change: transform, opacity;
       cursor: pointer;
@@ -342,7 +345,7 @@
     }
 
     /* SECTIONS */
-    .section { padding: 5rem 0; }
+    .section { padding: clamp(3rem, 5vw, 6rem) 0; }
 
     .section-inner {
       max-width: 1100px;
@@ -860,7 +863,7 @@
       if (!track) return;
       const items = Array.from(track.querySelectorAll('.carousel-cf-item'));
       const total = items.length;
-      const GAP = 407;
+      const GAP = window.innerWidth * 0.3;
       let current = 0;
 
       function render() {
