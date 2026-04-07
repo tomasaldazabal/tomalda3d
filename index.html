@@ -172,7 +172,8 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 6rem clamp(1rem, 2vw, 3rem) 4rem clamp(2rem, 8vw, 10rem);
+      padding: 6rem 4% 4rem 8%;
+      align-items: flex-start;
     }
 
     .hero-right {
@@ -180,15 +181,16 @@
       z-index: 1;
       display: flex;
       align-items: flex-end;
-      justify-content: center;
+      justify-content: flex-start;
       overflow: hidden;
+      padding-left: 0;
     }
 
     .hero-cutout {
       width: clamp(206px, 85%, 549px);
       height: 100%;
       object-fit: contain;
-      object-position: bottom center;
+      object-position: bottom left;
       display: block;
     }
 
@@ -613,10 +615,10 @@
     @media (max-width: 700px) {
       nav { padding: 1.25rem 1.5rem; }
       .nav-links { display: none; }
-      .hero { grid-template-columns: 1fr; height: auto; min-height: 100vh; }
-      .hero-content { padding: 7rem 1.5rem 2rem; }
-      .hero-right { height: 60vw; }
-      .hero-cutout { width: 80%; }
+      .hero { grid-template-columns: 1fr; height: auto; min-height: 100svh; }
+      .hero-content { padding: 7rem 1.5rem 1rem; align-items: flex-start; }
+      .hero-right { height: 55vw; justify-content: center; }
+      .hero-cutout { width: 70%; object-position: bottom center; }
       .section { padding: 3.5rem 1.5rem; }
       .projects-grid { grid-template-columns: 1fr; }
       .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
