@@ -987,32 +987,31 @@
     function updateLogo() {
       if (!heroEl || !logoDark || !logoLight) return;
       const theme = html.getAttribute('data-theme');
-      const heroBottom = heroEl.offsetTop + heroEl.offsetHeight;
-      const pastHero = window.scrollY > heroBottom * 0.7;
-
-      logoDark.style.transition = 'opacity 0.5s ease';
-      logoLight.style.transition = 'opacity 0.5s ease';
 
       if (theme === 'light') {
-        if (pastHero) {
-          logoDark.style.display = 'none';
-          logoLight.style.display = 'block';
-          logoLight.style.opacity = '1';
-        } else {
-          logoLight.style.display = 'none';
-          logoDark.style.display = 'block';
-          logoDark.style.opacity = '1';
-        }
+        // Light mode: always show black logo (logo-light), no change on scroll
+        logoDark.style.display = 'none';
+        logoDark.style.opacity = '0';
+        logoLight.style.display = 'block';
+        logoLight.style.opacity = '1';
+        return;
+      }
+
+      // Dark mode: black logo in hero → white logo after hero
+      const reelEl = document.getElementById('reel');
+      const trigger = reelEl ? reelEl.offsetTop : heroEl.offsetTop + heroEl.offsetHeight;
+      const pastHero = window.scrollY > trigger * 0.85;
+
+      if (pastHero) {
+        // Show white logo
+        logoLight.style.display = 'none';
+        logoDark.style.display = 'block';
+        logoDark.style.opacity = '1';
       } else {
-        if (pastHero) {
-          logoLight.style.display = 'none';
-          logoDark.style.display = 'block';
-          logoDark.style.opacity = '1';
-        } else {
-          logoDark.style.display = 'none';
-          logoLight.style.display = 'block';
-          logoLight.style.opacity = '1';
-        }
+        // Show black logo (logo-light = black)
+        logoDark.style.display = 'none';
+        logoLight.style.display = 'block';
+        logoLight.style.opacity = '1';
       }
     }
 
