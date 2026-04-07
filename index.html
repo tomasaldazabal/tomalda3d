@@ -74,7 +74,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.75rem 3rem 0.75rem 1.5rem;
+      padding: 0.75rem 2rem 0.75rem 1.5rem;
       background: transparent !important;
     }
 
@@ -91,21 +91,93 @@
     .nav-right {
       display: flex;
       align-items: center;
-      gap: 1.5rem;
+      gap: 1rem;
     }
 
-    .nav-links {
+    /* HAMBURGER */
+    .hamburger {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.4rem;
       display: flex;
-      gap: 2rem;
-      list-style: none;
-      font-size: 12px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: rgba(13,13,13,0.6);
+      flex-direction: column;
+      gap: 5px;
+      z-index: 1100;
+      position: relative;
     }
 
-    .nav-links a { color: inherit; text-decoration: none; transition: color 0.2s; }
-    .nav-links a:hover { color: #1a1a18; }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: #1a1a18;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      transform-origin: center;
+    }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* DRAWER */
+    .nav-drawer {
+      position: fixed;
+      top: 0; right: 0;
+      width: clamp(220px, 30vw, 340px);
+      height: 100vh;
+      background: var(--bg);
+      z-index: 1050;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4rem 3rem;
+      border-left: 0.5px solid var(--border);
+    }
+
+    .nav-drawer.open { transform: translateX(0); }
+
+    .nav-drawer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .nav-drawer-links a {
+      font-size: clamp(20px, 3vw, 28px);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-drawer-links a:hover { color: #CCFF00; }
+
+    .nav-drawer-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* OVERLAY */
+    .nav-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 1040;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .nav-overlay.open { opacity: 1; pointer-events: all; }
+
+    .nav-links { display: none; }
 
     .lang-toggle {
       font-size: 13px;
@@ -172,7 +244,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 6rem 4% 4rem 30%;
+      padding: 6rem 4% 4rem 39%;
     }
 
     .hero-right {
@@ -471,7 +543,7 @@
     }
 
     .about-title em { font-style: italic; font-weight: 400; color: var(--muted); }
-    .about-text { font-size: 19px; line-height: 2.0; color: var(--muted); margin-bottom: 1.5rem; }
+    .about-text { font-size: 19px; line-height: 2.0; color: var(--muted); margin-bottom: 1.5rem; text-align: justify; }
     .edu-label { font-size: 14px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; margin-top: 2rem; }
     .edu-title { font-size: 19px; color: var(--text); margin-bottom: 0.25rem; }
     .edu-inst { font-size: 17px; color: var(--muted); margin-bottom: 1.25rem; }
@@ -633,21 +705,29 @@
   <section class="hero" id="hero">
     <div class="hero-bg"></div>
     <nav>
-      <a href="#" class="nav-logo" style="text-decoration:none;">
+      <a href="index.html" class="nav-logo" style="text-decoration:none;">
         <img class="logo-dark" src="images/logo-white.png" alt="Tomás Aldazabal"/>
         <img class="logo-light" src="images/logo-black.png" alt="Tomás Aldazabal"/>
       </a>
       <div class="nav-right">
-        <ul class="nav-links">
-          <li><a href="portfolio.html" data-es="Portfolio" data-en="Portfolio">Portfolio</a></li>
-          <li><a href="#reel" data-es="Reel" data-en="Reel">Reel</a></li>
-          <li><a href="#about" data-es="Sobre mí" data-en="About">Sobre mí</a></li>
-          <li><a href="#contact" data-es="Contacto" data-en="Contact">Contacto</a></li>
-        </ul>
         <button class="lang-toggle" id="langToggle">EN</button>
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+        <button class="hamburger" id="hamburger" aria-label="Menú">
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </nav>
+
+    <!-- DRAWER -->
+    <div class="nav-overlay" id="navOverlay"></div>
+    <div class="nav-drawer" id="navDrawer">
+      <ul class="nav-drawer-links">
+        <li><a href="portfolio.html" data-es="Portfolio" data-en="Portfolio">Portfolio</a></li>
+        <li><a href="#reel" data-es="Reel" data-en="Reel">Reel</a></li>
+        <li><a href="#about" data-es="Sobre mí" data-en="About">Sobre mí</a></li>
+        <li><a href="#contact" data-es="Contacto" data-en="Contact">Contacto</a></li>
+      </ul>
+    </div>
     <div class="hero-content">
         <h1 class="hero-title" data-es="Hola mundo" data-en="Hello world" style="white-space:nowrap;">Hola mundo</h1>
       <p class="hero-sub"
@@ -811,6 +891,22 @@
   </footer>
 
   <script>
+
+    // HAMBURGER MENU
+    const hamburger = document.getElementById('hamburger');
+    const navDrawer = document.getElementById('navDrawer');
+    const navOverlay = document.getElementById('navOverlay');
+
+    function toggleMenu(open) {
+      hamburger.classList.toggle('open', open);
+      navDrawer.classList.toggle('open', open);
+      navOverlay.classList.toggle('open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+
+    hamburger.addEventListener('click', () => toggleMenu(!navDrawer.classList.contains('open')));
+    navOverlay.addEventListener('click', () => toggleMenu(false));
+    navDrawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
 
     // THEME
     const themeToggle = document.getElementById('themeToggle');
