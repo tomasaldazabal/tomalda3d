@@ -211,22 +211,21 @@
       border: 0.5px solid rgba(13,13,13,0.4);
       padding: 0.35rem 0.75rem;
       border-radius: 2px;
-      transition: color 0.5s ease, border-color 0.5s ease;
+      transition: color 0.2s, border-color 0.2s;
       background: none;
       font-family: 'Syne', sans-serif;
     }
 
     .lang-toggle:hover { color: #1a1a18; border-color: #1a1a18; }
 
-    /* Dark mode starts dark (on herobg), JS transitions to white on scroll */
     [data-theme="dark"] .lang-toggle {
-      color: rgba(13,13,13,0.6);
-      border-color: rgba(13,13,13,0.3);
+      color: rgba(240,237,230,0.7);
+      border-color: rgba(240,237,230,0.3);
     }
 
     [data-theme="dark"] .lang-toggle:hover {
-      color: #1a1a18;
-      border-color: #1a1a18;
+      color: #f0ede6;
+      border-color: #f0ede6;
     }
 
     /* THEME TOGGLE */
@@ -894,8 +893,8 @@
     <div class="contact-links">
       <div class="contact-link">
         <span class="contact-link-label">Email</span>
-        <a href="/cdn-cgi/l/email-protection#add9c2c0ccc1c9cc9ec9edcac0ccc4c183cec2c0">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:6px;opacity:0.6"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg><span class="__cf_email__" data-cfemail="a7d3c8cac6cbc3c694c3e7c0cac6cecb89c4c8ca">[email&#160;protected]</span>
+        <a href="mailto:tomalda3d@gmail.com">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:6px;opacity:0.6"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>tomalda3d@gmail.com
         </a>
       </div>
       <div class="contact-link">
@@ -930,32 +929,7 @@
     <span>3D Artist & Technical Animator · Buenos Aires</span>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-
-    // LANG TOGGLE SCROLL — dark mode only: black → white on scroll
-    const langToggleBtn = document.getElementById('langToggle');
-
-    function updateLangColor() {
-      const theme = html.getAttribute('data-theme');
-      if (theme === 'light') {
-        langToggleBtn.style.color = 'rgba(13,13,13,0.6)';
-        langToggleBtn.style.borderColor = 'rgba(13,13,13,0.3)';
-        return;
-      }
-      // dark mode
-      const heroBottom = heroEl ? heroEl.offsetTop + heroEl.offsetHeight : 400;
-      const pastHero = window.scrollY > heroBottom * 0.7;
-      if (pastHero) {
-        langToggleBtn.style.color = 'rgba(240,237,230,0.7)';
-        langToggleBtn.style.borderColor = 'rgba(240,237,230,0.4)';
-      } else {
-        langToggleBtn.style.color = 'rgba(13,13,13,0.6)';
-        langToggleBtn.style.borderColor = 'rgba(13,13,13,0.3)';
-      }
-    }
-
-    window.addEventListener('scroll', updateLangColor, { passive: true });
-    updateLangColor();
+  <script>
 
     // LOGO SCROLL TRANSITION — index only
     const logoDark = document.querySelector('.logo-dark');
@@ -1120,4 +1094,15 @@
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => {
-        
+        if (e.isIntersecting) {
+          animateBars();
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.skills-list').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

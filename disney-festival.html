@@ -577,8 +577,8 @@
     <div class="contact-links">
       <div class="contact-link">
         <span class="contact-link-label">Email</span>
-        <a href="/cdn-cgi/l/email-protection#43372c2e222f2722702703242e222a2f6d202c2e">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:6px;opacity:0.6"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg><span class="__cf_email__" data-cfemail="3b4f54565a575f5a085f7b5c565a525715585456">[email&#160;protected]</span>
+        <a href="mailto:tomalda3d@gmail.com">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:6px;opacity:0.6"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>tomalda3d@gmail.com
         </a>
       </div>
       <div class="contact-link">
@@ -613,7 +613,7 @@
     <span>3D Modeling &amp; Technical Animator · Buenos Aires</span>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script>
     // HAMBURGER MENU
     const hamburger = document.getElementById('hamburger');
     const navDrawer = document.getElementById('navDrawer');
@@ -650,4 +650,14 @@
         const val = el.getAttribute('data-' + lang);
         if (val) el.innerHTML = val;
       });
-      langToggle.textContent = lang === 'es'
+      langToggle.textContent = lang === 'es' ? 'EN' : 'ES';
+      currentLang = lang;
+      localStorage.setItem('lang', lang);
+    }
+
+    applyLang(currentLang);
+    langToggle.addEventListener('click', () => applyLang(currentLang === 'es' ? 'en' : 'es'));
+  </script>
+
+</body>
+</html>

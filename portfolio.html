@@ -675,8 +675,8 @@
     <div class="contact-links">
       <div class="contact-link">
         <span class="contact-link-label">Email</span>
-        <a href="/cdn-cgi/l/email-protection#05716a68646961643661456268646c692b666a68">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:6px;opacity:0.6"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg><span class="__cf_email__" data-cfemail="1f6b70727e737b7e2c7b5f78727e7673317c7072">[email&#160;protected]</span>
+        <a href="mailto:tomalda3d@gmail.com">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:6px;opacity:0.6"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>tomalda3d@gmail.com
         </a>
       </div>
       <div class="contact-link">
@@ -711,7 +711,7 @@
     <span>3D Artist &amp; Technical Animator · Buenos Aires</span>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script>
     // HAMBURGER MENU
     const hamburger = document.getElementById('hamburger');
     const navDrawer = document.getElementById('navDrawer');
@@ -766,4 +766,16 @@
         btn.classList.add('active');
         const filter = btn.dataset.filter;
         cards.forEach(card => {
-          const tags = card.dataset.t
+          const tags = card.dataset.tags || '';
+          if (filter === 'all' || tags.includes(filter)) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
