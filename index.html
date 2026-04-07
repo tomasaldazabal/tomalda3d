@@ -95,15 +95,11 @@
       transition: opacity 0.5s ease;
     }
 
-    /* Logo adapts to theme */
-    html[data-theme="dark"] .logo-dark { display: block !important; opacity: 1; }
+    /* Logo adapts to theme — JS controls transition on scroll */
+    html[data-theme="dark"] .logo-dark { display: block !important; }
     html[data-theme="dark"] .logo-light { display: none !important; }
-    html[data-theme="light"] .logo-dark { display: none !important; }
-    html[data-theme="light"] .logo-light { display: block !important; opacity: 1; }
-
-    /* In light mode, after hero: show dark logo */
-    html[data-theme="light"] .logo-light.faded { opacity: 0; }
-    html[data-theme="light"] .logo-dark.visible { display: block !important; opacity: 1; }
+    html[data-theme="light"] .logo-dark { display: block !important; }
+    html[data-theme="light"] .logo-light { display: none !important; }
 
     .nav-right {
       display: flex;
@@ -165,11 +161,11 @@
     }
 
     .nav-drawer-links li {
-      border-top: 0.5px solid rgba(240,237,230,0.15);
+      border-top: 0.5px solid var(--border-hover);
     }
 
     .nav-drawer-links li:last-child {
-      border-bottom: 0.5px solid rgba(240,237,230,0.15);
+      border-bottom: 0.5px solid var(--border-hover);
     }
 
     .nav-drawer-links a {
@@ -215,21 +211,22 @@
       border: 0.5px solid rgba(13,13,13,0.4);
       padding: 0.35rem 0.75rem;
       border-radius: 2px;
-      transition: color 0.2s, border-color 0.2s;
+      transition: color 0.5s ease, border-color 0.5s ease;
       background: none;
       font-family: 'Syne', sans-serif;
     }
 
     .lang-toggle:hover { color: #1a1a18; border-color: #1a1a18; }
 
+    /* Dark mode starts dark (on herobg), JS transitions to white on scroll */
     [data-theme="dark"] .lang-toggle {
-      color: rgba(240,237,230,0.7);
-      border-color: rgba(240,237,230,0.3);
+      color: rgba(13,13,13,0.6);
+      border-color: rgba(13,13,13,0.3);
     }
 
     [data-theme="dark"] .lang-toggle:hover {
-      color: #f0ede6;
-      border-color: #f0ede6;
+      color: #1a1a18;
+      border-color: #1a1a18;
     }
 
     /* THEME TOGGLE */
@@ -890,7 +887,10 @@
 
   <!-- CONTACT -->
   <div id="contact" style="max-width:1200px;margin:0 auto;padding:4rem 4rem 5rem;border-top:0.5px solid var(--border);">
-    <h2 style="font-size:clamp(36px,5vw,64px);font-weight:800;letter-spacing:-2px;line-height:1;margin-bottom:3rem;" data-es="Creemos <em style='font-style:italic;font-weight:400;color:var(--muted)'>juntos</em>" data-en="Let's create <em style='font-style:italic;font-weight:400;color:var(--muted)'>together</em>">Creemos <em style="font-style:italic;font-weight:400;color:var(--muted)">juntos</em></h2>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;margin-bottom:3rem;">
+      <h2 style="font-size:clamp(36px,5vw,64px);font-weight:800;letter-spacing:-2px;line-height:1;margin:0;" data-es="Creemos <em style='font-style:italic;font-weight:400;color:var(--muted)'>juntos</em>" data-en="Let's create <em style='font-style:italic;font-weight:400;color:var(--muted)'>together</em>">Creemos <em style="font-style:italic;font-weight:400;color:var(--muted)">juntos</em></h2>
+      <a href="https://calendly.com/tomalda3d/30min" target="_blank" style="display:inline-flex;align-items:center;gap:0.6rem;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--text);text-decoration:none;border:1.5px solid var(--border-hover);padding:0.7rem 1.4rem;border-radius:2px;transition:background 0.25s,border-color 0.25s,color 0.25s;white-space:nowrap;outline:none;-webkit-tap-highlight-color:transparent;" onmouseover="this.style.background='#CCFF00';this.style.borderColor='#CCFF00';this.style.color='#1a1a18'" onmouseout="this.style.background='';this.style.borderColor='';this.style.color=''"><span data-es="Programar una reunión →" data-en="Schedule a meeting →">Programar una reunión →</span></a>
+    </div>
     <div class="contact-links">
       <div class="contact-link">
         <span class="contact-link-label">Email</span>
@@ -932,30 +932,74 @@
 
   <script>
 
-    // LOGO SCROLL TRANSITION — light mode only
+    // LANG TOGGLE SCROLL — dark mode only: black → white on scroll
+    const langToggleBtn = document.getElementById('langToggle');
+
+    function updateLangColor() {
+      const theme = html.getAttribute('data-theme');
+      if (theme === 'light') {
+        langToggleBtn.style.color = 'rgba(13,13,13,0.6)';
+        langToggleBtn.style.borderColor = 'rgba(13,13,13,0.3)';
+        return;
+      }
+      // dark mode
+      const heroBottom = heroEl ? heroEl.offsetTop + heroEl.offsetHeight : 400;
+      const pastHero = window.scrollY > heroBottom * 0.7;
+      if (pastHero) {
+        langToggleBtn.style.color = 'rgba(240,237,230,0.7)';
+        langToggleBtn.style.borderColor = 'rgba(240,237,230,0.4)';
+      } else {
+        langToggleBtn.style.color = 'rgba(13,13,13,0.6)';
+        langToggleBtn.style.borderColor = 'rgba(13,13,13,0.3)';
+      }
+    }
+
+    window.addEventListener('scroll', updateLangColor, { passive: true });
+    updateLangColor();
+
+    // LOGO SCROLL TRANSITION — index only
     const logoDark = document.querySelector('.logo-dark');
     const logoLight = document.querySelector('.logo-light');
     const heroEl = document.getElementById('hero');
 
-    window.addEventListener('scroll', () => {
-      if (html.getAttribute('data-theme') !== 'light') return;
+    function updateLogo() {
+      if (!heroEl) return;
+      const theme = html.getAttribute('data-theme');
       const heroBottom = heroEl.offsetTop + heroEl.offsetHeight;
-      const scrolled = window.scrollY > heroBottom * 0.7;
+      const pastHero = window.scrollY > heroBottom * 0.7;
 
-      if (scrolled) {
-        // Past hero — show dark logo
-        logoDark.style.display = 'block';
-        logoDark.style.opacity = '1';
-        logoLight.style.opacity = '0';
-        setTimeout(() => { if (window.scrollY > heroBottom * 0.7) logoLight.style.display = 'none'; }, 500);
+      if (theme === 'light') {
+        // Light mode: start white (on herobg), fade to black after hero
+        // logo-light = black logo, logo-dark = white logo
+        if (pastHero) {
+          logoLight.style.display = 'block';
+          logoLight.style.opacity = '1';
+          logoDark.style.opacity = '0';
+          setTimeout(() => { logoDark.style.display = 'none'; }, 500);
+        } else {
+          logoDark.style.display = 'block';
+          logoDark.style.opacity = '1';
+          logoLight.style.opacity = '0';
+          setTimeout(() => { logoLight.style.display = 'none'; }, 500);
+        }
       } else {
-        // In hero — show light logo (which is the black one on herobg)
-        logoLight.style.display = 'block';
-        logoLight.style.opacity = '1';
-        logoDark.style.opacity = '0';
-        setTimeout(() => { if (window.scrollY <= heroBottom * 0.7) logoDark.style.display = 'none'; }, 500);
+        // Dark mode: start black (logo-light = black), fade to white (logo-dark = white) after hero
+        if (pastHero) {
+          logoDark.style.display = 'block';
+          logoDark.style.opacity = '1';
+          logoLight.style.opacity = '0';
+          setTimeout(() => { logoLight.style.display = 'none'; }, 500);
+        } else {
+          logoLight.style.display = 'block';
+          logoLight.style.opacity = '1';
+          logoDark.style.opacity = '0';
+          setTimeout(() => { logoDark.style.display = 'none'; }, 500);
+        }
       }
-    }, { passive: true });
+    }
+
+    window.addEventListener('scroll', updateLogo, { passive: true });
+    updateLogo();
 
     // HAMBURGER MENU
     const hamburger = document.getElementById('hamburger');

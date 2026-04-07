@@ -422,11 +422,11 @@
     }
 
     .nav-drawer-links li {
-      border-top: 0.5px solid rgba(240,237,230,0.15);
+      border-top: 0.5px solid var(--border-hover);
     }
 
     .nav-drawer-links li:last-child {
-      border-bottom: 0.5px solid rgba(240,237,230,0.15);
+      border-bottom: 0.5px solid var(--border-hover);
     }
 
     .nav-drawer-links a {
@@ -560,7 +560,10 @@
   </main>
 
   <div style="max-width:1200px;margin:0 auto;padding:4rem 4rem 5rem;border-top:0.5px solid var(--border);">
-    <h2 style="font-size:clamp(36px,5vw,64px);font-weight:800;letter-spacing:-2px;line-height:1;margin-bottom:3rem;" data-es="Creemos <em style='font-style:italic;font-weight:400;color:var(--muted)'>juntos</em>" data-en="Let's create <em style='font-style:italic;font-weight:400;color:var(--muted)'>together</em>">Creemos <em style="font-style:italic;font-weight:400;color:var(--muted)">juntos</em></h2>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;margin-bottom:3rem;">
+      <h2 style="font-size:clamp(36px,5vw,64px);font-weight:800;letter-spacing:-2px;line-height:1;margin:0;" data-es="Creemos <em style='font-style:italic;font-weight:400;color:var(--muted)'>juntos</em>" data-en="Let's create <em style='font-style:italic;font-weight:400;color:var(--muted)'>together</em>">Creemos <em style="font-style:italic;font-weight:400;color:var(--muted)">juntos</em></h2>
+      <a href="https://calendly.com/tomalda3d/30min" target="_blank" style="display:inline-flex;align-items:center;gap:0.6rem;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--text);text-decoration:none;border:1.5px solid var(--border-hover);padding:0.7rem 1.4rem;border-radius:2px;transition:background 0.25s,border-color 0.25s,color 0.25s;white-space:nowrap;outline:none;-webkit-tap-highlight-color:transparent;" onmouseover="this.style.background='#CCFF00';this.style.borderColor='#CCFF00';this.style.color='#1a1a18'" onmouseout="this.style.background='';this.style.borderColor='';this.style.color=''"><span data-es="Programar una reunión →" data-en="Schedule a meeting →">Programar una reunión →</span></a>
+    </div>
     <div class="contact-links">
       <div class="contact-link">
         <span class="contact-link-label">Email</span>
