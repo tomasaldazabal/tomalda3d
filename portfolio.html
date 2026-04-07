@@ -523,6 +523,7 @@
         </button>
       </div>
     </nav>
+    <div class="nav-overlay" id="navOverlay"></div>
     <div class="nav-drawer" id="navDrawer">
       <ul class="nav-drawer-links">
         <li><a href="index.html" data-es="Inicio" data-en="Home">Inicio</a></li>
@@ -573,10 +574,6 @@
       </div>
       <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
     </a>
-      <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
-      <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
-    </a>
-    </div>
 
     <a href="lemon.html" style="text-decoration:none;display:block;" class="project-card" data-tags="modeling rigging animation">
       <img src="images/lemon.png" alt="Lemon QR"/>
@@ -668,8 +665,8 @@
     <div class="contact-links">
       <div class="contact-link">
         <span class="contact-link-label">Email</span>
-        <a href="mailto:tomalda3d@gmail.com">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:6px;opacity:0.6"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>tomalda3d@gmail.com
+        <a href="/cdn-cgi/l/email-protection#23574c4e424f4742104763444e424a4f0d404c4e">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:6px;opacity:0.6"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg><span class="__cf_email__" data-cfemail="96e2f9fbf7faf2f7a5f2d6f1fbf7fffab8f5f9fb">[email&#160;protected]</span>
         </a>
       </div>
       <div class="contact-link">
@@ -704,7 +701,7 @@
     <span>3D Artist &amp; Technical Animator · Buenos Aires</span>
   </footer>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // CORE — primero
     const html = document.documentElement;
     const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -752,26 +749,7 @@
     navOverlay.addEventListener('click', () => toggleMenu(false));
     navDrawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
 
-    // FILTERS
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const cards = document.querySelectorAll('.project-card');
-
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const filter = btn.dataset.filter;
-        cards.forEach(card => {
-          const tags = card.dataset.tags || '';
-          if (filter === 'all' || tags.includes(filter)) {
-            card.style.display = 'block';
-          } else {
-            card.style.display = 'none';
-          }
-        });
-      });
-    });
-  </script>
-
-</body>
-</html>
+    // LOGO SCROLL TRANSITION
+    const logoDark = document.querySelector('.logo-dark');
+    const logoLight = document.querySelector('.logo-light');
+    const heroEl = 
