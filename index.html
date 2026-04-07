@@ -66,9 +66,9 @@
       100% { background-position: 20px -10px; }
     }
 
-    /* NAV — absolute, spans full hero width */
+    /* NAV — fixed, sigue el scroll */
     nav {
-      position: absolute;
+      position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 1000;
       display: flex;
@@ -94,25 +94,23 @@
       gap: 1rem;
     }
 
-    /* HAMBURGER — fixed, sigue el scroll */
+    /* HAMBURGER — dentro del nav */
     .hamburger {
-      position: fixed;
-      top: 1.5rem;
-      right: 1.5rem;
       background: #0d0d0d;
       border: none;
       cursor: pointer;
-      padding: 0.65rem 0.75rem;
+      padding: 0.55rem 0.65rem;
       display: flex;
       flex-direction: column;
       gap: 5px;
       z-index: 1100;
       border-radius: 4px;
+      flex-shrink: 0;
     }
 
     .hamburger span {
       display: block;
-      width: 22px;
+      width: 20px;
       height: 1.5px;
       background: #f0ede6;
       transition: transform 0.3s ease, opacity 0.3s ease;
@@ -135,7 +133,7 @@
       transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-end;
       padding: 4rem 3rem;
       border-left: 0.5px solid var(--border);
     }
@@ -146,17 +144,26 @@
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 2rem;
       margin-bottom: 3rem;
     }
 
+    .nav-drawer-links li {
+      border-top: 0.5px solid rgba(240,237,230,0.15);
+    }
+
+    .nav-drawer-links li:last-child {
+      border-bottom: 0.5px solid rgba(240,237,230,0.15);
+    }
+
     .nav-drawer-links a {
+      display: block;
       font-size: clamp(20px, 3vw, 28px);
       font-weight: 800;
       letter-spacing: -0.5px;
       color: var(--text);
       text-decoration: none;
       transition: color 0.2s;
+      padding: 1.2rem 0;
     }
 
     .nav-drawer-links a:hover { color: #CCFF00; }
@@ -715,13 +722,11 @@
       <div class="nav-right">
         <button class="lang-toggle" id="langToggle">EN</button>
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+        <button class="hamburger" id="hamburger" aria-label="Menú">
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </nav>
-
-    <!-- HAMBURGER FIXED -->
-    <button class="hamburger" id="hamburger" aria-label="Menú">
-      <span></span><span></span><span></span>
-    </button>
 
     <!-- DRAWER -->
     <div class="nav-overlay" id="navOverlay"></div>
