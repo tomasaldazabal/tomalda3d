@@ -95,11 +95,15 @@
       transition: opacity 0.5s ease;
     }
 
-    /* Logo adapts to theme — JS controls transition on scroll */
-    html[data-theme="dark"] .logo-dark { display: block !important; }
-    html[data-theme="dark"] .logo-light { display: none !important; }
-    html[data-theme="light"] .logo-dark { display: block !important; }
-    html[data-theme="light"] .logo-light { display: none !important; }
+    /* Logo CSS */
+    .nav-logo { position: relative; display: block; height: 99px; }
+    .nav-logo img { height: 99px; width: auto; display: block; position: absolute; top: 0; left: 0; transition: opacity 0.5s ease; }
+    .logo-dark { opacity: 0; }
+    .logo-light { opacity: 1; }
+    html[data-theme="dark"] .logo-dark { opacity: 1; }
+    html[data-theme="dark"] .logo-light { opacity: 0; }
+    html[data-theme="light"] .logo-dark { opacity: 0; }
+    html[data-theme="light"] .logo-light { opacity: 1; }
 
     .nav-right {
       display: flex;
@@ -800,7 +804,7 @@
   <section style="padding: 5.5rem 0 3rem; overflow: hidden; background: transparent; position: relative; z-index: 5;">
     <div class="carousel-cf">
       <div class="carousel-cf-track" id="cfTrack">
-        <a href="disney-festival.html" class="carousel-cf-item"><img src="images/disney-festival.jpg" alt="Disney Festival"/></a>
+        <a href="the-office-encounter.html" class="carousel-cf-item"><img src="images/still.png" alt="The Office Encounter"/></a>
         <a href="lemon.html" class="carousel-cf-item"><img src="images/lemon.png" alt="Lemon QR"/></a>
         <a href="portfolio.html" class="carousel-cf-item"><img src="images/clubbers.png" alt="Clubbers"/></a>
         <a href="portfolio.html" class="carousel-cf-item"><img src="images/paramount.png" alt="Paramount+"/></a>
@@ -985,34 +989,7 @@
     const heroEl = document.getElementById('hero');
 
     function updateLogo() {
-      if (!heroEl || !logoDark || !logoLight) return;
-      const theme = html.getAttribute('data-theme');
-
-      if (theme === 'light') {
-        // Light mode: always show black logo (logo-light), no change on scroll
-        logoDark.style.display = 'none';
-        logoDark.style.opacity = '0';
-        logoLight.style.display = 'block';
-        logoLight.style.opacity = '1';
-        return;
-      }
-
-      // Dark mode: black logo in hero → white logo after hero
-      const reelEl = document.getElementById('reel');
-      const trigger = reelEl ? reelEl.offsetTop : heroEl.offsetTop + heroEl.offsetHeight;
-      const pastHero = window.scrollY > trigger * 0.85;
-
-      if (pastHero) {
-        // Show white logo
-        logoLight.style.display = 'none';
-        logoDark.style.display = 'block';
-        logoDark.style.opacity = '1';
-      } else {
-        // Show black logo (logo-light = black)
-        logoDark.style.display = 'none';
-        logoLight.style.display = 'block';
-        logoLight.style.opacity = '1';
-      }
+      // CSS handles everything via data-theme attribute
     }
 
     window.addEventListener('scroll', updateLogo, { passive: true });

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Portfolio — Tomás Aldazabal</title>
+  <title>The Office Encounter — Tomás Aldazabal</title>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Syne+Mono&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -71,31 +71,26 @@
 
     /* NAV */
     nav {
-      position: absolute;
+      position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 1000;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.75rem 3rem;
-      background: transparent;
+      padding: 1.25rem 3rem;
+      background: var(--bg);
+      border-bottom: 0.5px solid var(--border);
+      transition: background 0.35s ease;
     }
 
-    .nav-logo img { height: 99px; width: auto; display: block; }
+    .nav-logo img { height: 40px; width: auto; display: block; }
 
-    /* Logo respects theme */
     .logo-dark { display: none; }
     .logo-light { display: block; }
     html[data-theme="dark"] .logo-dark { display: block; }
     html[data-theme="dark"] .logo-light { display: none; }
     html[data-theme="light"] .logo-dark { display: none; }
     html[data-theme="light"] .logo-light { display: block; }
-
-    .nav-left {
-      display: flex;
-      align-items: center;
-      gap: 2.5rem;
-    }
 
     .nav-right {
       display: flex;
@@ -114,7 +109,7 @@
     }
 
     .nav-links a { color: inherit; text-decoration: none; transition: color 0.2s; }
-    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-links a:hover { color: var(--text); }
 
     .lang-toggle {
       font-size: 12px;
@@ -125,9 +120,9 @@
       border: 0.5px solid var(--border-hover);
       padding: 0.35rem 0.75rem;
       border-radius: 2px;
-      transition: color 0.2s, border-color 0.2s;
       background: none;
       font-family: 'Syne', sans-serif;
+      transition: color 0.2s, border-color 0.2s;
     }
 
     .lang-toggle:hover { color: var(--text); border-color: var(--text); }
@@ -155,204 +150,158 @@
 
     [data-theme="light"] .theme-toggle::after { transform: translateX(18px); }
 
-    .logo-dark { display: block; }
-    .logo-light { display: none; }
-    html[data-theme="light"] .logo-dark { display: none; }
-    html[data-theme="light"] .logo-light { display: block; }
-    html[data-theme="dark"] .logo-dark { display: block; }
-    html[data-theme="dark"] .logo-light { display: none; }
-
-    /* PAGE HEADER */
-    .page-header {
-      padding: 9rem 4rem 3rem;
-      border-bottom: 0.5px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      max-width: 1200px;
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    .page-header-wrap {
-      border-bottom: 0.5px solid var(--border);
-    }
-
-    .page-title {
-      font-size: clamp(36px, 5vw, 64px);
-      font-weight: 800;
-      letter-spacing: -2px;
-      line-height: 1;
-    }
-
-    .page-title em { font-style: italic; font-weight: 400; color: var(--muted); }
-
-    .page-count {
-      font-family: 'Syne Mono', monospace;
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    /* FILTERS */
-    .filters {
-      padding: 1.5rem 4rem;
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-      border-bottom: 0.5px solid var(--border);
-      justify-content: center;
-    }
-
-    .filter-btn {
-      font-family: 'Syne', sans-serif;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 0.45rem 1rem;
-      border: 0.5px solid var(--border-hover);
-      border-radius: 2px;
-      background: none;
-      color: var(--muted);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .filter-btn:hover { color: #1a1a18; border-color: #CCFF00; background: #CCFF00; }
-    .filter-btn.active { color: var(--bg); background: var(--text); border-color: var(--text); }
-
-    /* GRID */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-      padding: 2rem 4rem 4rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .project-card {
-      position: relative;
-      z-index: 5;
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      aspect-ratio: 16/9;
-      background: var(--bg3);
-    }
-
-    .project-card img,
-    .project-card video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.6s ease, filter 0.4s ease;
-      filter: brightness(1);
-    }
-
-    .project-card:hover img,
-    .project-card:hover video {
-      transform: scale(1.03);
-      filter: brightness(0.4);
-    }
-
-    /* NOISE OVERLAY */
-    .project-card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
-      background-size: 200px 200px;
-      mix-blend-mode: overlay;
-      pointer-events: none;
-      z-index: 2;
-    }
-
-    .project-card:hover::after { opacity: 0.12; }
-
-    /* PLACEHOLDER */
-    .project-placeholder {
-      width: 100%;
-      height: 100%;
-      background: var(--bg3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Syne Mono', monospace;
-      font-size: 11px;
-      color: var(--muted);
-      letter-spacing: 0.1em;
-      transition: background 0.2s;
-    }
-
-    .project-card:hover .project-placeholder { background: var(--bg2); }
-
-    .project-info {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 2rem;
-      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 50%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .project-card:hover .project-info { opacity: 1; }
-
-    /* Always show info when no media */
-    .project-card.no-media .project-info {
-      opacity: 1;
-      background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);
-    }
-
-    .project-num {
-      font-family: 'Syne Mono', monospace;
-      font-size: 11px;
-      color: rgba(240,237,230,0.4);
-      margin-bottom: 0.5rem;
-    }
-
-    .project-name {
-      font-size: 20px;
-      font-weight: 700;
-      color: #f0ede6;
-      line-height: 1.1;
-      margin-bottom: 0.4rem;
-    }
-
-    .project-role {
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(240,237,230,0.5);
-    }
-
-    .project-year {
-      font-family: 'Syne Mono', monospace;
-      font-size: 11px;
-      color: rgba(240,237,230,0.35);
-      margin-top: 0.3rem;
-    }
-
     /* BACK LINK */
     .back-link {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      font-size: 11px;
+      font-size: 12px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--muted);
       text-decoration: none;
       transition: color 0.2s;
-      margin-bottom: 0.5rem;
     }
 
     .back-link:hover { color: var(--text); }
+
+    /* MAIN */
+    .project-main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 8rem 3rem 6rem;
+      text-align: center;
+    }
+
+    /* HEADER */
+    .project-header {
+      margin-bottom: 4rem;
+      padding-bottom: 3rem;
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    .project-back {
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+
+    .project-title {
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1;
+      margin-bottom: 2rem;
+    }
+
+    .project-meta {
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .project-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      align-items: center;
+    }
+
+    .project-meta-label {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .project-meta-value {
+      font-size: 15px;
+      color: var(--text);
+    }
+
+    /* DESCRIPTION */
+    .project-description {
+      font-size: 17px;
+      line-height: 1.9;
+      color: var(--muted);
+      margin-bottom: 4rem;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* SOFTWARE TAGS */
+    .project-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 4rem;
+      justify-content: center;
+    }
+
+    .project-tool-tag {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: 0.5px solid var(--border-hover);
+      padding: 0.4rem 0.85rem;
+      border-radius: 2px;
+      color: var(--muted);
+    }
+
+    /* MEDIA */
+    .project-media {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-bottom: 5rem;
+      position: relative;
+      z-index: 5;
+    }
+
+    .project-media img {
+      width: 100%;
+      display: block;
+      border-radius: 2px;
+    }
+
+    .project-video {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      background: var(--bg3);
+      border-radius: 2px;
+    }
+
+    .project-video iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+    }
+
+    /* NAVIGATION BETWEEN PROJECTS */
+    .project-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 3rem;
+      border-top: 0.5px solid var(--border);
+    }
+
+    .project-nav a {
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .project-nav a:hover { color: var(--text); }
 
     /* FOOTER */
     footer {
@@ -360,19 +309,17 @@
       border-top: 0.5px solid var(--border);
       display: flex;
       justify-content: space-between;
-      font-size: 11px;
+      font-size: 12px;
       color: var(--muted);
       letter-spacing: 0.1em;
-      margin-top: 2px;
     }
 
     /* RESPONSIVE */
     @media (max-width: 700px) {
       nav { padding: 1.25rem 1.5rem; }
       .nav-links { display: none; }
-      .page-header { padding: 7rem 1.5rem 2rem; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-      .filters { padding: 1.25rem 1.5rem; }
-      .projects-grid { grid-template-columns: 1fr; }
+      .project-main { padding: 7rem 1.5rem 4rem; }
+      .project-meta { gap: 1.5rem; }
       footer { padding: 1.25rem 1.5rem; flex-direction: column; gap: 0.5rem; }
     }
 
@@ -519,9 +466,7 @@
 </head>
 <body>
 
-  <!-- PAGE HEADER -->
-  <div class="page-header" style="position:relative;">
-        <nav>
+      <nav>
       <a href="index.html" class="nav-logo" style="text-decoration:none;">
         <img class="logo-dark" src="images/logo-white.png" alt="Tomás Aldazabal"/>
         <img class="logo-light" src="images/logo-black.png" alt="Tomás Aldazabal"/>
@@ -544,128 +489,77 @@
       </ul>
       <p style="font-size:11px;letter-spacing:0.12em;color:var(--muted);margin-top:2rem;text-transform:uppercase;">© TomasAldazabal 2026</p>
     </div>
-    <div style="padding-top: 1.5rem; display:flex; justify-content:space-between; align-items:flex-end; width:100%; padding-bottom: 0.75rem;">
-      <div>
-        <a href="index.html" class="back-link">← <span data-es="Volver" data-en="Back">Volver</span></a>
-        <h1 class="page-title" data-es="Portfolio" data-en="Portfolio">Portfolio</h1>
+
+  <main class="project-main" style="position:relative;z-index:5;">
+
+    <!-- HEADER -->
+    <div class="project-header">
+      <div class="project-back">
+        <a href="portfolio.html" class="back-link">← <span data-es="Volver al portfolio" data-en="Back to portfolio">Volver al portfolio</span></a>
       </div>
-      <a href="https://linktr.ee/tomalda3d" target="_blank" style="font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--text);text-decoration:none;border:1.5px solid var(--border-hover);padding:0.7rem 1.4rem;border-radius:2px;transition:background 0.25s,border-color 0.25s,color 0.25s;white-space:nowrap;margin-bottom:0.6rem;outline:none;-webkit-tap-highlight-color:transparent;" onmouseover="this.style.background='#CCFF00';this.style.borderColor='#CCFF00';this.style.color='#1a1a18'" onmouseout="this.style.background='';this.style.borderColor='';this.style.color=''"><span data-es="Sigue mi trabajo" data-en="Follow my work">Sigue mi trabajo</span></a>
-    </div>
-  </div>
+      <h1 class="project-title">The Office Encounter</h1>
 
-  <!-- FILTERS -->
-  <div class="filters">
-    <button class="filter-btn active" data-filter="all" data-es="Todo" data-en="All">Todo</button>
-    <button class="filter-btn" data-filter="modeling" data-es="Modelado" data-en="Modeling">Modelado</button>
-    <button class="filter-btn" data-filter="animation" data-es="Animación" data-en="Animation">Animación</button>
-    <button class="filter-btn" data-filter="rigging" data-es="Rigging" data-en="Rigging">Rigging</button>
-    <button class="filter-btn" data-filter="environment" data-es="Entorno" data-en="Environment">Entorno</button>
-  </div>
-
-  <!-- PROJECTS GRID -->
-  <div class="projects-grid" id="grid">
-
-    <a href="the-office-encounter.html" style="text-decoration:none;display:block;" class="project-card" data-tags="environment modeling">
-      <img src="images/still.png" alt="The Office Encounter"/>
-      <div class="project-info">
-        <p class="project-name">The Office Encounter</p>
-        <p class="project-role">3D Environment</p>
-        <p class="project-year">2026</p>
+      <!-- HERO IMAGE -->
+      <div style="width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:2px;margin:2rem 0;">
+        <img src="images/still.png" alt="The Office Encounter" style="width:100%;height:100%;object-fit:cover;display:block;"/>
       </div>
-      <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
-    </a>
 
-    <div class="project-card" data-tags="modeling animation">
-      <img src="images/clubbers.png" alt="Clubbers"/>
-      <div class="project-info">
-        <p class="project-name">Clubbers</p>
-        <p class="project-role">Character Modeling &amp; 3D Animation</p>
-        <p class="project-year">2025</p>
+      <div class="project-meta">
+        <div class="project-meta-item">
+          <span class="project-meta-label" data-es="Cliente" data-en="Client">Cliente</span>
+          <span class="project-meta-value">Disor Visual</span>
+        </div>
+        <div class="project-meta-item">
+          <span class="project-meta-label" data-es="Proyecto" data-en="Project">Proyecto</span>
+          <span class="project-meta-value">Personal</span>
+        </div>
+        <div class="project-meta-item">
+          <span class="project-meta-label" data-es="Rol" data-en="Role">Rol</span>
+          <span class="project-meta-value">3D Animation &amp; Lookdev</span>
+        </div>
+        <div class="project-meta-item">
+          <span class="project-meta-label" data-es="Año" data-en="Year">Año</span>
+          <span class="project-meta-value">2026</span>
+        </div>
+
       </div>
-      <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
     </div>
 
-    <a href="lemon.html" style="text-decoration:none;display:block;" class="project-card" data-tags="modeling rigging animation">
-      <img src="images/lemon.png" alt="Lemon QR"/>
-      <div class="project-info">
-        <p class="project-name">Lemon QR</p>
-        <p class="project-role">3D Modeling, Rigging &amp; Animation</p>
-        <p class="project-year">2025</p>
-      </div>
-      <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
-    </a>
+    <!-- DESCRIPTION -->
+    <p class="project-description"
+       data-es="En esta pieza me enfoqué en el acting de personaje y la atmósfera lumínica para potenciar la narrativa. Fue un desafío técnico y artístico para seguir puliendo mi pipeline de producción: animar en Maya y realizar todo el lookdev en Blender. Utilizar Eevee me permitió optimizar los tiempos de render e iterar en tiempo real con las luces y materiales, logrando un flujo de trabajo mucho más dinámico sin sacrificar la calidad visual."
+       data-en="In this piece I focused on character acting and lighting atmosphere to enhance the narrative. It was both a technical and artistic challenge to continue refining my production pipeline: animating in Maya and doing all the lookdev in Blender. Using Eevee allowed me to optimize render times and iterate in real time with lights and materials, achieving a much more dynamic workflow without sacrificing visual quality.">
+      En esta pieza me enfoqué en el acting de personaje y la atmósfera lumínica para potenciar la narrativa. Fue un desafío técnico y artístico para seguir puliendo mi pipeline de producción: animar en Maya y realizar todo el lookdev en Blender. Utilizar Eevee me permitió optimizar los tiempos de render e iterar en tiempo real con las luces y materiales, logrando un flujo de trabajo mucho más dinámico sin sacrificar la calidad visual.
+    </p>
 
-    <div class="project-card" data-tags="modeling">
-      <img src="images/paramount.png" alt="Paramount+"/>
-      <div class="project-info">
-        <p class="project-name">Paramount+</p>
-        <p class="project-role">3D Assets / Props Modeling</p>
-        <p class="project-year">2024</p>
-      </div>
-      <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
+    <!-- SOFTWARE TOOLS -->
+    <div class="project-tools">
+      <span class="project-tool-tag">Autodesk Maya</span>
+      <span class="project-tool-tag">Blender</span>
+      <span class="project-tool-tag">Eevee</span>
     </div>
 
-    <div class="project-card" data-tags="animation rigging">
-      <img src="images/braum.png" alt="Braum PP"/>
-      <div class="project-info">
-        <p class="project-name">Braum PP</p>
-        <p class="project-role">3D Animation &amp; Rigging</p>
-        <p class="project-year">2024</p>
+    <!-- MEDIA — video -->
+    <div class="project-media">
+      <div style="width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:2px;">
+        <video controls playsinline style="width:100%;height:100%;object-fit:cover;display:block;">
+          <source src="images/AF_AnimFinal_v2.mov" type="video/quicktime"/>
+          <source src="images/AF_AnimFinal_v2.mov" type="video/mp4"/>
+        </video>
       </div>
-      <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
+    </div>
+      <!-- Agregá más imágenes según necesites -->
+
     </div>
 
-    <div class="project-card" data-tags="modeling">
-      <img src="images/mech.jpg" alt="Mech"/>
-      <div class="project-info">
-        <p class="project-name">Mech</p>
-        <p class="project-role">Character Modeling</p>
-        <p class="project-year">2021</p>
-      </div>
-      <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
+    <!-- NAVEGACIÓN ENTRE PROYECTOS -->
+    <div class="project-nav">
+      <a href="#" data-es="← Proyecto anterior" data-en="← Previous project">← <span data-es="Proyecto anterior" data-en="Previous project">Proyecto anterior</span></a>
+      <a href="portfolio.html" data-es="Ver portfolio" data-en="View portfolio">Ver portfolio</a>
+      <a href="#" data-es="Siguiente proyecto →" data-en="Next project →"><span data-es="Siguiente proyecto" data-en="Next project">Siguiente proyecto</span> →</a>
     </div>
 
-    <div class="project-card" data-tags="modeling">
-      <img src="images/aiatom.jpg" alt="AIATOM"/>
-      <div class="project-info">
-        <p class="project-name">AIATOM</p>
-        <p class="project-role">3D Creative</p>
-        <p class="project-year">2025</p>
-      </div>
-      <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
-    </div>
-
-    <div class="project-card" data-tags="modeling animation">
-      <img src="images/alan.png" alt="Alan"/>
-      <div class="project-info">
-        <p class="project-name">Alan</p>
-        <p class="project-role">3D Modeling &amp; Animation</p>
-        <p class="project-year">2023</p>
-      </div>
-      <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
-    </div>
-
-    <div class="project-card" data-tags="modeling">
-      <img src="images/wreckleague.png" alt="Wreck League"/>
-      <div class="project-info">
-        <p class="project-name">Wreck League</p>
-        <p class="project-role">3D Character Modeling</p>
-        <p class="project-year">2022</p>
-      </div>
-      <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
-    </div>
-
-    <a href="pac-man.html" style="text-decoration:none;display:block;" class="project-card" data-tags="animation rigging">
-      <img src="images/pac-man.png" alt="PAC-MAN Mega Tunnel Battle Chomp Champs"/>
-      <div class="project-info">
-        <p class="project-name">PAC-MAN Mega Tunnel Battle</p>
-        <p class="project-role">Rigging &amp; Animation</p>
-        <p class="project-year">2024</p>
-      </div>
-      <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
-    </a>
-
-  </div>
+  </main>
 
   <div style="max-width:1200px;margin:0 auto;padding:4rem 4rem 5rem;border-top:0.5px solid var(--border);">
     <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;margin-bottom:3rem;">
@@ -708,7 +602,7 @@
 
   <footer>
     <span>© Tomás Aldazabal 2026</span>
-    <span>3D Artist &amp; Technical Animator · Buenos Aires</span>
+    <span>3D Modeling &amp; Technical Animator · Buenos Aires</span>
   </footer>
 
   <script>
@@ -755,26 +649,6 @@
 
     applyLang(currentLang);
     langToggle.addEventListener('click', () => applyLang(currentLang === 'es' ? 'en' : 'es'));
-
-    // FILTERS
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const cards = document.querySelectorAll('.project-card');
-
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const filter = btn.dataset.filter;
-        cards.forEach(card => {
-          const tags = card.dataset.tags || '';
-          if (filter === 'all' || tags.includes(filter)) {
-            card.style.display = 'block';
-          } else {
-            card.style.display = 'none';
-          }
-        });
-      });
-    });
   </script>
 
 </body>
