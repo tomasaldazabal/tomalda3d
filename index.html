@@ -181,7 +181,7 @@
       bottom: 0;
       right: 27%;
       z-index: 1;
-      width: clamp(187px, 28vw, 499px);
+      width: clamp(206px, 30.8vw, 549px);
       height: 100%;
       display: flex;
       align-items: flex-end;
@@ -211,7 +211,7 @@
     }
 
     .hero-title {
-      font-size: clamp(25px, 4.4vw, 61px);
+      font-size: clamp(28px, 4.84vw, 67px);
       font-weight: 800;
       line-height: 0.9;
       letter-spacing: -2px;
@@ -864,17 +864,18 @@
       const total = items.length;
       const GAP = window.innerWidth * 0.16;
       let offset = 0;
+      const SPEED = 0.0005;
 
       function render() {
         items.forEach((item, i) => {
-          const pos = ((i - offset % total) + total) % total;
-          const centered = pos > total / 2 ? pos - total : pos;
+          const raw = i - offset;
+          const centered = ((raw % total) + total + total/2) % total - total/2;
 
           const tx = centered * GAP;
           const tz = -Math.abs(centered) * 120;
-          const ry = centered === 0 ? 0 : centered > 0 ? -42 : 42;
+          const ry = Math.max(-52, Math.min(52, centered * -26));
           const scale = Math.max(0.65, 1 - Math.abs(centered) * 0.1);
-          const opacity = Math.abs(centered) > 3 ? 0 : Math.max(0, 1 - Math.abs(centered) * 0.4);
+          const opacity = Math.abs(centered) > 3.5 ? 0 : Math.max(0, 1 - Math.abs(centered) * 0.35);
 
           item.style.transform = `translate(-50%, -50%) translateX(${tx}px) translateZ(${tz}px) rotateY(${ry}deg) scale(${scale})`;
           item.style.opacity = opacity;
@@ -884,8 +885,6 @@
       }
 
       let lastTime = null;
-      const SPEED = 0.0008;
-
       function loop(ts) {
         if (!lastTime) lastTime = ts;
         offset += SPEED * (ts - lastTime);
@@ -899,8 +898,8 @@
 
       items.forEach((item, i) => {
         item.addEventListener('click', (e) => {
-          const pos = ((i - Math.round(offset) % total) + total) % total;
-          const centered = pos > total / 2 ? pos - total : pos;
+          const raw = i - offset;
+          const centered = ((raw % total) + total + total/2) % total - total/2;
           if (Math.abs(centered) > 0.5) e.preventDefault();
         });
       });
