@@ -94,24 +94,27 @@
       gap: 1rem;
     }
 
-    /* HAMBURGER */
+    /* HAMBURGER — fixed, sigue el scroll */
     .hamburger {
-      background: none;
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: #0d0d0d;
       border: none;
       cursor: pointer;
-      padding: 0.4rem;
+      padding: 0.65rem 0.75rem;
       display: flex;
       flex-direction: column;
       gap: 5px;
       z-index: 1100;
-      position: relative;
+      border-radius: 4px;
     }
 
     .hamburger span {
       display: block;
       width: 22px;
       height: 1.5px;
-      background: #1a1a18;
+      background: #f0ede6;
       transition: transform 0.3s ease, opacity 0.3s ease;
       transform-origin: center;
     }
@@ -712,11 +715,13 @@
       <div class="nav-right">
         <button class="lang-toggle" id="langToggle">EN</button>
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
-        <button class="hamburger" id="hamburger" aria-label="Menú">
-          <span></span><span></span><span></span>
-        </button>
       </div>
     </nav>
+
+    <!-- HAMBURGER FIXED -->
+    <button class="hamburger" id="hamburger" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
 
     <!-- DRAWER -->
     <div class="nav-overlay" id="navOverlay"></div>
