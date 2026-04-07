@@ -79,14 +79,14 @@
     }
 
     .nav-logo img {
-      height: 90px;
+      height: 99px;
       width: auto;
       display: block;
     }
 
     /* Always show black logo on light hero */
-    .logo-dark { display: none !important; }
-    .logo-light { display: block !important; }
+    .logo-dark { display: block !important; }
+    .logo-light { display: none !important; }
 
     .nav-right {
       display: flex;
@@ -254,7 +254,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 6rem 4% 4rem 39%;
+      padding: 6rem 4% 4rem 41%;
     }
 
     .hero-right {
@@ -311,6 +311,7 @@
       line-height: 2.0;
       margin-bottom: 1.5rem;
       text-align: left;
+      max-width: 90%;
     }
 
     .hero-cta {
@@ -732,11 +733,13 @@
     <div class="nav-overlay" id="navOverlay"></div>
     <div class="nav-drawer" id="navDrawer">
       <ul class="nav-drawer-links">
+        <li><a href="index.html" data-es="Inicio" data-en="Home">Inicio</a></li>
         <li><a href="portfolio.html" data-es="Portfolio" data-en="Portfolio">Portfolio</a></li>
         <li><a href="#reel" data-es="Reel" data-en="Reel">Reel</a></li>
         <li><a href="#about" data-es="Sobre mí" data-en="About">Sobre mí</a></li>
         <li><a href="#contact" data-es="Contacto" data-en="Contact">Contacto</a></li>
       </ul>
+      <p style="font-size:11px;letter-spacing:0.12em;color:var(--muted);margin-top:2rem;text-transform:uppercase;">© TomasAldazabal 2026</p>
     </div>
     <div class="hero-content">
         <h1 class="hero-title" data-es="Hola mundo" data-en="Hello world" style="white-space:nowrap;">Hola mundo</h1>
@@ -968,7 +971,7 @@
       const total = items.length;
       const GAP = window.innerWidth * 0.19;
       let offset = 0;
-      const SPEED = 0.0005;
+      const SPEED = 0.0003;
 
       function render() {
         items.forEach((item, i) => {
