@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lemon QR — Tomás Aldazabal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Syne+Mono&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d0d;
+      --bg2: #141414;
+      --bg3: #1c1c1c;
+      --text: #f0ede6;
+      --muted: #666560;
+      --border: rgba(240,237,230,0.08);
+      --border-hover: rgba(240,237,230,0.22);
+      --toggle-bg: #1c1c1c;
+      --toggle-knob: #f0ede6;
+    }
+
+    [data-theme="light"] {
+      --bg: #f5f3ee;
+      --bg2: #eceae4;
+      --bg3: #e3e0d9;
+      --text: #0d0d0d;
+      --muted: #999890;
+      --border: rgba(13,13,13,0.1);
+      --border-hover: rgba(13,13,13,0.28);
+      --toggle-bg: #e3e0d9;
+      --toggle-knob: #0d0d0d;
+    }
+
+    html { scroll-behavior: smooth; }
+    a:visited { color: inherit; }
+    a:focus { outline: none; }
+    a { -webkit-tap-highlight-color: transparent; }
+
+    /* NOISE OVERLAY */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 4;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 250px 250px;
+      background-repeat: repeat;
+      mix-blend-mode: soft-light;
+      opacity: 0.85;
+      animation: noiseMove 0.4s steps(1) infinite;
+    }
+
+    @keyframes noiseMove {
+      0%   { background-position: 0 0; }
+      25%  { background-position: -30px 15px; }
+      50%  { background-position: 15px -20px; }
+      75%  { background-position: -15px 25px; }
+      100% { background-position: 20px -10px; }
+    }
+
+
+    body {
+      font-family: 'Syne', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      transition: background 0.35s ease, color 0.35s ease;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 3rem;
+      background: var(--bg);
+      transition: background 0.35s ease;
+    }
+
+
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .nav-links a { color: inherit; text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+
+    .lang-toggle {
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      cursor: pointer;
+      border: 0.5px solid var(--border-hover);
+      padding: 0.35rem 0.75rem;
+      border-radius: 2px;
+      background: none;
+      font-family: 'Syne', sans-serif;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .lang-toggle:hover { color: var(--text); border-color: var(--text); }
+
+    .theme-toggle {
+      width: 40px; height: 22px;
+      border-radius: 11px;
+      background: var(--toggle-bg);
+      border: 0.5px solid var(--border-hover);
+      cursor: pointer;
+      position: relative;
+      transition: background 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .theme-toggle::after {
+      content: '';
+      position: absolute;
+      top: 3px; left: 3px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--toggle-knob);
+      transition: transform 0.3s ease;
+    }
+
+    [data-theme="light"] .theme-toggle::after { transform: translateX(18px); }
+
+    /* BACK LINK */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover { color: var(--text); }
+
+    /* MAIN */
+    .project-main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 8rem 3rem 6rem;
+      text-align: center;
+    }
+
+    /* HEADER */
+    .project-header {
+      margin-bottom: 4rem;
+      padding-bottom: 3rem;
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    .project-back {
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+
+    .project-title {
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1;
+      margin-bottom: 2rem;
+    }
+
+    .project-meta {
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .project-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      align-items: center;
+    }
+
+    .project-meta-label {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .project-meta-value {
+      font-size: 15px;
+      color: var(--text);
+    }
+
+    /* DESCRIPTION */
+    .project-description {
+      font-size: 17px;
+      line-height: 1.9;
+      color: var(--muted);
+      margin-bottom: 4rem;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* SOFTWARE TAGS */
+    .project-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 4rem;
+      justify-content: center;
+    }
+
+    .project-tool-tag {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: 0.5px solid var(--border-hover);
+      padding: 0.4rem 0.85rem;
+      border-radius: 2px;
+      color: var(--muted);
+    }
+
+    /* MEDIA */
+    .project-media {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-bottom: 5rem;
+      position: relative;
+      z-index: 5;
+    }
+
+    .project-media img {
+      width: 100%;
+      display: block;
+      border-radius: 2px;
+    }
+
+    .project-video {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      background: var(--bg3);
+      border-radius: 2px;
+    }
+
+    .project-video iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+    }
+
+    /* NAVIGATION BETWEEN PROJECTS */
+    .project-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 3rem;
+      border-top: 0.5px solid var(--border);
+    }
+
+    .project-nav a {
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .project-nav a:hover { color: var(--text); }
+
+    /* FOOTER */
+    footer {
+      padding: 1.5rem 3rem;
+      border-top: 0.5px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 700px) {
+      nav { padding: 1.25rem 1.5rem; }
+      .nav-links { display: none; }
+      .project-main { padding: 7rem 1.5rem 4rem; }
+      .project-meta { gap: 1.5rem; }
+      footer { padding: 1.25rem 1.5rem; flex-direction: column; gap: 0.5rem; }
+    }
+
+    /* CONTACT */
+    .contact-section { padding: 5rem; border-top: 0.5px solid var(--border); max-width: 1100px; margin: 0 auto; }
+
+    .contact-big {
+      font-size: clamp(36px, 4vw, 56px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.05;
+      margin-bottom: 3rem;
+    }
+
+    .contact-big em { font-style: italic; font-weight: 400; color: var(--muted); }
+    .contact-links { display: flex; gap: 1.5rem; flex-wrap: nowrap; align-items: flex-start; }
+    .contact-link { display: flex; flex-direction: column; gap: 0.3rem; }
+    .contact-link-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+    .contact-link a { font-size: 12px; color: var(--text); text-decoration: none; border-bottom: 0.5px solid var(--border); padding-bottom: 2px; transition: border-color 0.2s; white-space: nowrap; display: flex; align-items: center; }
+    .contact-link a:hover { border-color: var(--text); }
+    /* NAV — fixed, sigue el scroll */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 2rem 0.75rem 1.5rem;
+      background: transparent !important;
+    }
+
+
+    /* Always show black logo on light hero */
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* HAMBURGER — dentro del nav */
+    .hamburger {
+      background: #0d0d0d;
+      border: none;
+      cursor: pointer;
+      padding: 0.55rem 0.65rem;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      z-index: 1100;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 20px;
+      height: 1.5px;
+      background: #f0ede6;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      transform-origin: center;
+    }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* DRAWER */
+    .nav-drawer {
+      position: fixed;
+      top: 0; right: 0;
+      width: clamp(220px, 30vw, 340px);
+      height: 100vh;
+      background: var(--bg);
+      z-index: 1050;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 4rem 3rem;
+      border-left: 0.5px solid var(--border);
+    }
+
+    .nav-drawer.open { transform: translateX(0); }
+
+    .nav-drawer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 3rem;
+    }
+
+    .nav-drawer-links li {
+      border-top: 0.5px solid var(--border-hover);
+    }
+
+    .nav-drawer-links li:last-child {
+      border-bottom: 0.5px solid var(--border-hover);
+    }
+
+    .nav-drawer-links a {
+      display: block;
+      font-size: clamp(20px, 3vw, 28px);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.2s;
+      padding: 1.2rem 0;
+    }
+
+    .nav-drawer-links a:hover { color: #CCFF00; }
+
+    .nav-drawer-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* OVERLAY */
+    .nav-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 1040;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .nav-overlay.open { opacity: 1; pointer-events: all; }
+
+    .nav-links { display: none; }
+    /* Logo CSS */
+    .nav-logo { position: relative; display: block; height: 99px; }
+    .nav-logo img { height: 99px; width: auto; display: block; position: absolute; top: 0; left: 0; transition: opacity 0.5s ease; }
+    .logo-dark { opacity: 0; }
+    .logo-light { opacity: 1; }
+    html[data-theme="dark"] .logo-dark { opacity: 1; }
+    html[data-theme="dark"] .logo-light { opacity: 0; }
+    html[data-theme="light"] .logo-dark { opacity: 0; }
+    html[data-theme="light"] .logo-light { opacity: 1; }
+  </style>
+</head>
+<body>
+
+      <nav>
+      <a href="index.html" class="nav-logo" style="text-decoration:none;">
+        <img class="logo-dark" src="images/logo-white.png" alt="Tomás Aldazabal"/>
+        <img class="logo-light" src="images/logo-black.png" alt="Tomás Aldazabal"/>
+      </a>
+      <div class="nav-right">
+        <button class="lang-toggle" id="langToggle">EN</button>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+        <button class="hamburger" id="hamburger" aria-label="Menú">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+    <div class="nav-overlay" id="navOverlay"></div>
+    <div class="nav-drawer" id="navDrawer">
+      <ul class="nav-drawer-links">
+        <li><a href="index.html" data-es="Inicio" data-en="Home">Inicio</a></li>
+        <li><a href="portfolio.html" data-es="Portfolio" data-en="Portfolio">Portfolio</a></li>
+        <li><a href="index.html#reel" data-es="Reel" data-en="Reel">Reel</a></li>
+        <li><a href="index.html#about" data-es="Sobre mí" data-en="About">Sobre mí</a></li>
+        <li><a href="index.html#contact" data-es="Contacto" data-en="Contact">Contacto</a></li>
+      </ul>
+      <p style="font-size:11px;letter-spacing:0.12em;color:var(--muted);margin-top:2rem;text-transform:uppercase;">© TomasAldazabal 2026</p>
+    </div>
+
+  <main class="project-main" style="position:relative;z-index:5;">
+
+    <!-- HEADER -->
+    <div class="project-header">
+      <div class="project-back">
+        <a href="portfolio.html" class="back-link">← <span data-es="Volver al portfolio" data-en="Back to portfolio">Volver al portfolio</span></a>
+      </div>
+      <h1 class="project-title">Lemon QR</h1>
+
+      <!-- HERO IMAGE -->
+      <div style="width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:2px;margin:2rem 0;">
+        <img src="images/lemon.png" alt="Lemon QR" style="width:100%;height:100%;object-fit:cover;display:block;"/>
+      </div>
+
+      <div class="project-meta">
+        <div class="project-meta-item">
+          <span class="project-meta-label" data-es="Cliente" data-en="Client">Cliente</span>
+          <span class="project-meta-value">Lemon Cash App</span>
+        </div>
+        <div class="project-meta-item">
+          <span class="project-meta-label" data-es="Estudio" data-en="Studio">Estudio</span>
+          <span class="project-meta-value">Bélier Arts</span>
+        </div>
+        <div class="project-meta-item">
+          <span class="project-meta-label" data-es="Rol" data-en="Role">Rol</span>
+          <span class="project-meta-value">3D Character Modeling, Rigging &amp; Animation</span>
+        </div>
+        <div class="project-meta-item">
+          <span class="project-meta-label" data-es="Año" data-en="Year">Año</span>
+          <span class="project-meta-value">2025</span>
+        </div>
+        <div class="project-meta-item">
+          <span class="project-meta-label" data-es="Créditos" data-en="Credits">Créditos</span>
+          <span class="project-meta-value">Ramiro Bianchi</span>
+        </div>
+      </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESCRIPTION -->
+    <p class="project-description"
+       data-es="Hero animation para presentación del producto QR de Lemon Cash App. Tuve que modelar el environment, el personaje del Lemmy y realizar algunos rigs técnicos para resolver la animación planteada."
+       data-en="Hero animation for the presentation of Lemon Cash App's QR product. I modeled the environment, the Lemmy character and created technical rigs to resolve the planned animation.">
+      Hero animation para presentación del producto QR de Lemon Cash App. Tuve que modelar el environment, el personaje del Lemmy y realizar algunos rigs técnicos para resolver la animación planteada.
+    </p>
+
+    <!-- SOFTWARE TOOLS -->
+    <div class="project-tools">
+      <span class="project-tool-tag">Blender</span>
+      <span class="project-tool-tag">Autodesk Maya</span>
+    </div>
+
+    <!-- MEDIA — imágenes y videos apilados -->
+    <div class="project-media">
+      <div style="width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:2px;">
+        <video controls playsinline style="width:100%;height:100%;object-fit:cover;display:block;">
+          <source src="images/Hacker_RenderMovie_16-9.mov" type="video/quicktime"/>
+          <source src="images/Hacker_RenderMovie_16-9.mov" type="video/mp4"/>
+        </video>
+      </div>
+    </div>
+
+    <!-- NAVEGACIÓN ENTRE PROYECTOS -->
+    <div class="project-nav">
+      <a href="#" data-es="← Proyecto anterior" data-en="← Previous project">← <span data-es="Proyecto anterior" data-en="Previous project">Proyecto anterior</span></a>
+      <a href="portfolio.html" data-es="Ver portfolio" data-en="View portfolio">Ver portfolio</a>
+      <a href="#" data-es="Siguiente proyecto →" data-en="Next project →"><span data-es="Siguiente proyecto" data-en="Next project">Siguiente proyecto</span> →</a>
+    </div>
+
+  </main>
+
+  <div style="max-width:1200px;margin:0 auto;padding:4rem 4rem 5rem;border-top:0.5px solid var(--border);">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;margin-bottom:3rem;">
+      <h2 style="font-size:clamp(28px,3.8vw,52px);font-weight:800;letter-spacing:-2px;line-height:1;margin:0;white-space:nowrap;" data-es="Creemos <em style='font-style:italic;font-weight:400;color:var(--muted)'>juntos</em>" data-en="Let's create <em style='font-style:italic;font-weight:400;color:var(--muted)'>together</em>">Creemos <em style="font-style:italic;font-weight:400;color:var(--muted)">juntos</em></h2>
+      <a href="https://calendly.com/tomalda3d/30min" target="_blank" style="display:inline-flex;align-items:center;gap:0.6rem;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--text);text-decoration:none;border:1.5px solid var(--border-hover);padding:0.7rem 1.4rem;border-radius:2px;transition:background 0.25s,border-color 0.25s,color 0.25s;white-space:nowrap;outline:none;-webkit-tap-highlight-color:transparent;" onmouseover="this.style.background='#CCFF00';this.style.borderColor='#CCFF00';this.style.color='#1a1a18'" onmouseout="this.style.background='';this.style.borderColor='';this.style.color=''"><span data-es="Programar una reunión →" data-en="Schedule a meeting →">Programar una reunión →</span></a>
+    </div>
+    <div class="contact-links">
+      <div class="contact-link">
+        <span class="contact-link-label">Email</span>
+        <a href="mailto:tomalda3d@gmail.com">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:6px;opacity:0.6"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>tomalda3d@gmail.com
+        </a>
+      </div>
+      <div class="contact-link">
+        <span class="contact-link-label">ArtStation</span>
+        <a href="https://artstation.com/tomalda3d" target="_blank">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:6px;opacity:0.6"><path d="M0 17.723l2.027 3.505h.001a2.424 2.424 0 0 0 2.164 1.333h13.457l-2.792-4.838H0zm24 .025c0-.484-.143-.935-.388-1.314L15.728 2.728a2.424 2.424 0 0 0-2.164-1.333H9.419L21.598 22.54l1.92-3.325c.378-.637.482-.919.482-1.467zm-11.129-3.462L7.428 4.858l-5.444 9.428h10.887z"/></svg>artstation.com/tomalda3d
+        </a>
+      </div>
+      <div class="contact-link">
+        <span class="contact-link-label">Instagram</span>
+        <a href="https://instagram.com/tomalda3d" target="_blank">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:6px;opacity:0.6"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>@tomalda3d
+        </a>
+      </div>
+      <div class="contact-link">
+        <span class="contact-link-label">LinkedIn</span>
+        <a href="https://www.linkedin.com/in/tomas-aldazabal/" target="_blank">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:6px;opacity:0.6"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>linkedin/tomalda3d
+        </a>
+      </div>
+      <div class="contact-link">
+        <span class="contact-link-label">Linktree</span>
+        <a href="https://linktr.ee/tomalda3d" target="_blank">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:6px;opacity:0.6"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>linktr.ee/tomalda3d
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span>© Tomás Aldazabal 2026</span>
+    <span>3D Artist &amp; Technical Animator · Buenos Aires</span>
+  </footer>
+
+  <script>
+    // CORE — primero
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    html.setAttribute('data-theme', savedTheme);
+
+    // THEME TOGGLE
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+
+        // HAMBURGER MENU
+    const hamburger = document.getElementById('hamburger');
+    const navDrawer = document.getElementById('navDrawer');
+    const navOverlay = document.getElementById('navOverlay');
+
+    function toggleMenu(open) {
+      hamburger.classList.toggle('open', open);
+      navDrawer.classList.toggle('open', open);
+      navOverlay.classList.toggle('open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+
+    hamburger.addEventListener('click', () => toggleMenu(!navDrawer.classList.contains('open')));
+    navOverlay.addEventListener('click', () => toggleMenu(false));
+    navDrawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
+
+    // LANGUAGE
+    const langToggle = document.getElementById('langToggle');
+    let currentLang = localStorage.getItem('lang') || 'es';
+
+    function applyLang(lang) {
+      document.querySelectorAll('[data-es]').forEach(el => {
+        const val = el.getAttribute('data-' + lang);
+        if (val) el.innerHTML = val;
+      });
+      langToggle.textContent = lang === 'es' ? 'EN' : 'ES';
+      currentLang = lang;
+      localStorage.setItem('lang', lang);
+    }
+
+    applyLang(currentLang);
+    langToggle.addEventListener('click', () => applyLang(currentLang === 'es' ? 'en' : 'es'));
+  </script>
+
+</body>
+</html>
