@@ -33,6 +33,10 @@
     }
 
     html { scroll-behavior: smooth; }
+    a:visited { color: inherit; }
+    a:focus { outline: none; }
+    a { -webkit-tap-highlight-color: transparent; }
+
 
     body {
       font-family: 'Syne', sans-serif;
@@ -78,15 +82,28 @@
       background: transparent !important;
     }
 
+    .nav-logo {
+      position: relative;
+      display: block;
+      text-decoration: none;
+    }
+
     .nav-logo img {
       height: 99px;
       width: auto;
       display: block;
+      transition: opacity 0.5s ease;
     }
 
-    /* Always show black logo on light hero */
-    .logo-dark { display: block !important; }
-    .logo-light { display: none !important; }
+    /* Logo adapts to theme */
+    html[data-theme="dark"] .logo-dark { display: block !important; opacity: 1; }
+    html[data-theme="dark"] .logo-light { display: none !important; }
+    html[data-theme="light"] .logo-dark { display: none !important; }
+    html[data-theme="light"] .logo-light { display: block !important; opacity: 1; }
+
+    /* In light mode, after hero: show dark logo */
+    html[data-theme="light"] .logo-light.faded { opacity: 0; }
+    html[data-theme="light"] .logo-dark.visible { display: block !important; opacity: 1; }
 
     .nav-right {
       display: flex;
@@ -193,9 +210,9 @@
       font-size: 13px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: rgba(13,13,13,0.6);
+      color: rgba(13,13,13,0.7);
       cursor: pointer;
-      border: 0.5px solid rgba(13,13,13,0.3);
+      border: 0.5px solid rgba(13,13,13,0.4);
       padding: 0.35rem 0.75rem;
       border-radius: 2px;
       transition: color 0.2s, border-color 0.2s;
@@ -204,6 +221,16 @@
     }
 
     .lang-toggle:hover { color: #1a1a18; border-color: #1a1a18; }
+
+    [data-theme="dark"] .lang-toggle {
+      color: rgba(240,237,230,0.7);
+      border-color: rgba(240,237,230,0.3);
+    }
+
+    [data-theme="dark"] .lang-toggle:hover {
+      color: #f0ede6;
+      border-color: #f0ede6;
+    }
 
     /* THEME TOGGLE */
     .theme-toggle {
@@ -716,9 +743,9 @@
   <section class="hero" id="hero">
     <div class="hero-bg"></div>
     <nav>
-      <a href="index.html" class="nav-logo" style="text-decoration:none;">
-        <img class="logo-dark" src="images/logo-white.png" alt="Tomás Aldazabal"/>
-        <img class="logo-light" src="images/logo-black.png" alt="Tomás Aldazabal"/>
+      <a href="index.html" class="nav-logo" style="text-decoration:none;position:relative;display:block;height:99px;">
+        <img class="logo-dark" src="images/logo-white.png" alt="Tomás Aldazabal" style="position:absolute;top:0;left:0;transition:opacity 0.5s ease;"/>
+        <img class="logo-light" src="images/logo-black.png" alt="Tomás Aldazabal" style="position:absolute;top:0;left:0;transition:opacity 0.5s ease;"/>
       </a>
       <div class="nav-right">
         <button class="lang-toggle" id="langToggle">EN</button>
@@ -904,6 +931,31 @@
   </footer>
 
   <script>
+
+    // LOGO SCROLL TRANSITION — light mode only
+    const logoDark = document.querySelector('.logo-dark');
+    const logoLight = document.querySelector('.logo-light');
+    const heroEl = document.getElementById('hero');
+
+    window.addEventListener('scroll', () => {
+      if (html.getAttribute('data-theme') !== 'light') return;
+      const heroBottom = heroEl.offsetTop + heroEl.offsetHeight;
+      const scrolled = window.scrollY > heroBottom * 0.7;
+
+      if (scrolled) {
+        // Past hero — show dark logo
+        logoDark.style.display = 'block';
+        logoDark.style.opacity = '1';
+        logoLight.style.opacity = '0';
+        setTimeout(() => { if (window.scrollY > heroBottom * 0.7) logoLight.style.display = 'none'; }, 500);
+      } else {
+        // In hero — show light logo (which is the black one on herobg)
+        logoLight.style.display = 'block';
+        logoLight.style.opacity = '1';
+        logoDark.style.opacity = '0';
+        setTimeout(() => { if (window.scrollY <= heroBottom * 0.7) logoDark.style.display = 'none'; }, 500);
+      }
+    }, { passive: true });
 
     // HAMBURGER MENU
     const hamburger = document.getElementById('hamburger');
