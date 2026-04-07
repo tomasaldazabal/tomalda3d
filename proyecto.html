@@ -82,14 +82,7 @@
       transition: background 0.35s ease;
     }
 
-    .nav-logo img { height: 40px; width: auto; display: block; }
 
-    .logo-dark { display: none; }
-    .logo-light { display: block; }
-    html[data-theme="dark"] .logo-dark { display: block; }
-    html[data-theme="dark"] .logo-light { display: none; }
-    html[data-theme="light"] .logo-dark { display: none; }
-    html[data-theme="light"] .logo-light { display: block; }
 
     .nav-right {
       display: flex;
@@ -351,15 +344,8 @@
       background: transparent !important;
     }
 
-    .nav-logo img {
-      height: 99px;
-      width: auto;
-      display: block;
-    }
 
     /* Always show black logo on light hero */
-    .logo-dark { display: block !important; }
-    .logo-light { display: none !important; }
 
     .nav-right {
       display: flex;
@@ -461,6 +447,15 @@
     .nav-overlay.open { opacity: 1; pointer-events: all; }
 
     .nav-links { display: none; }
+    /* Logo CSS */
+    .nav-logo { position: relative; display: block; height: 99px; }
+    .nav-logo img { height: 99px; width: auto; display: block; position: absolute; top: 0; left: 0; transition: opacity 0.5s ease; }
+    .logo-dark { opacity: 0; }
+    .logo-light { opacity: 1; }
+    html[data-theme="dark"] .logo-dark { opacity: 1; }
+    html[data-theme="dark"] .logo-light { opacity: 0; }
+    html[data-theme="light"] .logo-dark { opacity: 0; }
+    html[data-theme="light"] .logo-light { opacity: 1; }
   </style>
 </head>
 <body>
