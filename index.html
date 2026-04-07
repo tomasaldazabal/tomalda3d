@@ -151,6 +151,8 @@
     .hero {
       height: 60vh;
       min-height: 400px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       position: relative;
       overflow: hidden;
     }
@@ -165,31 +167,25 @@
     }
 
     .hero-content {
-      position: absolute;
-      top: 50%;
-      left: 25%;
-      transform: translateY(-50%);
+      position: relative;
       z-index: 5;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      max-width: clamp(280px, 35vw, 600px);
+      padding: 6rem clamp(1rem, 2vw, 3rem) 4rem clamp(2rem, 8vw, 10rem);
     }
 
     .hero-right {
-      position: absolute;
-      bottom: 0;
-      right: 27%;
+      position: relative;
       z-index: 1;
-      width: clamp(206px, 30.8vw, 549px);
-      height: 100%;
       display: flex;
       align-items: flex-end;
       justify-content: center;
+      overflow: hidden;
     }
 
     .hero-cutout {
-      width: 100%;
+      width: clamp(206px, 85%, 549px);
       height: 100%;
       object-fit: contain;
       object-position: bottom center;
@@ -617,9 +613,10 @@
     @media (max-width: 700px) {
       nav { padding: 1.25rem 1.5rem; }
       .nav-links { display: none; }
-      .hero { height: auto; min-height: 100vh; }
-      .hero-content { position: relative; top: auto; left: auto; transform: none; max-width: 100%; padding: 7rem 1.5rem 2rem; }
-      .hero-right { position: relative; bottom: auto; right: auto; width: 70%; height: 50vw; margin: 0 auto; }
+      .hero { grid-template-columns: 1fr; height: auto; min-height: 100vh; }
+      .hero-content { padding: 7rem 1.5rem 2rem; }
+      .hero-right { height: 60vw; }
+      .hero-cutout { width: 80%; }
       .section { padding: 3.5rem 1.5rem; }
       .projects-grid { grid-template-columns: 1fr; }
       .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -862,7 +859,7 @@
       if (!track) return;
       const items = Array.from(track.querySelectorAll('.carousel-cf-item'));
       const total = items.length;
-      const GAP = window.innerWidth * 0.16;
+      const GAP = window.innerWidth * 0.19;
       let offset = 0;
       const SPEED = 0.0005;
 
