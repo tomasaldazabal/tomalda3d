@@ -931,76 +931,18 @@
 
   <script>
 
-    // LOGO SCROLL TRANSITION — index only
-    const logoDark = document.querySelector('.logo-dark');
-    const logoLight = document.querySelector('.logo-light');
-    const heroEl = document.getElementById('hero');
-
-    function updateLogo() {
-      if (!heroEl) return;
-      const theme = html.getAttribute('data-theme');
-      const heroBottom = heroEl.offsetTop + heroEl.offsetHeight;
-      const pastHero = window.scrollY > heroBottom * 0.7;
-
-      if (theme === 'light') {
-        // Light mode: start white (on herobg), fade to black after hero
-        // logo-light = black logo, logo-dark = white logo
-        if (pastHero) {
-          logoLight.style.display = 'block';
-          logoLight.style.opacity = '1';
-          logoDark.style.opacity = '0';
-          setTimeout(() => { logoDark.style.display = 'none'; }, 500);
-        } else {
-          logoDark.style.display = 'block';
-          logoDark.style.opacity = '1';
-          logoLight.style.opacity = '0';
-          setTimeout(() => { logoLight.style.display = 'none'; }, 500);
-        }
-      } else {
-        // Dark mode: start black (logo-light = black), fade to white (logo-dark = white) after hero
-        if (pastHero) {
-          logoDark.style.display = 'block';
-          logoDark.style.opacity = '1';
-          logoLight.style.opacity = '0';
-          setTimeout(() => { logoLight.style.display = 'none'; }, 500);
-        } else {
-          logoLight.style.display = 'block';
-          logoLight.style.opacity = '1';
-          logoDark.style.opacity = '0';
-          setTimeout(() => { logoDark.style.display = 'none'; }, 500);
-        }
-      }
-    }
-
-    window.addEventListener('scroll', updateLogo, { passive: true });
-    updateLogo();
-
-    // HAMBURGER MENU
-    const hamburger = document.getElementById('hamburger');
-    const navDrawer = document.getElementById('navDrawer');
-    const navOverlay = document.getElementById('navOverlay');
-
-    function toggleMenu(open) {
-      hamburger.classList.toggle('open', open);
-      navDrawer.classList.toggle('open', open);
-      navOverlay.classList.toggle('open', open);
-      document.body.style.overflow = open ? 'hidden' : '';
-    }
-
-    hamburger.addEventListener('click', () => toggleMenu(!navDrawer.classList.contains('open')));
-    navOverlay.addEventListener('click', () => toggleMenu(false));
-    navDrawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
-
-    // THEME
-    const themeToggle = document.getElementById('themeToggle');
+    // CORE — declarar primero
     const html = document.documentElement;
     const savedTheme = localStorage.getItem('theme') || 'dark';
     html.setAttribute('data-theme', savedTheme);
 
+    // THEME TOGGLE
+    const themeToggle = document.getElementById('themeToggle');
     themeToggle.addEventListener('click', () => {
       const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       html.setAttribute('data-theme', next);
       localStorage.setItem('theme', next);
+      updateLogo();
     });
 
     // LANGUAGE
@@ -1019,17 +961,68 @@
     }
 
     applyLang(currentLang);
+    langToggle.addEventListener('click', () => applyLang(currentLang === 'es' ? 'en' : 'es'));
 
-    langToggle.addEventListener('click', () => {
-      applyLang(currentLang === 'es' ? 'en' : 'es');
-    });
+    // HAMBURGER MENU
+    const hamburger = document.getElementById('hamburger');
+    const navDrawer = document.getElementById('navDrawer');
+    const navOverlay = document.getElementById('navOverlay');
 
-    // HERO SCROLL — gradient fades in as user scrolls
+    function toggleMenu(open) {
+      hamburger.classList.toggle('open', open);
+      navDrawer.classList.toggle('open', open);
+      navOverlay.classList.toggle('open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+
+    hamburger.addEventListener('click', () => toggleMenu(!navDrawer.classList.contains('open')));
+    navOverlay.addEventListener('click', () => toggleMenu(false));
+    navDrawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
+
+    // LOGO SCROLL TRANSITION
+    const logoDark = document.querySelector('.logo-dark');
+    const logoLight = document.querySelector('.logo-light');
+    const heroEl = document.getElementById('hero');
+
+    function updateLogo() {
+      if (!heroEl || !logoDark || !logoLight) return;
+      const theme = html.getAttribute('data-theme');
+      const heroBottom = heroEl.offsetTop + heroEl.offsetHeight;
+      const pastHero = window.scrollY > heroBottom * 0.7;
+
+      logoDark.style.transition = 'opacity 0.5s ease';
+      logoLight.style.transition = 'opacity 0.5s ease';
+
+      if (theme === 'light') {
+        if (pastHero) {
+          logoDark.style.display = 'none';
+          logoLight.style.display = 'block';
+          logoLight.style.opacity = '1';
+        } else {
+          logoLight.style.display = 'none';
+          logoDark.style.display = 'block';
+          logoDark.style.opacity = '1';
+        }
+      } else {
+        if (pastHero) {
+          logoLight.style.display = 'none';
+          logoDark.style.display = 'block';
+          logoDark.style.opacity = '1';
+        } else {
+          logoDark.style.display = 'none';
+          logoLight.style.display = 'block';
+          logoLight.style.opacity = '1';
+        }
+      }
+    }
+
+    window.addEventListener('scroll', updateLogo, { passive: true });
+    updateLogo();
+
+    // HERO GRADIENT SCROLL
     const hero = document.getElementById('hero');
     window.addEventListener('scroll', () => {
-      const scrollY = window.scrollY;
-      const heroHeight = hero.offsetHeight;
-      const progress = Math.min(scrollY / (heroHeight * 0.35), 1);
+      const progress = Math.min(window.scrollY / (hero.offsetHeight * 0.35), 1);
       hero.style.setProperty('--grad-opacity', progress);
     }, { passive: true });
 
