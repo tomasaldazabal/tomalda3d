@@ -215,7 +215,7 @@
       border: 0.5px solid rgba(13,13,13,0.4);
       padding: 0.35rem 0.75rem;
       border-radius: 2px;
-      transition: color 0.2s, border-color 0.2s;
+      transition: color 0.5s ease, border-color 0.5s ease;
       background: none;
       font-family: 'Syne', sans-serif;
     }
@@ -966,6 +966,28 @@
 
     applyLang(currentLang);
     langToggle.addEventListener('click', () => applyLang(currentLang === 'es' ? 'en' : 'es'));
+
+    // LANG TOGGLE COLOR ON SCROLL — dark mode only
+    function updateLangColor() {
+      const theme = html.getAttribute('data-theme');
+      const reelEl = document.getElementById('reel');
+      const heroEl2 = document.getElementById('hero');
+      const trigger = reelEl ? reelEl.offsetTop : (heroEl2 ? heroEl2.offsetTop + heroEl2.offsetHeight : 400);
+      const pastHero = window.scrollY > trigger * 0.85;
+
+      if (theme === 'light' || !pastHero) {
+        langToggle.style.color = 'rgba(13,13,13,0.7)';
+        langToggle.style.borderColor = 'rgba(13,13,13,0.4)';
+      } else {
+        langToggle.style.color = 'rgba(240,237,230,0.7)';
+        langToggle.style.borderColor = 'rgba(240,237,230,0.3)';
+      }
+    }
+
+    window.addEventListener('scroll', updateLangColor, { passive: true });
+    // Also call when theme changes
+    themeToggle.addEventListener('click', updateLangColor);
+    updateLangColor();
 
     // HAMBURGER MENU
     const hamburger = document.getElementById('hamburger');
