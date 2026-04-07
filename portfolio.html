@@ -565,7 +565,7 @@
   <!-- PROJECTS GRID -->
   <div class="projects-grid" id="grid">
 
-    <a href="the-office-encounter.html" style="text-decoration:none;display:block;" class="project-card" data-tags="environment modeling">
+    <a href="the-office-encounter.html" style="text-decoration:none;display:block;" class="project-card" data-tags="animation modeling">
       <img src="images/still.png" alt="The Office Encounter"/>
       <div class="project-info">
         <p class="project-name">The Office Encounter</p>
@@ -712,6 +712,37 @@
   </footer>
 
   <script>
+    // CORE — primero
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    html.setAttribute('data-theme', savedTheme);
+
+    // THEME TOGGLE
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+
+    // LANGUAGE
+    const langToggle = document.getElementById('langToggle');
+    let currentLang = localStorage.getItem('lang') || 'es';
+
+    function applyLang(lang) {
+      document.querySelectorAll('[data-es]').forEach(el => {
+        if (el.classList.contains('filter-btn')) return;
+        const val = el.getAttribute('data-' + lang);
+        if (val) el.innerHTML = val;
+      });
+      langToggle.textContent = lang === 'es' ? 'EN' : 'ES';
+      currentLang = lang;
+      localStorage.setItem('lang', lang);
+    }
+
+    applyLang(currentLang);
+    langToggle.addEventListener('click', () => applyLang(currentLang === 'es' ? 'en' : 'es'));
+
     // HAMBURGER MENU
     const hamburger = document.getElementById('hamburger');
     const navDrawer = document.getElementById('navDrawer');
@@ -727,34 +758,6 @@
     hamburger.addEventListener('click', () => toggleMenu(!navDrawer.classList.contains('open')));
     navOverlay.addEventListener('click', () => toggleMenu(false));
     navDrawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
-
-    // THEME
-    const themeToggle = document.getElementById('themeToggle');
-    const html = document.documentElement;
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    html.setAttribute('data-theme', savedTheme);
-    themeToggle.addEventListener('click', () => {
-      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      html.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
-    });
-
-    // LANGUAGE
-    const langToggle = document.getElementById('langToggle');
-    let currentLang = localStorage.getItem('lang') || 'es';
-
-    function applyLang(lang) {
-      document.querySelectorAll('[data-es]').forEach(el => {
-        const val = el.getAttribute('data-' + lang);
-        if (val) el.innerHTML = val;
-      });
-      langToggle.textContent = lang === 'es' ? 'EN' : 'ES';
-      currentLang = lang;
-      localStorage.setItem('lang', lang);
-    }
-
-    applyLang(currentLang);
-    langToggle.addEventListener('click', () => applyLang(currentLang === 'es' ? 'en' : 'es'));
 
     // FILTERS
     const filterBtns = document.querySelectorAll('.filter-btn');
