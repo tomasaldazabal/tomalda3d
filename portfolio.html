@@ -585,15 +585,15 @@
       <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
     </a>
 
-    <div class="project-card" data-tags="modeling">
-      <img src="images/paramount.png" alt="Paramount+"/>
+    <a href="paramount.html" style="text-decoration:none;display:block;" class="project-card" data-tags="modeling">
+      <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;"><source src="images/PN_PINBALL_LAT.mp4" type="video/mp4"/></video>
       <div class="project-info">
-        <p class="project-name">Paramount+</p>
+        <p class="project-name">Rebrand Paramount+</p>
         <p class="project-role">3D Assets / Props Modeling</p>
         <p class="project-year">2024</p>
       </div>
       <div class="project-hover"><span class="project-hover-label" data-es="Ver proyecto" data-en="View project">Ver proyecto</span></div>
-    </div>
+    </a>
 
     <div class="project-card" data-tags="animation rigging">
       <img src="images/braum.png" alt="Braum PP"/>
@@ -665,8 +665,8 @@
     <div class="contact-links">
       <div class="contact-link">
         <span class="contact-link-label">Email</span>
-        <a href="/cdn-cgi/l/email-protection#23574c4e424f4742104763444e424a4f0d404c4e">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:6px;opacity:0.6"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg><span class="__cf_email__" data-cfemail="96e2f9fbf7faf2f7a5f2d6f1fbf7fffab8f5f9fb">[email&#160;protected]</span>
+        <a href="mailto:tomalda3d@gmail.com">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:6px;opacity:0.6"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>tomalda3d@gmail.com
         </a>
       </div>
       <div class="contact-link">
@@ -701,7 +701,7 @@
     <span>3D Artist &amp; Technical Animator · Buenos Aires</span>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script>
     // CORE — primero
     const html = document.documentElement;
     const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -752,4 +752,16 @@
     // LOGO SCROLL TRANSITION
     const logoDark = document.querySelector('.logo-dark');
     const logoLight = document.querySelector('.logo-light');
-    const heroEl = 
+    const heroEl = document.getElementById('hero');
+
+    function updateLogo() {
+      // CSS handles everything via data-theme attribute
+    }
+
+    window.addEventListener('scroll', updateLogo, { passive: true });
+      });
+    });
+  </script>
+
+</body>
+</html>
