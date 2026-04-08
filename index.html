@@ -142,7 +142,7 @@
     .nav-drawer {
       position: fixed;
       top: 0; right: 0;
-      width: clamp(220px, 30vw, 340px);
+      width: clamp(260px, 80vw, 340px);
       height: 100vh;
       background: var(--bg);
       z-index: 1050;
@@ -282,6 +282,10 @@
       flex-direction: column;
       justify-content: center;
       padding: 6rem 4% 4rem 47%;
+    }
+
+    @media (max-width: 1024px) {
+      .hero-content { padding: 7rem 8% 2rem 8%; }
     }
 
     .hero-right {
@@ -460,6 +464,10 @@
       padding: 0 5rem;
     }
 
+    @media (max-width: 700px) {
+      .section-inner { padding: 0 1.5rem; }
+    }
+
     .section-header {
       display: flex;
       justify-content: space-between;
@@ -573,6 +581,10 @@
       padding: 2.5rem 5rem;
     }
 
+    @media (max-width: 700px) {
+      .about-grid { padding: 2rem 1.5rem; gap: 2.5rem; }
+    }
+
     .about-title {
       font-size: clamp(36px, 4vw, 56px);
       font-weight: 800;
@@ -633,6 +645,10 @@
     /* EXPERIENCE */
     .exp-list { display: flex; flex-direction: column; max-width: 1100px; margin: 0 auto; padding: 0 5rem; }
 
+    @media (max-width: 700px) {
+      .exp-list { padding: 0 1.5rem; }
+    }
+
     .exp-item {
       display: grid;
       grid-template-columns: 1fr 2fr auto;
@@ -659,7 +675,7 @@
     }
 
     .contact-big em { font-style: italic; font-weight: 400; color: var(--muted); }
-    .contact-links { display: flex; gap: 1.5rem; flex-wrap: nowrap; align-items: flex-start; }
+    .contact-links { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: flex-start; }
     .contact-link { display: flex; flex-direction: column; gap: 0.3rem; }
     .contact-link-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
     .contact-link a { font-size: 12px; color: var(--text); text-decoration: none; border-bottom: 0.5px solid var(--border); padding-bottom: 2px; transition: border-color 0.2s; white-space: nowrap; display: flex; align-items: center; }
@@ -724,7 +740,6 @@
     /* RESPONSIVE */
     @media (max-width: 1024px) {
       .hero { grid-template-columns: 1fr; height: auto; min-height: 100svh; }
-      .hero-content { padding: 7rem 8% 2rem 8%; }
       .hero-right { height: 60vw; justify-content: center; }
       .hero-cutout { width: 75%; object-position: bottom center; }
       .about-grid { grid-template-columns: 1fr; gap: 3rem; }
@@ -743,11 +758,25 @@
       .hero-right { height: 55vw; justify-content: center; }
       .hero-cutout { width: 70%; object-position: bottom center; }
       .section { padding: 3.5rem 1.5rem; }
+      .section-inner { padding: 0 1.5rem; }
       .projects-grid { grid-template-columns: 1fr; }
-      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; padding: 2rem 1.5rem; }
+      .exp-list { padding: 0 1.5rem; }
       .exp-item { grid-template-columns: 1fr; gap: 0.2rem; }
+      .exp-desc { font-size: 15px; }
       .contact-section { padding: 3.5rem 1.5rem 4rem; }
+      .contact-links { flex-wrap: wrap; gap: 1.25rem; }
       footer { padding: 1.25rem 1.5rem; flex-direction: column; gap: 0.5rem; }
+      .reel-section { padding: 6rem 1.5rem 4rem; }
+      .about-text { font-size: 16px; }
+      .project-name { font-size: 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .carousel-cf { height: clamp(160px, 55vw, 240px); }
+      .carousel-cf-item { width: clamp(160px, 72vw, 300px); height: clamp(100px, 45vw, 188px); }
+      .nav-drawer { padding: 3rem 2rem; }
+      .hero-title { letter-spacing: -1px; }
     }
   </style>
 </head>
@@ -823,7 +852,6 @@
         <a href="clubbers.html" class="carousel-cf-item"><img src="images/clubbers.png" alt="Clubbers"/></a>
         <a href="paramount.html" class="carousel-cf-item"><video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;"><source src="images/PN_PINBALL_LAT.mp4" type="video/mp4"/></video></a>
         <a href="portfolio.html" class="carousel-cf-item"><video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;"><source src="images/braumAnim.mov" type="video/quicktime"/><source src="images/braumAnim.mov" type="video/mp4"/></video></a>
-        <a href="portfolio.html" class="carousel-cf-item"><img src="images/aiatom.jpg" alt="AIATOM"/></a>
         <a href="portfolio.html" class="carousel-cf-item"><video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;"><source src="images/alan.mov" type="video/quicktime"/><source src="images/alan.mov" type="video/mp4"/></video></a>
       </div>
     </div>
@@ -900,7 +928,7 @@
   </section>
 
   <!-- CONTACT -->
-  <div id="contact" style="max-width:1200px;margin:0 auto;padding:4rem 4rem 5rem;border-top:0.5px solid var(--border);">
+  <div id="contact" style="max-width:1200px;margin:0 auto;padding:clamp(2rem,5vw,4rem) clamp(1.5rem,5vw,4rem) 5rem;border-top:0.5px solid var(--border);">
     <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;margin-bottom:3rem;">
       <h2 style="font-size:clamp(28px,3.8vw,52px);font-weight:800;letter-spacing:-2px;line-height:1;margin:0;" data-es="Creemos <em style='font-style:italic;font-weight:400;color:var(--muted)'>juntos</em>" data-en="Let's create <em style='font-style:italic;font-weight:400;color:var(--muted)'>together</em>">Creemos <em style="font-style:italic;font-weight:400;color:var(--muted)">juntos</em></h2>
       <a href="https://calendly.com/tomalda3d/30min" target="_blank" style="display:inline-flex;align-items:center;gap:0.6rem;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--text);text-decoration:none;border:1.5px solid var(--border-hover);padding:0.7rem 1.4rem;border-radius:2px;transition:background 0.25s,border-color 0.25s,color 0.25s;white-space:nowrap;outline:none;-webkit-tap-highlight-color:transparent;" onmouseover="this.style.background='#CCFF00';this.style.borderColor='#CCFF00';this.style.color='#1a1a18'" onmouseout="this.style.background='';this.style.borderColor='';this.style.color=''"><span data-es="Programar una reunión →" data-en="Schedule a meeting →">Programar una reunión →</span></a>
@@ -908,8 +936,8 @@
     <div class="contact-links">
       <div class="contact-link">
         <span class="contact-link-label">Email</span>
-        <a href="mailto:tomalda3d@gmail.com">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:6px;opacity:0.6"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>tomalda3d@gmail.com
+        <a href="/cdn-cgi/l/email-protection#71051e1c101d1510421531161c10181d5f121e1c">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:6px;opacity:0.6"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg><span class="__cf_email__" data-cfemail="b9cdd6d4d8d5ddd88addf9ded4d8d0d597dad6d4">[email&#160;protected]</span>
         </a>
       </div>
       <div class="contact-link">
@@ -944,7 +972,7 @@
     <span>3D Artist & Technical Animator · Buenos Aires</span>
   </footer>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 
     // CORE — declarar primero
     const html = document.documentElement;
@@ -1041,11 +1069,18 @@
       if (!track) return;
       const items = Array.from(track.querySelectorAll('.carousel-cf-item'));
       const total = items.length;
-      const GAP = window.innerWidth * 0.19;
       let offset = 0;
-      const SPEED = 0.0003;
+      const SPEED = 0.00022;
+
+      function getGAP() {
+        const w = window.innerWidth;
+        if (w < 480) return w * 0.52;
+        if (w < 768) return w * 0.38;
+        return w * 0.19;
+      }
 
       function render() {
+        const GAP = getGAP();
         items.forEach((item, i) => {
           const raw = i - offset;
           const centered = ((raw % total) + total + total/2) % total - total/2;
@@ -1096,15 +1131,4 @@
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => {
-        if (e.isIntersecting) {
-          animateBars();
-          observer.disconnect();
-        }
-      });
-    }, { threshold: 0.2 });
-
-    document.querySelectorAll('.skills-list').forEach(el => observer.observe(el));
-  </script>
-
-</body>
-</html>
+        

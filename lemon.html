@@ -308,23 +308,23 @@
 
     /* RESPONSIVE */
     @media (max-width: 1024px) {
-      .hero { grid-template-columns: 1fr; height: auto; min-height: 100svh; }
-      .hero-content { padding: 7rem 8% 2rem; }
-      .hero-right { height: 60vw; justify-content: center; }
-      .hero-cutout { width: 75%; object-position: bottom center; }
-      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .project-main { padding: 7rem 2rem 5rem; }
     }
 
     @media (max-width: 700px) {
       nav { padding: 1.25rem 1.5rem; }
       .nav-links { display: none; }
-      .project-main { padding: 7rem 1.5rem 4rem; }
-      .project-meta { gap: 1.5rem; }
+      .project-main { padding: 6rem 1.5rem 4rem; }
+      .project-title { font-size: clamp(28px, 8vw, 48px); letter-spacing: -1px; }
+      .project-meta { gap: 1.25rem; }
+      .project-description { font-size: 15px; }
+      .contact-section { padding: 3rem 1.5rem; }
+      .contact-links { flex-wrap: wrap; gap: 1.25rem; }
       footer { padding: 1.25rem 1.5rem; flex-direction: column; gap: 0.5rem; }
     }
 
     /* CONTACT */
-    .contact-section { padding: 5rem; border-top: 0.5px solid var(--border); max-width: 1100px; margin: 0 auto; }
+    .contact-section { padding: clamp(2.5rem, 5vw, 5rem); border-top: 0.5px solid var(--border); max-width: 1100px; margin: 0 auto; }
 
     .contact-big {
       font-size: clamp(36px, 4vw, 56px);
@@ -335,7 +335,7 @@
     }
 
     .contact-big em { font-style: italic; font-weight: 400; color: var(--muted); }
-    .contact-links { display: flex; gap: 1.5rem; flex-wrap: nowrap; align-items: flex-start; }
+    .contact-links { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: flex-start; }
     .contact-link { display: flex; flex-direction: column; gap: 0.3rem; }
     .contact-link-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
     .contact-link a { font-size: 12px; color: var(--text); text-decoration: none; border-bottom: 0.5px solid var(--border); padding-bottom: 2px; transition: border-color 0.2s; white-space: nowrap; display: flex; align-items: center; }
@@ -392,7 +392,7 @@
     .nav-drawer {
       position: fixed;
       top: 0; right: 0;
-      width: clamp(220px, 30vw, 340px);
+      width: clamp(260px, 80vw, 340px);
       height: 100vh;
       background: var(--bg);
       z-index: 1050;
@@ -573,8 +573,8 @@
     <div class="contact-links">
       <div class="contact-link">
         <span class="contact-link-label">Email</span>
-        <a href="mailto:tomalda3d@gmail.com">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:6px;opacity:0.6"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>tomalda3d@gmail.com
+        <a href="/cdn-cgi/l/email-protection#087c676569646c693b6c486f65696164266b6765">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:6px;opacity:0.6"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg><span class="__cf_email__" data-cfemail="62160d0f030e0603510622050f030b0e4c010d0f">[email&#160;protected]</span>
         </a>
       </div>
       <div class="contact-link">
@@ -609,7 +609,7 @@
     <span>3D Artist &amp; Technical Animator · Buenos Aires</span>
   </footer>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // CORE — primero
     const html = document.documentElement;
     const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -648,14 +648,4 @@
         const val = el.getAttribute('data-' + lang);
         if (val) el.innerHTML = val;
       });
-      langToggle.textContent = lang === 'es' ? 'EN' : 'ES';
-      currentLang = lang;
-      localStorage.setItem('lang', lang);
-    }
-
-    applyLang(currentLang);
-    langToggle.addEventListener('click', () => applyLang(currentLang === 'es' ? 'en' : 'es'));
-  </script>
-
-</body>
-</html>
+      langToggle.textContent = lang === 'es'

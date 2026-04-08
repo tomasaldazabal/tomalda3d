@@ -217,6 +217,10 @@
       margin: 0 auto;
     }
 
+    @media (max-width: 700px) {
+      .projects-grid { padding: 1.5rem 1.5rem 3rem; grid-template-columns: 1fr; }
+    }
+
     .project-card {
       position: relative;
       z-index: 5;
@@ -355,11 +359,9 @@
 
     /* RESPONSIVE */
     @media (max-width: 1024px) {
-      .hero { grid-template-columns: 1fr; height: auto; min-height: 100svh; }
-      .hero-content { padding: 7rem 8% 2rem; }
-      .hero-right { height: 60vw; justify-content: center; }
-      .hero-cutout { width: 75%; object-position: bottom center; }
-      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .page-header { padding: 7rem 2rem 2rem; }
+      .filters { padding: 1.25rem 2rem; }
+      .projects-grid { padding: 2rem 2rem 4rem; }
     }
 
     @media (max-width: 700px) {
@@ -367,12 +369,14 @@
       .nav-links { display: none; }
       .page-header { padding: 7rem 1.5rem 2rem; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
       .filters { padding: 1.25rem 1.5rem; }
-      .projects-grid { grid-template-columns: 1fr; }
+      .projects-grid { padding: 1.5rem 1.5rem 3rem; grid-template-columns: 1fr; }
+      .contact-section { padding: 3rem 1.5rem; }
+      .contact-links { flex-wrap: wrap; gap: 1.25rem; }
       footer { padding: 1.25rem 1.5rem; flex-direction: column; gap: 0.5rem; }
     }
 
     /* CONTACT */
-    .contact-section { padding: 5rem; border-top: 0.5px solid var(--border); max-width: 1100px; margin: 0 auto; }
+    .contact-section { padding: clamp(2.5rem, 5vw, 5rem); border-top: 0.5px solid var(--border); max-width: 1100px; margin: 0 auto; }
 
     .contact-big {
       font-size: clamp(36px, 4vw, 56px);
@@ -383,7 +387,7 @@
     }
 
     .contact-big em { font-style: italic; font-weight: 400; color: var(--muted); }
-    .contact-links { display: flex; gap: 1.5rem; flex-wrap: nowrap; align-items: flex-start; }
+    .contact-links { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: flex-start; }
     .contact-link { display: flex; flex-direction: column; gap: 0.3rem; }
     .contact-link-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
     .contact-link a { font-size: 12px; color: var(--text); text-decoration: none; border-bottom: 0.5px solid var(--border); padding-bottom: 2px; transition: border-color 0.2s; white-space: nowrap; display: flex; align-items: center; }
@@ -440,7 +444,7 @@
     .nav-drawer {
       position: fixed;
       top: 0; right: 0;
-      width: clamp(220px, 30vw, 340px);
+      width: clamp(260px, 80vw, 340px);
       height: 100vh;
       background: var(--bg);
       z-index: 1050;
@@ -673,8 +677,8 @@
     <div class="contact-links">
       <div class="contact-link">
         <span class="contact-link-label">Email</span>
-        <a href="mailto:tomalda3d@gmail.com">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:6px;opacity:0.6"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>tomalda3d@gmail.com
+        <a href="/cdn-cgi/l/email-protection#f5819a9894999194c691b59298949c99db969a98">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:6px;opacity:0.6"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg><span class="__cf_email__" data-cfemail="6612090b070a0207550226010b070f0a4805090b">[email&#160;protected]</span>
         </a>
       </div>
       <div class="contact-link">
@@ -709,7 +713,7 @@
     <span>3D Artist &amp; Technical Animator · Buenos Aires</span>
   </footer>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // CORE — primero
     const html = document.documentElement;
     const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -760,14 +764,4 @@
     // LOGO SCROLL TRANSITION
     const logoDark = document.querySelector('.logo-dark');
     const logoLight = document.querySelector('.logo-light');
-    const heroEl = document.getElementById('hero');
-
-    function updateLogo() {
-      // CSS handles everything via data-theme attribute
-    }
-
-    window.addEventListener('scroll', updateLogo, { passive: true });
-  </script>
-
-</body>
-</html>
+ 
