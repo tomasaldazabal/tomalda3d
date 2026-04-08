@@ -773,8 +773,6 @@
     }
 
     @media (max-width: 480px) {
-      .carousel-cf { height: clamp(160px, 55vw, 240px); }
-      .carousel-cf-item { width: clamp(160px, 72vw, 300px); height: clamp(100px, 45vw, 188px); }
       .nav-drawer { padding: 3rem 2rem; }
       .hero-title { letter-spacing: -1px; }
     }
@@ -1073,10 +1071,10 @@
       const SPEED = 0.00022;
 
       function getGAP() {
-        const w = window.innerWidth;
-        if (w < 480) return w * 0.52;
-        if (w < 768) return w * 0.38;
-        return w * 0.19;
+        // Read actual rendered width from the first item so CSS clamp() drives the value
+        const firstItem = items[0];
+        if (!firstItem) return window.innerWidth * 0.19;
+        return firstItem.getBoundingClientRect().width * 0.72;
       }
 
       function render() {
@@ -1131,4 +1129,16 @@
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => {
-        
+        if (e.isIntersecting) {
+          animateBars();
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.3 });
+
+    const skillsSection = document.querySelector('.skills-list');
+    if (skillsSection) observer.observe(skillsSection);
+
+  </script>
+</body>
+</html>
