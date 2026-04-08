@@ -647,4 +647,22 @@
         const val = el.getAttribute('data-' + lang);
         if (val) el.innerHTML = val;
       });
-      langToggle.textContent = lang === 'es'
+      langToggle.textContent = lang === 'es'? "EN" : "ES";
+      currentLang = lang;
+      localStorage.setItem("lang", lang);
+    }
+
+    applyLang(currentLang);
+    langToggle.addEventListener("click", () => applyLang(currentLang === "es" ? "en" : "es"));
+
+    // THEME TOGGLE
+    const themeToggle = document.getElementById("themeToggle");
+    themeToggle.addEventListener("click", () => {
+      const next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      html.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+    });
+
+  </script>
+</body>
+</html>
