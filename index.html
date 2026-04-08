@@ -323,7 +323,6 @@
       letter-spacing: -2px;
       margin-bottom: 1.5rem;
       color: #1a1a18 !important;
-      white-space: nowrap;
     }
 
     .hero-title em {
@@ -722,6 +721,14 @@
     hr.divider { border: none; border-top: 0.5px solid var(--border); }
 
     /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .hero { grid-template-columns: 1fr; height: auto; min-height: 100svh; }
+      .hero-content { padding: 7rem 8% 2rem; }
+      .hero-right { height: 60vw; justify-content: center; }
+      .hero-cutout { width: 75%; object-position: bottom center; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    }
+
     @media (max-width: 700px) {
       nav { padding: 1.25rem 1.5rem; }
       .nav-links { display: none; }
@@ -770,7 +777,7 @@
       <p style="font-size:11px;letter-spacing:0.12em;color:var(--muted);margin-top:2rem;text-transform:uppercase;">© TomasAldazabal 2026</p>
     </div>
     <div class="hero-content">
-        <h1 class="hero-title" data-es="Hola mundo" data-en="Hello world" style="white-space:nowrap;">Hola mundo</h1>
+        <h1 class="hero-title" data-es="Hola mundo" data-en="Hello world">Hola mundo</h1>
       <p class="hero-sub"
          data-es="Mi nombre es Tomás Aldazabal, pero podes llamarme Tom. Soy Artista 3D y Animador Técnico con más de 5 años de experiencia. Me especializo en la creación de historias, personajes y sistemas complejos en pipelines 3D. Impulsado por la pasión y la creatividad, aporto una visión integral a cada desafío, buscando siempre innovar en la narrativa visual y el diseño con identidad propia."
          data-en="My name is Tomás Aldazabal, but you can call me Tom. I'm a 3D Artist and Technical Animator with over 5 years of experience. I specialize in the creation of stories, characters and complex systems in 3D pipelines. Driven by passion and creativity, I bring a comprehensive vision to every challenge, always seeking to innovate in visual narrative and design with a distinctive identity."
@@ -892,7 +899,7 @@
   <!-- CONTACT -->
   <div id="contact" style="max-width:1200px;margin:0 auto;padding:4rem 4rem 5rem;border-top:0.5px solid var(--border);">
     <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;margin-bottom:3rem;">
-      <h2 style="font-size:clamp(28px,3.8vw,52px);font-weight:800;letter-spacing:-2px;line-height:1;margin:0;white-space:nowrap;" data-es="Creemos <em style='font-style:italic;font-weight:400;color:var(--muted)'>juntos</em>" data-en="Let's create <em style='font-style:italic;font-weight:400;color:var(--muted)'>together</em>">Creemos <em style="font-style:italic;font-weight:400;color:var(--muted)">juntos</em></h2>
+      <h2 style="font-size:clamp(28px,3.8vw,52px);font-weight:800;letter-spacing:-2px;line-height:1;margin:0;" data-es="Creemos <em style='font-style:italic;font-weight:400;color:var(--muted)'>juntos</em>" data-en="Let's create <em style='font-style:italic;font-weight:400;color:var(--muted)'>together</em>">Creemos <em style="font-style:italic;font-weight:400;color:var(--muted)">juntos</em></h2>
       <a href="https://calendly.com/tomalda3d/30min" target="_blank" style="display:inline-flex;align-items:center;gap:0.6rem;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--text);text-decoration:none;border:1.5px solid var(--border-hover);padding:0.7rem 1.4rem;border-radius:2px;transition:background 0.25s,border-color 0.25s,color 0.25s;white-space:nowrap;outline:none;-webkit-tap-highlight-color:transparent;" onmouseover="this.style.background='#CCFF00';this.style.borderColor='#CCFF00';this.style.color='#1a1a18'" onmouseout="this.style.background='';this.style.borderColor='';this.style.color=''"><span data-es="Programar una reunión →" data-en="Schedule a meeting →">Programar una reunión →</span></a>
     </div>
     <div class="contact-links">
