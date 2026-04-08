@@ -32,7 +32,7 @@
       --toggle-knob: #0d0d0d;
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; max-width: 100%; }
     a:visited { color: inherit; }
     a:focus { outline: none; }
     a { -webkit-tap-highlight-color: transparent; }
@@ -727,6 +727,11 @@
       .hero-right { height: 60vw; justify-content: center; }
       .hero-cutout { width: 75%; object-position: bottom center; }
       .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.2rem; }
+      .section { padding: 4rem 5%; }
+      .container { max-width: 100%; padding: 0 5%; }
+      .contact-section { padding: 4rem 5%; }
+      footer { padding: 1.5rem 5%; flex-direction: column; gap: 0.5rem; }
     }
 
     @media (max-width: 700px) {
