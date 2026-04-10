@@ -15,7 +15,7 @@
     html {
       scroll-behavior: smooth;
       overflow-x: hidden;
-      max-width: 100%;
+      overscroll-behavior: none;
     }
 
     a         { -webkit-tap-highlight-color: transparent; }
@@ -55,8 +55,6 @@
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
-      overflow-x: hidden;
-      overscroll-behavior: none;
       transition: background 0.35s ease, color 0.35s ease;
     }
 
@@ -280,7 +278,7 @@
       inset: 0;
       background-image: url('images/herobg.png');
       background-size: cover;
-      background-position: center center;
+      background-position: 80% center;
       z-index: 0;
     }
 
@@ -317,8 +315,8 @@
     }
 
     .hero-cutout {
-      width: clamp(240px, 100%, 620px);
-      height: 120%;
+      width: clamp(240px, 100%, 720px);
+      height: 135%;
       object-fit: contain;
       object-position: bottom left;
       display: block;
@@ -360,6 +358,12 @@
       padding: 0.825rem 1.65rem;
       border-radius: 2px;
       transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+    }
+
+    [data-theme="light"] .hero-cta {
+      color: #f0ede6;
+      background: #1a1a18;
+      border-color: #1a1a18;
     }
 
     .hero-cta:hover {
@@ -407,7 +411,7 @@
        CAROUSEL — coverflow
     ========================================================= */
     .carousel-section {
-      padding: 4rem 0 5rem;
+      padding: 1.8rem 0 2.24rem;
       overflow: hidden;
       position: relative;
       z-index: 5;
@@ -747,8 +751,7 @@
     .contact-section {
       max-width: 800px;
       margin: 0 auto;
-      padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 5vw, 4rem) 5rem;
-      border-top: 0.5px solid var(--border);
+      padding: clamp(1rem, 2vw, 2rem) clamp(1.5rem, 5vw, 4rem) 3rem;
       text-align: center;
     }
 
@@ -795,8 +798,9 @@
     }
 
     .contact-links {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
       gap: 0;
       text-align: left;
     }
@@ -805,15 +809,12 @@
       display: flex;
       flex-direction: column;
       gap: 0.3rem;
-      padding: 1.25rem 0;
-      border-bottom: 0.5px solid var(--border);
+      padding: 1.25rem 2rem;
+      flex: 1;
     }
 
-    .contact-link:nth-child(odd)  { padding-right: 2rem; border-right: 0.5px solid var(--border); }
-    .contact-link:nth-child(even) { padding-left: 2rem; }
-
-    /* Last row — remove bottom border if it's the last pair */
-    .contact-link:nth-last-child(-n+2) { border-bottom: none; }
+    .contact-link:first-child { padding-left: 0; }
+    .contact-link:last-child  { padding-right: 0; }
 
     .contact-link-label {
       font-size: 11px;
@@ -868,9 +869,9 @@
     @media (max-width: 700px) {
       nav                { padding: 0.75rem 1.5rem 0.75rem 0.75rem; }
       .hero              { grid-template-columns: 1fr; height: auto; min-height: unset; }
-      .hero-content      { padding: 7rem 1.5rem 1.5rem; align-items: center; text-align: center; }
+      .hero-content      { padding: 8rem 1.5rem 1.5rem; align-items: center; text-align: center; box-sizing: border-box; width: 100%; }
       .hero-title        { font-size: clamp(28px, 7.5vw, 40px); letter-spacing: -1px; width: 100%; margin-bottom: 0.75rem; }
-      .hero-sub          { max-width: 100%; text-align: justify; }
+      .hero-sub          { width: 100%; text-align: justify; }
       .hero-right        { height: 70vw; justify-content: center; align-items: flex-end; overflow: hidden; }
       .hero-cutout       { width: 105%; height: 105%; object-fit: cover; object-position: top center; margin-bottom: 0; }
       .section           { padding: 3.5rem 1.5rem; }
@@ -882,14 +883,16 @@
       .exp-item          { grid-template-columns: 1fr; gap: 0.2rem; }
       .exp-desc          { font-size: 15px; }
       .project-name      { font-size: 20px; }
-      .contact-section   { padding: 3.5rem 1.5rem 4rem; }
-      .contact-links     { grid-template-columns: 1fr; }
-      .contact-link:nth-child(odd)  { padding-right: 0; border-right: none; }
-      .contact-link:nth-child(even) { padding-left: 0; }
-      .contact-link:nth-last-child(-n+2) { border-bottom: 0.5px solid var(--border); }
-      .contact-link:last-child { border-bottom: none; }
+      .contact-section   { padding: 3.5rem 2.5rem; text-align: left; max-width: 100%; }
+      .contact-header    { flex-direction: column; align-items: flex-start; }
+      .contact-title     { font-size: clamp(28px, 8vw, 44px); }
+      .contact-cta       { width: 100%; justify-content: center; font-size: 10px; padding: 0.55rem 1rem; }
+      .contact-links     { flex-direction: column; border-top: none; }
+      .contact-link      { padding: 1rem 0; border-right: none; border-bottom: 0.5px solid var(--border); }
+      .contact-link:first-child { padding-left: 0; }
+      .contact-link:last-child  { border-bottom: none; padding-right: 0; }
       .reel-section      { padding: 6rem 1.5rem 4rem; }
-      .carousel-section  { padding: 1.1rem 0 1.35rem; }
+      .carousel-section  { padding: 0.63rem 0 0.78rem; }
       footer             { padding: 1.25rem 1.5rem; flex-direction: column; gap: 0.5rem; }
     }
 
@@ -898,9 +901,35 @@
       .hero-title { letter-spacing: -1px; }
     }
 
+    /* =========================================================
+       CUSTOM CURSOR — solo desktop (pointer: fine)
+    ========================================================= */
+    @media (pointer: fine) {
+      * { cursor: none; }
+
+      .cursor {
+        position: fixed;
+        top: 0; left: 0;
+        width: 16px; height: 16px;
+        border-radius: 50%;
+        background: var(--text);
+        pointer-events: none;
+        z-index: 9999;
+        transition: width 0.2s ease, height 0.2s ease, background 0.35s ease;
+      }
+
+      .cursor.is-hovering {
+        width: 36px;
+        height: 36px;
+      }
+    }
+
   </style>
 </head>
 <body>
+
+  <!-- CURSOR — solo desktop -->
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
 
   <!-- NAV DRAWER (fuera del hero, a nivel body) -->
   <div class="nav-overlay" id="navOverlay"></div>
@@ -1051,8 +1080,7 @@
   </section>
 
   <!-- EXPERIENCE -->
-  <hr class="divider"/>
-  <section class="section">
+  <section class="section" style="padding-top: clamp(1rem, 2vw, 2rem);">
     <div class="exp-list">
       <div class="section-header" style="padding: 0 0 1.5rem; margin-bottom: 2rem;">
         <span class="section-label" data-es="Experiencia" data-en="Experience">Experiencia</span>
@@ -1320,6 +1348,31 @@
 
     const skillsList = document.querySelector('.skills-list');
     if (skillsList) skillsObserver.observe(skillsList);
+
+    // =========================================================
+    // CUSTOM CURSOR — solo desktop
+    // =========================================================
+    (function initCursor() {
+      // Solo activar en dispositivos con puntero fino (mouse)
+      if (!window.matchMedia('(pointer: fine)').matches) return;
+
+      const cursor = document.getElementById('cursor');
+      if (!cursor) return;
+
+      // Seguir el mouse sin delay, usando transform para no afectar layout
+      document.addEventListener('mousemove', e => {
+        cursor.style.transform = `translate(${e.clientX - 8}px, ${e.clientY - 8}px)`;
+      }, { passive: true });
+
+      // Crecer al pasar sobre elementos interactivos
+      document.addEventListener('mouseover', e => {
+        if (e.target.closest('a, button, [role="button"]')) {
+          cursor.classList.add('is-hovering');
+        } else {
+          cursor.classList.remove('is-hovering');
+        }
+      }, { passive: true });
+    })();
 
   </script>
 </body>
