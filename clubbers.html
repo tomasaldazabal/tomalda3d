@@ -178,11 +178,12 @@
     }
 
     .project-title {
-      font-size: clamp(36px, 5vw, 64px);
+      font-size: clamp(20px, 4vw, 64px);
       font-weight: 800;
       letter-spacing: -2px;
       line-height: 1;
       margin-bottom: 2rem;
+      white-space: nowrap;
     }
 
     .project-meta {
@@ -277,8 +278,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-top: 3rem;
+      padding: 3rem 0;
       border-top: 0.5px solid var(--border);
+      border-bottom: 0.5px solid var(--border);
     }
 
     .project-nav a {
@@ -315,7 +317,7 @@
       nav { padding: 1.25rem 1.5rem; }
       .nav-links { display: none; }
       .project-main { padding: 6rem 1.5rem 4rem; }
-      .project-title { font-size: clamp(28px, 8vw, 48px); letter-spacing: -1px; }
+      .project-title { font-size: clamp(18px, 6vw, 48px); letter-spacing: -1px; white-space: nowrap; }
       .project-meta { gap: 1.25rem; }
       .project-description { font-size: 15px; }
       .contact-section { padding: 3rem 1.5rem; }
@@ -551,9 +553,9 @@
 
     <!-- NAVEGACIÓN ENTRE PROYECTOS -->
     <div class="project-nav">
-      <a href="#" data-es="← Proyecto anterior" data-en="← Previous project">← <span data-es="Proyecto anterior" data-en="Previous project">Proyecto anterior</span></a>
+      <a href="the-office-encounter.html" data-es="← Proyecto anterior" data-en="← Previous project">← <span data-es="Proyecto anterior" data-en="Previous project">Proyecto anterior</span></a>
       <a href="portfolio.html" data-es="Ver portfolio" data-en="View portfolio">Ver portfolio</a>
-      <a href="#" data-es="Siguiente proyecto →" data-en="Next project →"><span data-es="Siguiente proyecto" data-en="Next project">Siguiente proyecto</span> →</a>
+      <a href="lemon.html" data-es="Siguiente proyecto →" data-en="Next project →"><span data-es="Siguiente proyecto" data-en="Next project">Siguiente proyecto</span> →</a>
     </div>
 
   </main>
@@ -649,13 +651,7 @@
     applyLang(currentLang);
     langToggle.addEventListener("click", () => applyLang(currentLang === "es" ? "en" : "es"));
 
-    // THEME TOGGLE
-    const themeToggle = document.getElementById("themeToggle");
-    themeToggle.addEventListener("click", () => {
-      const next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
-      html.setAttribute("data-theme", next);
-      localStorage.setItem("theme", next);
-    });
+
 
   </script>
 </body>
