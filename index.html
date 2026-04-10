@@ -761,6 +761,8 @@
       .contact-link:last-child  { border-bottom: none; padding-right: 0; }
       .reel-section      { padding: 6rem 1.5rem 4rem; }
       .carousel-section  { padding: 0.63rem 0 0.78rem; }
+      .carousel-cf       { height: clamp(180px, 52vw, 260px); }
+      .carousel-cf-item  { width: clamp(160px, 52vw, 240px); height: clamp(100px, 32vw, 150px); }
       footer             { padding: 1.25rem 1.5rem; flex-direction: column; gap: 0.5rem; }
     }
 
@@ -1146,7 +1148,7 @@
         const first = items[0];
         if (!first) { gap = window.innerWidth * 0.2; return; }
         const w = first.getBoundingClientRect().width;
-        gap = window.innerWidth < 700 ? w * 1.35 : w * 1.1;
+        gap = window.innerWidth < 700 ? w * 1.15 : w * 1.1;
       }
 
       function render() {
@@ -1179,9 +1181,12 @@
       window.addEventListener('resize', updateGap, { passive: true });
       window.addEventListener('load',   updateGap);
 
-      updateGap();
-      render();
-      requestAnimationFrame(loop);
+      // Esperar un frame para que el layout esté listo antes de calcular el gap
+      requestAnimationFrame(() => {
+        updateGap();
+        render();
+        requestAnimationFrame(loop);
+      });
 
       // Prevent navigation on non-centered cards
       items.forEach((item, i) => {
