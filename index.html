@@ -56,6 +56,7 @@
       color: var(--text);
       min-height: 100vh;
       overflow-x: hidden;
+      overscroll-behavior: none;
       transition: background 0.35s ease, color 0.35s ease;
     }
 
@@ -744,23 +745,23 @@
        CONTACT
     ========================================================= */
     .contact-section {
-      max-width: 1200px;
+      max-width: 800px;
       margin: 0 auto;
       padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 5vw, 4rem) 5rem;
       border-top: 0.5px solid var(--border);
+      text-align: center;
     }
 
     .contact-header {
       display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
       gap: 1.5rem;
       margin-bottom: 3rem;
     }
 
     .contact-title {
-      font-size: clamp(28px, 3.8vw, 52px);
+      font-size: clamp(36px, 5vw, 64px);
       font-weight: 800;
       letter-spacing: -2px;
       line-height: 1;
@@ -794,13 +795,25 @@
     }
 
     .contact-links {
-      display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      align-items: flex-start;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      text-align: left;
     }
 
-    .contact-link { display: flex; flex-direction: column; gap: 0.3rem; }
+    .contact-link {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      padding: 1.25rem 0;
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    .contact-link:nth-child(odd)  { padding-right: 2rem; border-right: 0.5px solid var(--border); }
+    .contact-link:nth-child(even) { padding-left: 2rem; }
+
+    /* Last row — remove bottom border if it's the last pair */
+    .contact-link:nth-last-child(-n+2) { border-bottom: none; }
 
     .contact-link-label {
       font-size: 11px;
@@ -853,13 +866,13 @@
     }
 
     @media (max-width: 700px) {
-      nav                { padding: 1.25rem 1.5rem; }
+      nav                { padding: 0.75rem 1.5rem 0.75rem 0.75rem; }
       .hero              { grid-template-columns: 1fr; height: auto; min-height: unset; }
-      .hero-content      { padding: 6rem 1.5rem 1.5rem; align-items: center; text-align: center; }
-      .hero-title        { font-size: clamp(36px, 9vw, 52px); letter-spacing: -2px; }
-      .hero-sub          { max-width: 100%; text-align: center; }
-      .hero-right        { height: 75vw; justify-content: center; align-items: flex-end; overflow: hidden; }
-      .hero-cutout       { width: 110%; height: 110%; object-fit: cover; object-position: top center; margin-bottom: 0; }
+      .hero-content      { padding: 7rem 1.5rem 1.5rem; align-items: center; text-align: center; }
+      .hero-title        { font-size: clamp(28px, 7.5vw, 40px); letter-spacing: -1px; width: 100%; margin-bottom: 0.75rem; }
+      .hero-sub          { max-width: 100%; text-align: justify; }
+      .hero-right        { height: 70vw; justify-content: center; align-items: flex-end; overflow: hidden; }
+      .hero-cutout       { width: 105%; height: 105%; object-fit: cover; object-position: top center; margin-bottom: 0; }
       .section           { padding: 3.5rem 1.5rem; }
       .section-inner     { padding: 0 1.5rem; }
       .projects-grid     { grid-template-columns: 1fr; }
@@ -870,13 +883,18 @@
       .exp-desc          { font-size: 15px; }
       .project-name      { font-size: 20px; }
       .contact-section   { padding: 3.5rem 1.5rem 4rem; }
-      .contact-links     { gap: 1.25rem; }
+      .contact-links     { grid-template-columns: 1fr; }
+      .contact-link:nth-child(odd)  { padding-right: 0; border-right: none; }
+      .contact-link:nth-child(even) { padding-left: 0; }
+      .contact-link:nth-last-child(-n+2) { border-bottom: 0.5px solid var(--border); }
+      .contact-link:last-child { border-bottom: none; }
       .reel-section      { padding: 6rem 1.5rem 4rem; }
+      .carousel-section  { padding: 1.1rem 0 1.35rem; }
       footer             { padding: 1.25rem 1.5rem; flex-direction: column; gap: 0.5rem; }
     }
 
     @media (max-width: 480px) {
-      .nav-drawer { padding: 3rem 2rem; }
+      .nav-drawer { padding: 3rem 2rem; width: clamp(220px, 60vw, 280px); }
       .hero-title { letter-spacing: -1px; }
     }
 
@@ -1125,7 +1143,6 @@
 
   <footer>
     <span>© Tomás Aldazabal 2026</span>
-    <span>3D Artist & Technical Animator · Buenos Aires</span>
   </footer>
 
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
