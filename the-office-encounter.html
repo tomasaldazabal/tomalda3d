@@ -655,9 +655,12 @@
     <div class="project-header">
       <h1 class="project-title">The Office Encounter</h1>
 
-      <!-- HERO IMAGE -->
+      <!-- HERO VIDEO -->
       <div style="width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:2px;margin:2rem 0;">
-        <img src="images/still.png" alt="The Office Encounter" style="width:100%;height:100%;object-fit:cover;display:block;"/>
+        <video controls playsinline style="width:100%;height:100%;object-fit:cover;display:block;">
+          <source src="images/AF_AnimFinal_v2.mov" type="video/quicktime"/>
+          <source src="images/AF_AnimFinal_v2.mov" type="video/mp4"/>
+        </video>
       </div>
 
       <div class="project-meta">
@@ -695,13 +698,10 @@
       <span class="project-tool-tag">Eevee</span>
     </div>
 
-    <!-- MEDIA — video -->
+    <!-- MEDIA — image -->
     <div class="project-media">
       <div style="width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:2px;">
-        <video controls playsinline style="width:100%;height:100%;object-fit:cover;display:block;">
-          <source src="images/AF_AnimFinal_v2.mov" type="video/quicktime"/>
-          <source src="images/AF_AnimFinal_v2.mov" type="video/mp4"/>
-        </video>
+        <img src="images/still.png" alt="The Office Encounter" style="width:100%;height:100%;object-fit:cover;display:block;"/>
       </div>
     </div>
       <!-- Agregá más imágenes según necesites -->
@@ -730,9 +730,9 @@
     <div class="contact-links">
       <div class="contact-link">
         <span class="contact-link-label">Email</span>
-        <a href="/cdn-cgi/l/email-protection#20544f4d414c4441134460474d41494c0e434f4d">
+        <a href="mailto:tomalda3d@gmail.com">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="contact-icon"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
-          <span class="__cf_email__" data-cfemail="40342f2d212c2421732400272d21292c6e232f2d">[email&#160;protected]</span>
+          tomalda3d@gmail.com
         </a>
       </div>
       <div class="contact-link">
@@ -809,35 +809,6 @@
         const val = el.getAttribute('data-' + lang);
         if (val) el.innerHTML = val;
       });
-      langToggle.textContent = lang === 'es' ? 'EN' : 'ES';
-      currentLang = lang;
-      localStorage.setItem('lang', lang);
-    }
-
-    langToggle.addEventListener('click', () => applyLang(currentLang === 'es' ? 'en' : 'es'));
-    applyLang(currentLang);
-
-    // CUSTOM CURSOR — solo desktop
-    (function initCursor() {
-      if (!window.matchMedia('(pointer: fine)').matches) return;
-      const cursor = document.getElementById('cursor');
-      if (!cursor) return;
-
-      document.addEventListener('mousemove', e => {
-        cursor.style.transform = `translate(${e.clientX - 8}px, ${e.clientY - 8}px)`;
-      }, { passive: true });
-
-      document.addEventListener('mouseover', e => {
-        if (e.target.closest('a, button')) {
-          cursor.classList.add('is-hovering');
-        } else {
-          cursor.classList.remove('is-hovering');
-        }
-      }, { passive: true });
-    })();
-
-  </script>
-</body>
       langToggle.textContent = lang === 'es' ? 'EN' : 'ES';
       currentLang = lang;
       localStorage.setItem('lang', lang);
