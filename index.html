@@ -36,6 +36,7 @@
       --border-hover: rgba(240, 237, 230, 0.22);
       --toggle-bg:    #1c1c1c;
       --toggle-knob:  #f0ede6;
+      --text-dim:     #d0cdc6;
     }
 
     [data-theme="light"] {
@@ -126,8 +127,6 @@
       align-items: center;
       gap: 1rem;
     }
-
-    .nav-links { display: none; }
 
     .lang-toggle {
       font-family: 'Syne', sans-serif;
@@ -457,62 +456,16 @@
     }
 
     /* =========================================================
-       TICKER
-    ========================================================= */
-    .ticker {
-      border-bottom: 0.5px solid var(--border);
-      overflow: hidden;
-      padding: 0.85rem 0;
-      background: var(--bg2);
-      transition: background 0.35s ease;
-    }
-
-    .ticker-inner {
-      display: flex;
-      gap: 3rem;
-      white-space: nowrap;
-      animation: ticker-scroll 22s linear infinite;
-    }
-
-    .ticker-item {
-      font-size: 13px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
-      flex-shrink: 0;
-    }
-
-    .ticker-dot {
-      display: inline-block;
-      width: 4px; height: 4px;
-      border-radius: 50%;
-      background: var(--muted);
-      vertical-align: middle;
-      margin: 0 1.5rem;
-    }
-
-    @keyframes ticker-scroll {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-
-    /* =========================================================
        SECTIONS — shared layout
     ========================================================= */
     .section { padding: clamp(3rem, 5vw, 6rem) 0; }
-
-    .section-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 5rem;
-    }
 
     .section-header {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      margin-bottom: 3rem;
-      padding-bottom: 1.5rem;
+      padding: 0 0 1.5rem;
+      margin-bottom: 2rem;
       border-bottom: 0.5px solid var(--border);
     }
 
@@ -521,96 +474,6 @@
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--muted);
-    }
-
-    .section-count {
-      font-family: 'Syne Mono', monospace;
-      font-size: 16px;
-      color: var(--muted);
-    }
-
-    hr.divider { border: none; border-top: 0.5px solid var(--border); }
-
-    /* =========================================================
-       PROJECTS GRID
-    ========================================================= */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2px;
-    }
-
-    .project-card {
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      aspect-ratio: 16 / 10;
-      background: var(--bg3);
-    }
-
-    .project-card img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      filter: brightness(0.7);
-      transition: transform 0.6s ease, filter 0.4s ease;
-    }
-
-    .project-card:hover img {
-      transform: scale(1.04);
-      filter: brightness(0.4);
-    }
-
-    .project-info {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 1.75rem;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 55%);
-    }
-
-    .project-num {
-      font-family: 'Syne Mono', monospace;
-      font-size: 13px;
-      color: rgba(240, 237, 230, 0.45);
-      margin-bottom: 0.5rem;
-    }
-
-    .project-name {
-      font-size: 26px;
-      font-weight: 700;
-      line-height: 1.1;
-      margin-bottom: 0.4rem;
-      color: #f0ede6;
-    }
-
-    .project-tags {
-      font-size: 13px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(240, 237, 230, 0.45);
-    }
-
-    .project-hover {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .project-card:hover .project-hover { opacity: 1; }
-
-    .project-hover-label {
-      font-size: 13px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      border: 0.5px solid #f0ede6;
-      padding: 0.6rem 1.25rem;
-      color: #f0ede6;
     }
 
     /* =========================================================
@@ -679,10 +542,10 @@
     }
 
     .skill-name { color: var(--muted); }
-    [data-theme="dark"] .skill-name { color: #d0cdc6; }
+    [data-theme="dark"] .skill-name { color: var(--text-dim, #d0cdc6); }
 
     .skill-bar {
-      width: 80px; height: 1px;
+      width: 80px; height: 2px;
       background: var(--border-hover);
       position: relative;
     }
@@ -690,7 +553,7 @@
     .skill-fill {
       position: absolute;
       top: 0; left: 0;
-      height: 1px;
+      height: 2px;
       width: 0;
       background: var(--accent);
       transition: width 0.8s ease;
@@ -751,7 +614,7 @@
     .contact-section {
       max-width: 800px;
       margin: 0 auto;
-      padding: clamp(1rem, 2vw, 2rem) clamp(1.5rem, 5vw, 4rem) 3rem;
+      padding: clamp(1.1rem, 2.2vw, 2.2rem) clamp(1.5rem, 5vw, 4rem) 3rem;
       text-align: center;
     }
 
@@ -764,7 +627,7 @@
     }
 
     .contact-title {
-      font-size: clamp(36px, 5vw, 64px);
+      font-size: clamp(25px, 2.94vw, 46px);
       font-weight: 800;
       letter-spacing: -2px;
       line-height: 1;
@@ -838,7 +701,15 @@
 
     .contact-link a:hover { border-color: var(--text); }
 
-    /* =========================================================
+    /* Contact link icons */
+    .contact-icon {
+      margin-right: 6px;
+      opacity: 0.6;
+      flex-shrink: 0;
+      vertical-align: middle;
+    }
+
+        /* =========================================================
        FOOTER
     ========================================================= */
     footer {
@@ -875,17 +746,14 @@
       .hero-right        { height: 70vw; justify-content: center; align-items: flex-end; overflow: hidden; }
       .hero-cutout       { width: 105%; height: 105%; object-fit: cover; object-position: top center; margin-bottom: 0; }
       .section           { padding: 3.5rem 1.5rem; }
-      .section-inner     { padding: 0 1.5rem; }
-      .projects-grid     { grid-template-columns: 1fr; }
       .about-grid        { grid-template-columns: 1fr; gap: 2.5rem; padding: 2rem 1.5rem; }
       .about-text        { font-size: 16px; }
       .exp-list          { padding: 0 1.5rem; }
       .exp-item          { grid-template-columns: 1fr; gap: 0.2rem; }
       .exp-desc          { font-size: 15px; }
-      .project-name      { font-size: 20px; }
-      .contact-section   { padding: 3.5rem 2.5rem; text-align: left; max-width: 100%; }
+      .contact-section   { padding: 1.5rem 2.5rem 2rem; text-align: left; max-width: 100%; }
       .contact-header    { flex-direction: column; align-items: flex-start; }
-      .contact-title     { font-size: clamp(28px, 8vw, 44px); }
+      .contact-title     { font-size: clamp(21px, 6.17vw, 42px); }
       .contact-cta       { width: 100%; justify-content: center; font-size: 10px; padding: 0.55rem 1rem; }
       .contact-links     { flex-direction: column; border-top: none; }
       .contact-link      { padding: 1rem 0; border-right: none; border-bottom: 0.5px solid var(--border); }
@@ -1061,9 +929,9 @@
           <div class="skill-item"><span class="skill-name">ZBrush</span>              <div class="skill-bar"><div class="skill-fill" data-w="88"></div></div></div>
           <div class="skill-item"><span class="skill-name">Unreal Engine</span>       <div class="skill-bar"><div class="skill-fill" data-w="82"></div></div></div>
           <div class="skill-item"><span class="skill-name">Blender</span>             <div class="skill-bar"><div class="skill-fill" data-w="85"></div></div></div>
-          <div class="skill-item"><span class="skill-name">Substance 3D Painter</span><div class="skill-bar"><div class="skill-fill" data-w="78"></div></div></div>
-          <div class="skill-item"><span class="skill-name">Marmoset Toolbag</span>   <div class="skill-bar"><div class="skill-fill" data-w="75"></div></div></div>
-          <div class="skill-item"><span class="skill-name">Nuke / Adobe Suite</span> <div class="skill-bar"><div class="skill-fill" data-w="70"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Substance 3D Painter</span><div class="skill-bar"><div class="skill-fill" data-w="62"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Marmoset Toolbag</span>   <div class="skill-bar"><div class="skill-fill" data-w="37"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Nuke / Adobe Suite</span> <div class="skill-bar"><div class="skill-fill" data-w="35"></div></div></div>
         </div>
         <a href="https://drive.google.com/file/d/1NtgrAzIgPSdV4DYX31Pw1Ae2LPDVJOTR/view?usp=sharing"
            target="_blank"
@@ -1082,7 +950,7 @@
   <!-- EXPERIENCE -->
   <section class="section" style="padding-top: clamp(1rem, 2vw, 2rem);">
     <div class="exp-list">
-      <div class="section-header" style="padding: 0 0 1.5rem; margin-bottom: 2rem;">
+      <div class="section-header">
         <span class="section-label" data-es="Experiencia" data-en="Experience">Experiencia</span>
       </div>
       <div class="exp-item">
@@ -1133,36 +1001,36 @@
     <div class="contact-links">
       <div class="contact-link">
         <span class="contact-link-label">Email</span>
-        <a href="/cdn-cgi/l/email-protection#71051e1c101d1510421531161c10181d5f121e1c">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-right:6px;opacity:0.6;flex-shrink:0"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
-          <span class="__cf_email__" data-cfemail="b9cdd6d4d8d5ddd88addf9ded4d8d0d597dad6d4">[email&#160;protected]</span>
+        <a href="/cdn-cgi/l/email-protection#5d2932303c31393c6e391d3a303c3431733e3230">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="contact-icon"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+          <span class="__cf_email__" data-cfemail="15617a78747971742671557278747c793b767a78">[email&#160;protected]</span>
         </a>
       </div>
       <div class="contact-link">
         <span class="contact-link-label">ArtStation</span>
         <a href="https://artstation.com/tomalda3d" target="_blank">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="margin-right:6px;opacity:0.6;flex-shrink:0"><path d="M0 17.723l2.027 3.505h.001a2.424 2.424 0 0 0 2.164 1.333h13.457l-2.792-4.838H0zm24 .025c0-.484-.143-.935-.388-1.314L15.728 2.728a2.424 2.424 0 0 0-2.164-1.333H9.419L21.598 22.54l1.92-3.325c.378-.637.482-.919.482-1.467zm-11.129-3.462L7.428 4.858l-5.444 9.428h10.887z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="contact-icon"><path d="M0 17.723l2.027 3.505h.001a2.424 2.424 0 0 0 2.164 1.333h13.457l-2.792-4.838H0zm24 .025c0-.484-.143-.935-.388-1.314L15.728 2.728a2.424 2.424 0 0 0-2.164-1.333H9.419L21.598 22.54l1.92-3.325c.378-.637.482-.919.482-1.467zm-11.129-3.462L7.428 4.858l-5.444 9.428h10.887z"/></svg>
           artstation.com/tomalda3d
         </a>
       </div>
       <div class="contact-link">
         <span class="contact-link-label">Instagram</span>
         <a href="https://instagram.com/tomalda3d" target="_blank">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-right:6px;opacity:0.6;flex-shrink:0"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="contact-icon"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
           @tomalda3d
         </a>
       </div>
       <div class="contact-link">
         <span class="contact-link-label">LinkedIn</span>
         <a href="https://www.linkedin.com/in/tomas-aldazabal/" target="_blank">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="margin-right:6px;opacity:0.6;flex-shrink:0"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="contact-icon"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
           linkedin/tomalda3d
         </a>
       </div>
       <div class="contact-link">
         <span class="contact-link-label">Linktree</span>
         <a href="https://linktr.ee/tomalda3d" target="_blank">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-right:6px;opacity:0.6;flex-shrink:0"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="contact-icon"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
           linktr.ee/tomalda3d
         </a>
       </div>
@@ -1173,7 +1041,7 @@
     <span>© Tomás Aldazabal 2026</span>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script>
 
     // =========================================================
@@ -1277,7 +1145,8 @@
       function updateGap() {
         const first = items[0];
         if (!first) { gap = window.innerWidth * 0.2; return; }
-        gap = first.getBoundingClientRect().width * 1.1;
+        const w = first.getBoundingClientRect().width;
+        gap = window.innerWidth < 700 ? w * 1.35 : w * 1.1;
       }
 
       function render() {
@@ -1366,7 +1235,7 @@
 
       // Crecer al pasar sobre elementos interactivos
       document.addEventListener('mouseover', e => {
-        if (e.target.closest('a, button, [role="button"]')) {
+        if (e.target.closest('a, button, .carousel-cf-item')) {
           cursor.classList.add('is-hovering');
         } else {
           cursor.classList.remove('is-hovering');
