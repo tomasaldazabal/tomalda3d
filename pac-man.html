@@ -35,6 +35,8 @@
     html {
       scroll-behavior: smooth;
       overscroll-behavior: none;
+      overflow-x: hidden;
+      max-width: 100%;
     }
     a:visited { color: inherit; }
     a:focus { outline: none; }
@@ -673,7 +675,7 @@
   </nav>
 
 
-  <main class="project-main">
+  <main class="project-main" style="position:relative;z-index:5;">
 
     <!-- HEADER -->
     <div class="project-header">
@@ -722,9 +724,14 @@
     <!-- MEDIA -->
     <div class="project-media">
       <img src="images/pacman-mtbcc.jpg" alt="PAC-MAN Mega Battle Tunnel" style="width:100%;display:block;border-radius:2px;margin-bottom:1.5rem;"/>
-      <div style="width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:2px;">
+      <div style="width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:2px;margin-bottom:1.5rem;">
         <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;">
           <source src="images/pacmanrighb.mp4" type="video/mp4"/>
+        </video>
+      </div>
+      <div style="width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:2px;">
+        <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;">
+          <source src="images/rigintrohb.mp4" type="video/mp4"/>
         </video>
       </div>
     </div>

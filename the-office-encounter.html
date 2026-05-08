@@ -35,6 +35,8 @@
     html {
       scroll-behavior: smooth;
       overscroll-behavior: none;
+      overflow-x: hidden;
+      max-width: 100%;
     }
     a:visited { color: inherit; }
     a:focus { outline: none; }
@@ -649,7 +651,7 @@
   </nav>
 
 
-  <main class="project-main">
+  <main class="project-main" style="position:relative;z-index:5;">
 
     <!-- HEADER -->
     <div class="project-header">
