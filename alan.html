@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PAC-MAN Mega Battle Tunnel — Tomás Aldazabal</title>
+  <title>Proyecto — Tomás Aldazabal</title>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Syne+Mono&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -32,10 +32,7 @@
       --toggle-knob: #0d0d0d;
     }
 
-    html {
-      scroll-behavior: smooth;
-      overscroll-behavior: none;
-    }
+    html { scroll-behavior: smooth; overflow-x: hidden; max-width: 100%; }
     a:visited { color: inherit; }
     a:focus { outline: none; }
     a { -webkit-tap-highlight-color: transparent; }
@@ -72,9 +69,7 @@
       transition: background 0.35s ease, color 0.35s ease;
     }
 
-    /* =========================================================
-       NAV
-    ========================================================= */
+    /* NAV */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -82,66 +77,57 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.75rem 2rem 0.75rem 0.5rem;
-      background: transparent;
+      padding: 1.25rem 3rem;
+      background: var(--bg);
+      transition: background 0.35s ease;
     }
 
-    .nav-logo {
-      position: relative;
-      display: block;
-      height: 99px;
-      text-decoration: none;
-    }
 
-    .nav-logo img {
-      position: absolute;
-      top: 0; left: 0;
-      height: 99px;
-      width: auto;
-      display: block;
-      transition: opacity 0.5s ease;
-    }
-
-    .logo-dark  { opacity: 0; }
-    .logo-light { opacity: 1; }
-
-    html[data-theme="dark"]  .logo-dark  { opacity: 1; }
-    html[data-theme="dark"]  .logo-light { opacity: 0; }
-    html[data-theme="light"] .logo-dark  { opacity: 0; }
-    html[data-theme="light"] .logo-light { opacity: 1; }
 
     .nav-right {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 1.5rem;
     }
 
-    .lang-toggle {
-      font-family: 'Syne', sans-serif;
-      font-size: 13px;
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      font-size: 12px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--muted);
-      border: 0.5px solid var(--border-hover);
-      border-radius: 2px;
-      padding: 0.35rem 0.75rem;
-      background: none;
+    }
+
+    .nav-links a { color: inherit; text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+
+    .lang-toggle {
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
       cursor: pointer;
+      border: 0.5px solid var(--border-hover);
+      padding: 0.35rem 0.75rem;
+      border-radius: 2px;
+      background: none;
+      font-family: 'Syne', sans-serif;
       transition: color 0.2s, border-color 0.2s;
     }
 
     .lang-toggle:hover { color: var(--text); border-color: var(--text); }
 
     .theme-toggle {
-      width: 40px;
-      height: 22px;
+      width: 40px; height: 22px;
       border-radius: 11px;
       background: var(--toggle-bg);
       border: 0.5px solid var(--border-hover);
       cursor: pointer;
       position: relative;
-      flex-shrink: 0;
       transition: background 0.3s ease;
+      flex-shrink: 0;
     }
 
     .theme-toggle::after {
@@ -156,97 +142,7 @@
 
     [data-theme="light"] .theme-toggle::after { transform: translateX(18px); }
 
-    .hamburger {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      padding: 0.55rem 0.65rem;
-      background: #0d0d0d;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      flex-shrink: 0;
-      z-index: 1100;
-    }
-
-    .hamburger span {
-      display: block;
-      width: 20px;
-      height: 1.5px;
-      background: #f0ede6;
-      transform-origin: center;
-      transition: transform 0.3s ease, opacity 0.3s ease;
-    }
-
-    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-    /* =========================================================
-       NAV DRAWER
-    ========================================================= */
-    .nav-drawer {
-      position: fixed;
-      top: 0; right: 0;
-      width: clamp(260px, 80vw, 340px);
-      height: 100vh;
-      z-index: 1050;
-      background: var(--bg);
-      border-left: 0.5px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 4rem 3rem;
-      transform: translateX(100%);
-      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-
-    .nav-drawer.open { transform: translateX(0); }
-
-    .nav-drawer-links {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 3rem;
-    }
-
-    .nav-drawer-links li            { border-top: 0.5px solid var(--border-hover); }
-    .nav-drawer-links li:last-child { border-bottom: 0.5px solid var(--border-hover); }
-
-    .nav-drawer-links a {
-      display: block;
-      padding: 1.2rem 0;
-      font-size: clamp(20px, 3vw, 28px);
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      color: var(--text);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .nav-drawer-links a:hover { color: var(--accent); }
-
-    .nav-drawer-copyright {
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-top: 2rem;
-    }
-
-    .nav-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 1040;
-      background: rgba(0, 0, 0, 0.4);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s ease;
-    }
-
-    .nav-overlay.open { opacity: 1; pointer-events: all; }
-
-        /* BACK LINK */
+    /* BACK LINK */
     .back-link {
       display: inline-flex;
       align-items: center;
@@ -265,7 +161,7 @@
     .project-main {
       max-width: 960px;
       margin: 0 auto;
-      padding: 9rem 3rem 4.2rem;
+      padding: 8rem 3rem 6rem;
       text-align: center;
     }
 
@@ -282,7 +178,7 @@
     }
 
     .project-title {
-      font-size: clamp(20px, 5.5vw, 64px);
+      font-size: clamp(36px, 5vw, 64px);
       font-weight: 800;
       letter-spacing: -2px;
       line-height: 1;
@@ -381,7 +277,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.5rem 0;
+      padding-top: 3rem;
+      border-top: 0.5px solid var(--border);
     }
 
     .project-nav a {
@@ -411,11 +308,16 @@
 
     /* RESPONSIVE */
     @media (max-width: 1024px) {
-      .project-main { padding: 8rem 2rem 3.5rem; }
+      .project-main { padding: 7rem 2rem 5rem; }
     }
 
     @media (max-width: 700px) {
-      nav            { padding: 0.75rem 1.5rem 0.75rem 0.75rem; }
+      nav { padding: 1.25rem 1.5rem; }
+      .nav-links { display: none; }
+      .project-main { padding: 6rem 1.5rem 4rem; }
+      .project-title { font-size: clamp(28px, 8vw, 48px); letter-spacing: -1px; }
+      .project-meta { gap: 1.25rem; }
+      .project-description { font-size: 15px; }
       .contact-section   { padding: 1.5rem 2.5rem 2rem; text-align: left; max-width: 100%; }
       .contact-header    { flex-direction: column; align-items: flex-start; }
       .contact-title     { font-size: clamp(21px, 6.17vw, 42px); }
@@ -424,11 +326,6 @@
       .contact-link      { padding: 1rem 0; border-right: none; border-bottom: 0.5px solid var(--border); }
       .contact-link:first-child { padding-left: 0; }
       .contact-link:last-child  { border-bottom: none; padding-right: 0; }
-      .nav-links { display: none; }
-      .project-main { padding: 9rem 1.5rem 2.8rem; }
-      .project-title { font-size: clamp(18px, 6vw, 48px); letter-spacing: -1px; white-space: normal; }
-      .project-meta { gap: 1.25rem; }
-      .project-description { font-size: 15px; }
       footer { padding: 1.25rem 1.5rem; flex-direction: column; gap: 0.5rem; }
     }
 
@@ -529,12 +426,32 @@
       margin-right: 6px;
       opacity: 0.6;
       flex-shrink: 0;
+      vertical-align: middle;
     }
     /* NAV — fixed, sigue el scroll */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 2rem 0.75rem 0.5rem;
+      background: transparent !important;
+    }
+
+
+    /* Always show black logo on light hero */
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
 
     /* HAMBURGER — dentro del nav */
     .hamburger {
-      background: var(--bg);
+      background: #0d0d0d;
       border: none;
       cursor: pointer;
       padding: 0.55rem 0.65rem;
@@ -639,62 +556,53 @@
 </head>
 <body>
 
-
-  <!-- CURSOR — solo desktop -->
-  <div class="cursor" id="cursor" aria-hidden="true"></div>
-
-  <!-- NAV DRAWER -->
-  <div class="nav-overlay" id="navOverlay"></div>
-  <div class="nav-drawer" id="navDrawer">
-    <ul class="nav-drawer-links">
-      <li><a href="index.html"         data-es="Inicio"    data-en="Home">Inicio</a></li>
-      <li><a href="portfolio.html"     data-es="Portfolio" data-en="Portfolio">Portfolio</a></li>
-      <li><a href="index.html#reel"    data-es="Reel"      data-en="Reel">Reel</a></li>
-      <li><a href="index.html#about"   data-es="Sobre mí"  data-en="About">Sobre mí</a></li>
-      <li><a href="index.html#contact" data-es="Contacto"  data-en="Contact">Contacto</a></li>
-    </ul>
-    <p class="nav-drawer-copyright">© TomasAldazabal 2026</p>
-  </div>
-
-  <!-- NAV -->
-  <nav>
-    <a href="index.html" class="nav-logo">
-      <img class="logo-dark"  src="images/logo-white.png" alt="Tomás Aldazabal"/>
-      <img class="logo-light" src="images/logo-black.png" alt="Tomás Aldazabal"/>
-    </a>
-    <div class="nav-right">
-      <button class="lang-toggle"  id="langToggle">EN</button>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
-      <button class="hamburger"    id="hamburger"   aria-label="Menú">
-        <span></span><span></span><span></span>
-      </button>
+      <nav>
+      <a href="index.html" class="nav-logo" style="text-decoration:none;">
+        <img class="logo-dark" src="images/logo-white.png" alt="Tomás Aldazabal"/>
+        <img class="logo-light" src="images/logo-black.png" alt="Tomás Aldazabal"/>
+      </a>
+      <div class="nav-right">
+        <button class="lang-toggle" id="langToggle">EN</button>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+        <button class="hamburger" id="hamburger" aria-label="Menú">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+    <div class="nav-overlay" id="navOverlay"></div>
+    <div class="nav-drawer" id="navDrawer">
+      <ul class="nav-drawer-links">
+        <li><a href="index.html" data-es="Inicio" data-en="Home">Inicio</a></li>
+        <li><a href="portfolio.html" data-es="Portfolio" data-en="Portfolio">Portfolio</a></li>
+        <li><a href="index.html#reel" data-es="Reel" data-en="Reel">Reel</a></li>
+        <li><a href="index.html#about" data-es="Sobre mí" data-en="About">Sobre mí</a></li>
+        <li><a href="index.html#contact" data-es="Contacto" data-en="Contact">Contacto</a></li>
+      </ul>
+      <p style="font-size:11px;letter-spacing:0.12em;color:var(--muted);margin-top:2rem;text-transform:uppercase;">© TomasAldazabal 2026</p>
     </div>
-  </nav>
 
-
-  <main class="project-main">
+  <main class="project-main" style="position:relative;z-index:5;">
 
     <!-- HEADER -->
     <div class="project-header">
-      <h1 class="project-title">PAC-MAN Mega Battle Tunnel</h1>
+      <div class="project-back">
+        <a href="portfolio.html" class="back-link">← <span data-es="Volver al portfolio" data-en="Back to portfolio">Volver al portfolio</span></a>
+      </div>
+      <h1 class="project-title">Alan</h1>
 
       <!-- HERO IMAGE -->
       <div style="width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:2px;margin:2rem 0;">
-        <img src="images/pacman-mtbcc.jpg" alt="PAC-MAN Mega Battle Tunnel" style="width:100%;height:100%;object-fit:cover;display:block;"/>
+        <video controls playsinline style="width:100%;height:100%;object-fit:cover;display:block;"><source src="images/AlanCorto_hb.mp4" type="video/mp4"/></video>
       </div>
 
       <div class="project-meta">
         <div class="project-meta-item">
-          <span class="project-meta-label" data-es="Cliente" data-en="Client">Cliente</span>
-          <span class="project-meta-value">Bandai Namco</span>
-        </div>
-        <div class="project-meta-item">
-          <span class="project-meta-label" data-es="Estudio" data-en="Studio">Estudio</span>
-          <span class="project-meta-value">Waypoint LA</span>
+          <span class="project-meta-label" data-es="Cliente / Estudio" data-en="Client / Studio">Cliente / Estudio</span>
+          <span class="project-meta-value">UNSAM</span>
         </div>
         <div class="project-meta-item">
           <span class="project-meta-label" data-es="Rol" data-en="Role">Rol</span>
-          <span class="project-meta-value">3D Character Modeling, Rigging &amp; Animation</span>
+          <span class="project-meta-value">Animator</span>
         </div>
         <div class="project-meta-item">
           <span class="project-meta-label" data-es="Año" data-en="Year">Año</span>
@@ -705,42 +613,41 @@
 
     <!-- DESCRIPTION -->
     <p class="project-description"
-       data-es="Tráiler promocional del videojuego. El desafío fue crear un mismo rig que tenga todas las skins y funcionalidades de cada una de las mismas."
-       data-en="Promotional trailer for the video game. The challenge was to create a single rig that supports all the skins and their individual functionalities.">
-      Tráiler promocional del videojuego. El desafío fue crear un mismo rig que tenga todas las skins y funcionalidades de cada una de las mismas.
+       data-es=""Alan" es un cortometraje argentino realizado por estudiantes de la UNSAM que combina acción real y CGI. Fue hecho en 4 meses mientras cada uno realizaba simultáneamente sus trabajos prácticos individuales de cada materia."
+       data-en=""Alan" is an Argentinean short film made by UNSAM students that combines live-action and CGI. It was done in 4 months while simultaneously each one was doing individual subject works.">
+      "Alan" es un cortometraje argentino realizado por estudiantes de la UNSAM que combina acción real y CGI. Fue hecho en 4 meses mientras cada uno realizaba simultáneamente sus trabajos prácticos individuales de cada materia.
     </p>
 
     <!-- SOFTWARE TOOLS -->
     <div class="project-tools">
       <span class="project-tool-tag">Autodesk Maya</span>
-      <span class="project-tool-tag">Unreal Engine 5</span>
     </div>
 
     <!-- MEDIA -->
     <div class="project-media">
       <div style="width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:2px;margin-bottom:1.5rem;">
-        <video controls playsinline style="width:100%;height:100%;object-fit:cover;display:block;">
-          <source src="images/Pacman_1_hb.mp4" type="video/mp4"/>
+        <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;">
+          <source src="images/Chair_Turntable_v01.mov" type="video/quicktime"/>
+          <source src="images/Chair_Turntable_v01.mov" type="video/mp4"/>
         </video>
       </div>
-      <img src="images/pacman-mtbcc.jpg" alt="PAC-MAN Mega Battle Tunnel" style="width:100%;display:block;border-radius:2px;margin-bottom:1.5rem;"/>
-      <div style="width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:2px;margin-bottom:1.5rem;">
+      <div style="width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:2px;">
         <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;">
-          <source src="images/pacmanrighb.mp4" type="video/mp4"/>
+          <source src="images/Helmet_Turntable_v01.mov" type="video/quicktime"/>
+          <source src="images/Helmet_Turntable_v01.mov" type="video/mp4"/>
         </video>
       </div>
     </div>
 
     <!-- NAVEGACIÓN ENTRE PROYECTOS -->
     <div class="project-nav">
-      <a href="paramount.html" data-es="← Proyecto anterior" data-en="← Previous project">← <span data-es="Proyecto anterior" data-en="Previous project">Proyecto anterior</span></a>
+      <a href="aiatom.html" data-es="← Proyecto anterior" data-en="← Previous project">← <span data-es="Proyecto anterior" data-en="Previous project">Proyecto anterior</span></a>
       <a href="portfolio.html" data-es="Ver portfolio" data-en="View portfolio">Ver portfolio</a>
-      <a href="the-office-encounter.html" data-es="Siguiente proyecto →" data-en="Next project →"><span data-es="Siguiente proyecto" data-en="Next project">Siguiente proyecto</span> →</a>
+      <a href="mesas-inesperadas.html" data-es="Siguiente proyecto →" data-en="Next project →"><span data-es="Siguiente proyecto" data-en="Next project">Siguiente proyecto</span> →</a>
     </div>
 
   </main>
 
-  <!-- CONTACT -->
   <section class="contact-section" id="contact">
     <div class="contact-header">
       <h2 class="contact-title"
@@ -754,36 +661,31 @@
       <div class="contact-link">
         <span class="contact-link-label">Email</span>
         <a href="mailto:tomalda3d@gmail.com">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="contact-icon"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
-          tomalda3d@gmail.com
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="contact-icon"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>tomalda3d@gmail.com
         </a>
       </div>
       <div class="contact-link">
         <span class="contact-link-label">ArtStation</span>
         <a href="https://artstation.com/tomalda3d" target="_blank">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="contact-icon"><path d="M0 17.723l2.027 3.505h.001a2.424 2.424 0 0 0 2.164 1.333h13.457l-2.792-4.838H0zm24 .025c0-.484-.143-.935-.388-1.314L15.728 2.728a2.424 2.424 0 0 0-2.164-1.333H9.419L21.598 22.54l1.92-3.325c.378-.637.482-.919.482-1.467zm-11.129-3.462L7.428 4.858l-5.444 9.428h10.887z"/></svg>
-          artstation.com/tomalda3d
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="contact-icon"><path d="M0 17.723l2.027 3.505h.001a2.424 2.424 0 0 0 2.164 1.333h13.457l-2.792-4.838H0zm24 .025c0-.484-.143-.935-.388-1.314L15.728 2.728a2.424 2.424 0 0 0-2.164-1.333H9.419L21.598 22.54l1.92-3.325c.378-.637.482-.919.482-1.467zm-11.129-3.462L7.428 4.858l-5.444 9.428h10.887z"/></svg>artstation.com/tomalda3d
         </a>
       </div>
       <div class="contact-link">
         <span class="contact-link-label">Instagram</span>
         <a href="https://instagram.com/tomalda3d" target="_blank">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="contact-icon"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
-          @tomalda3d
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="contact-icon"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>@tomalda3d
         </a>
       </div>
       <div class="contact-link">
         <span class="contact-link-label">LinkedIn</span>
         <a href="https://www.linkedin.com/in/tomas-aldazabal/" target="_blank">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="contact-icon"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-          linkedin/tomalda3d
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="contact-icon"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>linkedin/tomalda3d
         </a>
       </div>
       <div class="contact-link">
         <span class="contact-link-label">Linktree</span>
         <a href="https://linktr.ee/tomalda3d" target="_blank">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="contact-icon"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-          linktr.ee/tomalda3d
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="contact-icon"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>linktr.ee/tomalda3d
         </a>
       </div>
     </div>
@@ -795,7 +697,6 @@
 
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // CORE — primero
-    const html = document.documentElement;
     const savedTheme = localStorage.getItem('theme') || 'dark';
     html.setAttribute('data-theme', savedTheme);
 
@@ -807,7 +708,7 @@
       localStorage.setItem('theme', next);
     });
 
-    // HAMBURGER MENU
+        // HAMBURGER MENU
     const hamburger = document.getElementById('hamburger');
     const navDrawer = document.getElementById('navDrawer');
     const navOverlay = document.getElementById('navOverlay');
@@ -840,7 +741,13 @@
     applyLang(currentLang);
     langToggle.addEventListener("click", () => applyLang(currentLang === "es" ? "en" : "es"));
 
-
+    // THEME TOGGLE
+    const themeToggle = document.getElementById("themeToggle");
+    themeToggle.addEventListener("click", () => {
+      const next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      html.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+    });
 
   </script>
 </body>

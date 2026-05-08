@@ -409,6 +409,29 @@
       letter-spacing: 0.1em;
     }
 
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .project-main { padding: 8rem 2rem 3.5rem; }
+    }
+
+    @media (max-width: 700px) {
+      nav            { padding: 0.75rem 1.5rem 0.75rem 0.75rem; }
+      .contact-section   { padding: 1.5rem 2.5rem 2rem; text-align: left; max-width: 100%; }
+      .contact-header    { flex-direction: column; align-items: flex-start; }
+      .contact-title     { font-size: clamp(21px, 6.17vw, 42px); }
+      .contact-cta       { width: 100%; justify-content: center; font-size: 10px; padding: 0.55rem 1rem; }
+      .contact-links     { flex-direction: column; border-top: none; }
+      .contact-link      { padding: 1rem 0; border-right: none; border-bottom: 0.5px solid var(--border); }
+      .contact-link:first-child { padding-left: 0; }
+      .contact-link:last-child  { border-bottom: none; padding-right: 0; }
+      .nav-links { display: none; }
+      .project-main { padding: 9rem 1.5rem 2.8rem; }
+      .project-title { font-size: clamp(18px, 6vw, 48px); letter-spacing: -1px; }
+      .project-meta { gap: 1.25rem; }
+      .project-description { font-size: 15px; }
+      footer { padding: 1.25rem 1.5rem; flex-direction: column; gap: 0.5rem; }
+    }
+
     /* =========================================================
        CONTACT
     ========================================================= */
@@ -507,30 +530,6 @@
       opacity: 0.6;
       flex-shrink: 0;
     }
-
-    /* RESPONSIVE */
-    @media (max-width: 1024px) {
-      .project-main { padding: 8rem 2rem 3.5rem; }
-    }
-
-    @media (max-width: 700px) {
-      nav            { padding: 0.75rem 1.5rem 0.75rem 0.75rem; }
-      .contact-section   { padding: 1.5rem 2.5rem 2rem; text-align: left; max-width: 100%; }
-      .contact-header    { flex-direction: column; align-items: flex-start; }
-      .contact-title     { font-size: clamp(21px, 6.17vw, 42px); }
-      .contact-cta       { width: 100%; justify-content: center; font-size: 10px; padding: 0.55rem 1rem; }
-      .contact-links     { flex-direction: column; border-top: none; }
-      .contact-link      { padding: 1rem 0; border-right: none; border-bottom: 0.5px solid var(--border); }
-      .contact-link:first-child { padding-left: 0; }
-      .contact-link:last-child  { border-bottom: none; padding-right: 0; }
-      .nav-links { display: none; }
-      .project-main { padding: 9rem 1.5rem 2.8rem; }
-      .project-title { font-size: clamp(18px, 6vw, 48px); letter-spacing: -1px; }
-      .project-meta { gap: 1.25rem; }
-      .project-description { font-size: 15px; }
-      footer { padding: 1.25rem 1.5rem; flex-direction: column; gap: 0.5rem; }
-    }
-
     /* NAV — fixed, sigue el scroll */
 
     /* HAMBURGER — dentro del nav */
@@ -770,7 +769,7 @@
     <span>© Tomás Aldazabal 2026</span>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // CORE — primero
     const html = document.documentElement;
     const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -809,32 +808,15 @@
         const val = el.getAttribute('data-' + lang);
         if (val) el.innerHTML = val;
       });
-      langToggle.textContent = lang === 'es' ? 'EN' : 'ES';
+      langToggle.textContent = lang === 'es'? "EN" : "ES";
       currentLang = lang;
-      localStorage.setItem('lang', lang);
+      localStorage.setItem("lang", lang);
     }
 
-    langToggle.addEventListener('click', () => applyLang(currentLang === 'es' ? 'en' : 'es'));
     applyLang(currentLang);
+    langToggle.addEventListener("click", () => applyLang(currentLang === "es" ? "en" : "es"));
 
-    // CUSTOM CURSOR — solo desktop
-    (function initCursor() {
-      if (!window.matchMedia('(pointer: fine)').matches) return;
-      const cursor = document.getElementById('cursor');
-      if (!cursor) return;
 
-      document.addEventListener('mousemove', e => {
-        cursor.style.transform = `translate(${e.clientX - 8}px, ${e.clientY - 8}px)`;
-      }, { passive: true });
-
-      document.addEventListener('mouseover', e => {
-        if (e.target.closest('a, button')) {
-          cursor.classList.add('is-hovering');
-        } else {
-          cursor.classList.remove('is-hovering');
-        }
-      }, { passive: true });
-    })();
 
   </script>
 </body>
