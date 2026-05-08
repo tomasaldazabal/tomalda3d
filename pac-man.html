@@ -409,6 +409,29 @@
       letter-spacing: 0.1em;
     }
 
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .project-main { padding: 8rem 2rem 3.5rem; }
+    }
+
+    @media (max-width: 700px) {
+      nav            { padding: 0.75rem 1.5rem 0.75rem 0.75rem; }
+      .contact-section   { padding: 1.5rem 2.5rem 2rem; text-align: left; max-width: 100%; }
+      .contact-header    { flex-direction: column; align-items: flex-start; }
+      .contact-title     { font-size: clamp(21px, 6.17vw, 42px); }
+      .contact-cta       { width: 100%; justify-content: center; font-size: 10px; padding: 0.55rem 1rem; }
+      .contact-links     { flex-direction: column; border-top: none; }
+      .contact-link      { padding: 1rem 0; border-right: none; border-bottom: 0.5px solid var(--border); }
+      .contact-link:first-child { padding-left: 0; }
+      .contact-link:last-child  { border-bottom: none; padding-right: 0; }
+      .nav-links { display: none; }
+      .project-main { padding: 9rem 1.5rem 2.8rem; }
+      .project-title { font-size: clamp(18px, 6vw, 48px); letter-spacing: -1px; white-space: normal; }
+      .project-meta { gap: 1.25rem; }
+      .project-description { font-size: 15px; }
+      footer { padding: 1.25rem 1.5rem; flex-direction: column; gap: 0.5rem; }
+    }
+
     /* =========================================================
        CONTACT
     ========================================================= */
@@ -507,34 +530,34 @@
       opacity: 0.6;
       flex-shrink: 0;
     }
-
-    /* RESPONSIVE */
-    @media (max-width: 1024px) {
-      .project-main { padding: 8rem 2rem 3.5rem; }
-    }
-
-    @media (max-width: 700px) {
-      nav            { padding: 0.75rem 1.5rem 0.75rem 0.75rem; }
-      .contact-section   { padding: 1.5rem 2.5rem 2rem; text-align: left; max-width: 100%; }
-      .contact-header    { flex-direction: column; align-items: flex-start; }
-      .contact-title     { font-size: clamp(21px, 6.17vw, 42px); }
-      .contact-cta       { width: 100%; justify-content: center; font-size: 10px; padding: 0.55rem 1rem; }
-      .contact-links     { flex-direction: column; border-top: none; }
-      .contact-link      { padding: 1rem 0; border-right: none; border-bottom: 0.5px solid var(--border); }
-      .contact-link:first-child { padding-left: 0; }
-      .contact-link:last-child  { border-bottom: none; padding-right: 0; }
-      .nav-links { display: none; }
-      .project-main { padding: 9rem 1.5rem 2.8rem; }
-      .project-title { font-size: clamp(18px, 6vw, 48px); letter-spacing: -1px; white-space: normal; }
-      .project-meta { gap: 1.25rem; }
-      .project-description { font-size: 15px; }
-      footer { padding: 1.25rem 1.5rem; flex-direction: column; gap: 0.5rem; }
-    }
-
     /* NAV — fixed, sigue el scroll */
 
     /* HAMBURGER — dentro del nav */
+    .hamburger {
+      background: var(--bg);
+      border: none;
+      cursor: pointer;
+      padding: 0.55rem 0.65rem;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      z-index: 1100;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
 
+    .hamburger span {
+      display: block;
+      width: 20px;
+      height: 1.5px;
+      background: #f0ede6;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      transform-origin: center;
+    }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
     /* DRAWER */
     .nav-drawer {
@@ -657,7 +680,7 @@
 
       <!-- HERO IMAGE -->
       <div style="width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:2px;margin:2rem 0;">
-        <img src="images/pac-man.png" alt="PAC-MAN Mega Battle Tunnel" style="width:100%;height:100%;object-fit:cover;display:block;"/>
+        <img src="images/pacman-mtbcc.jpg" alt="PAC-MAN Mega Battle Tunnel" style="width:100%;height:100%;object-fit:cover;display:block;"/>
       </div>
 
       <div class="project-meta">
@@ -693,18 +716,14 @@
       <span class="project-tool-tag">Unreal Engine 5</span>
     </div>
 
-    <!-- MEDIA — imágenes y videos apilados -->
+    <!-- MEDIA -->
     <div class="project-media">
-
-      <!-- VIDEO (Vimeo) — reemplazá el ID -->
-      <!-- <div class="project-video">
-        <iframe src="https://player.vimeo.com/video/ID_DEL_VIDEO?autoplay=0&loop=1&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-      </div> -->
-
-      <!-- IMÁGENES — reemplazá los src -->
-      <img src="images/pac-man.png" alt="PAC-MAN Mega Battle Tunnel"/>
-      <!-- Agregá más imágenes según necesites -->
-
+      <div style="width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:2px;margin-bottom:1.5rem;">
+        <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;">
+          <source src="images/Pacman_1_hb.mp4" type="video/mp4"/>
+        </video>
+      </div>
+      <img src="images/pacman-mtbcc.jpg" alt="PAC-MAN Mega Battle Tunnel" style="width:100%;display:block;border-radius:2px;"/>
     </div>
 
     <!-- NAVEGACIÓN ENTRE PROYECTOS -->
@@ -769,7 +788,7 @@
     <span>© Tomás Aldazabal 2026</span>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // CORE — primero
     const html = document.documentElement;
     const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -808,32 +827,15 @@
         const val = el.getAttribute('data-' + lang);
         if (val) el.innerHTML = val;
       });
-      langToggle.textContent = lang === 'es' ? 'EN' : 'ES';
+      langToggle.textContent = lang === 'es'? "EN" : "ES";
       currentLang = lang;
-      localStorage.setItem('lang', lang);
+      localStorage.setItem("lang", lang);
     }
 
-    langToggle.addEventListener('click', () => applyLang(currentLang === 'es' ? 'en' : 'es'));
     applyLang(currentLang);
+    langToggle.addEventListener("click", () => applyLang(currentLang === "es" ? "en" : "es"));
 
-    // CUSTOM CURSOR — solo desktop
-    (function initCursor() {
-      if (!window.matchMedia('(pointer: fine)').matches) return;
-      const cursor = document.getElementById('cursor');
-      if (!cursor) return;
 
-      document.addEventListener('mousemove', e => {
-        cursor.style.transform = `translate(${e.clientX - 8}px, ${e.clientY - 8}px)`;
-      }, { passive: true });
-
-      document.addEventListener('mouseover', e => {
-        if (e.target.closest('a, button')) {
-          cursor.classList.add('is-hovering');
-        } else {
-          cursor.classList.remove('is-hovering');
-        }
-      }, { passive: true });
-    })();
 
   </script>
 </body>
